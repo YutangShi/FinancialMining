@@ -169,7 +169,7 @@ def save_new_craw_process(stock):
     time = re.split('\.',tem)[0]
     #---------------------------------------------------------------------------        
     ( cursor.execute('insert into '+ 'StockPriceProcess'  +
-                    '(name,stockdate,time)'+ ' values(%s,%s,%s)', 
+                    '(name,stockdate,CrawlerDate)'+ ' values(%s,%s,%s)', 
               (stock,str(start),time) ) )
      
     conn.commit()
@@ -191,7 +191,7 @@ def main():
         # stock='0053'
     
     #------------------------------------------------------
-    text = 'insert into StockPriceProcess (name,stockdate,time) values(%s,%s,%s)'
+    text = 'insert into StockPriceProcess (name,stockdate,CrawlerDate) values(%s,%s,%s)'
     today = str( datetime.datetime.now().strftime("%Y-%m-%d") )
     tem = str( datetime.datetime.now() )
     time = re.split('\.',tem)[0]
