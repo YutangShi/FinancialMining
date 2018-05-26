@@ -12,7 +12,9 @@ import datetime
 os.chdir('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 import load_data
-
+os.chdir('/home/linsam/github')
+sys.path.append('/home/linsam/github')
+import Key
 #----------------------------------------------------------------------------
 # self = EverydayCrawlerStatus()
 class EverydayCrawlerStatus:
@@ -62,7 +64,8 @@ class SendGmail:
         self.driver = webdriver.Firefox()
         url = 'https://mail.google.com/mail/?tab=wm'
         self.driver.get(url)
-        #self.title = title
+        self.email = Key.email
+        self.email_password = Key.email_password
         self.cdate = cdate
     
     #-------------------------------------------------------------
@@ -83,7 +86,7 @@ class SendGmail:
         bo = 1
         while(bo):
             try:
-                self.driver.find_element_by_id('identifierId').send_keys('samlin266118@gmail.com')
+                self.driver.find_element_by_id('identifierId').send_keys(self.email)
         
                 self.driver.find_element_by_id('identifierNext').click()
                 bo = 0
@@ -93,7 +96,7 @@ class SendGmail:
         bo = 1
         while(bo):
             try:
-                self.driver.find_element_by_name('password').send_keys('XUP6Y7VM08')
+                self.driver.find_element_by_name('password').send_keys(self.password)
                 
                 self.driver.find_element_by_id('passwordNext').click()
                 bo = 0
@@ -107,7 +110,7 @@ class SendGmail:
         self.driver.get(url)
         # key to someone email
         time.sleep(1)
-        self.driver.find_element_by_name('to').send_keys('samlin266118@gmail.com')
+        self.driver.find_element_by_name('to').send_keys(self.email)
         
         # key title
         title = create_title(self.cdate)
