@@ -58,7 +58,7 @@ class EverydayCrawlerStatus:
             
             
 #----------------------------------------------------------------------------    
-# self = SendGmail('123')
+# self = SendGmail(ECS.cdate)
 class SendGmail:
     def __init__(self,cdate):
         self.driver = webdriver.Firefox()
@@ -96,7 +96,7 @@ class SendGmail:
         bo = 1
         while(bo):
             try:
-                self.driver.find_element_by_name('password').send_keys(self.password)
+                self.driver.find_element_by_name('password').send_keys(self.email_password)
                 
                 self.driver.find_element_by_id('passwordNext').click()
                 bo = 0
