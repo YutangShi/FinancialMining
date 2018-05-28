@@ -11,10 +11,11 @@ from selenium import webdriver
 import numpy as np
 from pandas_datareader import data as pdr
 import fix_yahoo_finance as yf
-import os,sys
+import os
+import sys
 
-os.chdir('/home/linsam/project/Financial_Crawler')
-sys.path.append('/home/linsam/project/Financial_Crawler')
+os.chdir('/home/linsam/github/FinancialMining/CrawlerCode')
+sys.path.append('/home/linsam/FinancialMining/CrawlerCode')
 
 #self = TakeStockID()
 class main:

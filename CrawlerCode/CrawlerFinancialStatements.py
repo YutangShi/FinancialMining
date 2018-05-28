@@ -415,17 +415,18 @@ def auto_crawler_new():
 
     #------------------------------------------------------
     try:
-        sql_string = 'create table FinancialStatements ( name text(100),FSdate datetime)'
+        sql_string = 'create table FinancialStatements ( name text(100),CrawlerDate datetime)'
         FinancialKey.creat_datatable(host,user,password,'python',sql_string,'FinancialStatements')
     except:
         123
-    text = 'insert into FinancialStatements (name,FSdate) values(%s,%s)'
+    text = 'insert into FinancialStatements (name,CrawlerDate) values(%s,%s)'
     tem = str( datetime.datetime.now() )
     time = re.split('\.',tem)[0]
     value = ('FinancialStatements',time)
 
     stock_sql.Update2Sql(host,user,password,
                          'python',text,value)   
+    
     
     
 def main(x):
