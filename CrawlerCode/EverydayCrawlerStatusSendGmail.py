@@ -75,6 +75,8 @@ class SendGmail:
             ok_sum = np.sum( cdate['status'] == 'ok' )
             if ok_sum == len(cdate):
                 title = 'ok'
+            else:
+                title = 'not ok'
             return title
         
         def create_text(cdate):
