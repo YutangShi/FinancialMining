@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 import pymysql
+import datetime
 import re
 os.chdir('/home/linsam/project/Financial_Crawler')
 sys.path.append('/home/linsam/project/Financial_Crawler')
@@ -360,7 +361,14 @@ def auto_crawler_new():
 
     ACSD = AutoCrawlerStockDividend(host,user,password)
     ACSD.main()
+    text = 'insert into StockDividend (name,CrawlerDate) values(%s,%s)'
+    tem = str( datetime.datetime.now() )
+    time = re.split('\.',tem)[0]
+    value = ('StockDividend',time)
 
+    stock_sql.Update2Sql(host,user,password,
+                         'python',text,value)   
+    
 def main(x):
     if x == 'history':
         crawler_history()

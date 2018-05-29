@@ -79,7 +79,7 @@ class crawler_new_stock_price:
         
         now = datetime.datetime.now()
         today = now + datetime.timedelta(days=1)
-        self.today = str( today.year ) + '-' + str( today.month )+ '-' +str( today.day+1 )
+        self.today = str( today.year ) + '-' + str( today.month )+ '-' +str( today.day )
 
     def get_new_data(self):
         tem = self.stock_id[ self.stock_id['stock_cid'] == str(self.stock)]['stock_id']
@@ -189,7 +189,8 @@ def main():
         save_new_craw_process(stock)
         i=i+1
         # stock='0053'
-    
+    #------------------------------------------------------
+    #CrawlerStockID
     #------------------------------------------------------
     text = 'insert into StockPriceProcess (name,stockdate,CrawlerDate) values(%s,%s,%s)'
     today = str( datetime.datetime.now().strftime("%Y-%m-%d") )
@@ -203,6 +204,13 @@ def main():
 #----------------------------------------------------------
     
 
-main()
+if __name__ == '__main__':
+    main()
+
+
+
+
+
+
 
 

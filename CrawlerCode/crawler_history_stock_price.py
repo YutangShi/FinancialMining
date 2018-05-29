@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Apr 14 12:00:11 2018
 
-@author: linsam
-"""
 
 from pandas_datareader import data as pdr
 import os,sys
@@ -14,15 +8,17 @@ import fix_yahoo_finance as yf
 import numpy as np
 import pymysql
 
-os.chdir('/home/linsam/project/Financial_Crawler')
-sys.path.append('/home/linsam/project/Financial_Crawler')
+os.chdir('/home/linsam/github/FinancialMining/CrawlerCode/')
+sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode/')
 import stock_sql 
 import TakeStockID
-import FinancialKey
+os.chdir('/home/linsam/github/')
+sys.path.append('/home/linsam/github/')
+import Key
 
-host = FinancialKey.host
-user = FinancialKey.user
-password = FinancialKey.password
+host = Key.host
+user = Key.user
+password = Key.password
 #-------------------------------------------------------------------    
 
 #-------------------------------------------------------------------   
@@ -105,18 +101,20 @@ def crawler_history_stock_price(stock_info):
 
 def main():
     
-
     # crawler stock info, contain stock id, stock name, stock class
     stockfun = TakeStockID.main()
     stockfun.run()
     stock_info = stockfun.stock_info
     
     # creat StockInfo SQL table
-    dataset_name = 'StockInfo'
-    sql_string = ('create table ' + dataset_name + 
-                  '( stock_id text(100),stock_name text(100), stock_class text(100) )' )
-    
-    stock_sql.creat_sql_file(sql_string,dataset_name)  
+    try:
+        dataset_name = 'StockInfo'
+        sql_string = ('create table ' + dataset_name + 
+                      '( stock_id text(100),stock_name text(100), stock_class text(100) )' )
+        
+        stock_sql.creat_sql_file(sql_string,dataset_name)  
+    except:
+        123
     
     # upload stock info
     stock_sql.upload_stock_info2sql(stock_info)
