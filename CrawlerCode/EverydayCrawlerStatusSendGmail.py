@@ -8,7 +8,7 @@ import numpy as np
 from selenium import webdriver
 import time
 import datetime
-
+from selenium.webdriver.firefox.options import Options
 os.chdir('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 import load_data
@@ -61,7 +61,11 @@ class EverydayCrawlerStatus:
 # self = SendGmail(ECS.cdate)
 class SendGmail:
     def __init__(self,cdate):
-        self.driver = webdriver.Firefox()
+        Firefox_options = Options()
+        Firefox_options.add_argument("--headless")
+        Firefox_options.add_argument("--window-size=1920x1080")
+        
+        self.driver = webdriver.Firefox(firefox_options=Firefox_options)
         url = 'https://mail.google.com/mail/?tab=wm'
         self.driver.get(url)
         self.email = Key.email
