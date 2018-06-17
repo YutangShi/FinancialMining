@@ -61,11 +61,12 @@ class EverydayCrawlerStatus:
 # self = SendGmail(ECS.cdate)
 class SendGmail:
     def __init__(self,cdate):
-        Firefox_options = Options()
-        Firefox_options.add_argument("--headless")
-        Firefox_options.add_argument("--window-size=1920x1080")
+        #Firefox_options = Options()
+        #Firefox_options.add_argument("--headless")
+        #Firefox_options.add_argument("--window-size=1920x1080")
         
-        self.driver = webdriver.Firefox(firefox_options=Firefox_options)
+        #self.driver = webdriver.Firefox(firefox_options=Firefox_options)
+        self.driver = webdriver.Firefox()
         url = 'https://mail.google.com/mail/?tab=wm'
         self.driver.get(url)
         self.email = Key.email
@@ -129,7 +130,9 @@ class SendGmail:
         
         # click send email
         button = self.driver.find_elements_by_xpath('//*[@role="button"]')
-        button[44].click()
+        for i in range(len(button)):
+            if button[i].text == '傳送' :   
+                button[i].click()
         time.sleep(2)
         # quit
         self.driver.quit()

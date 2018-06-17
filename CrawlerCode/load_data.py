@@ -7,7 +7,7 @@ Created on Mon Apr 16 16:48:00 2018
 import pandas as pd
 import numpy as np
 import pymysql
-
+import datetime
 host = '114.34.138.146'
 user = 'guest'
 password = '123'
@@ -69,10 +69,11 @@ class LoadDate:
         col_name = []
         for i in range(len(tem_col_name)):
             col_name.append( tem_col_name[i][0] )
-        col_name.remove('id')    
+        if 'id' in col_name:
+            col_name.remove('id')    
         self.col_name = col_name
     
-    def execute2sql(self,text,col):
+    def execute2sql(self,text,col=''):
         tem = execute_sql2(
             host = host,
             user = user,
@@ -93,7 +94,7 @@ class LoadDate:
         
         self.data = pd.DataFrame()
         for j in range(len(self.col_name)):
-            print(j)
+            #print(j)
             col = self.col_name[j]
             text = 'select ' + col + ' from ' + self.data_name
             
@@ -140,7 +141,6 @@ class StockInfo(LoadDate):
     
 #-------------------------------------------------------------
 ''' test StockPrice
-
 SP = StockPrice()  
 data = SP.load('2330')
 
@@ -185,17 +185,30 @@ class StockPrice(LoadDate):
     
         self.data = pd.DataFrame()
         for j in range(len(self.col_name)):
-            print(j)
+            #print(j)
             col = self.col_name[j]
             text = 'select ' + col + ' from ' + self.data_name
             self.execute2sql(text,col)
                 
         return self.data    
+    def load_all(self):
+        #s = datetime.datetime.now()
+        data = pd.DataFrame()
+
+        for stock in self.stock_id['stock_cid']:
+            print(stock)
+            data = data.append( self.load(stock) )
+
+        #t = datetime.datetime.now()-s
+        #print(t)
+                
+        return data        
 #--------------------------------------------------------------- 
 ''' test FinancialStatements
 
 FS = FinancialStatements()  
 data = FS.load('2330')# 讀取 2330 歷史財報
+# 16min 58s
 data = FS.load_all()# 讀取 '所有股票' 歷史財報
 
 '''    
@@ -226,7 +239,12 @@ class StockDividend(LoadDate):
                 database = 'Financial_DataSet',
                 data_name = 'StockDividend')
         #self.data_name = 'StockInfo'    
+    def load_all(self):
         
+        self.get_col_name()
+        self.data = self.get_data(all_data='T')
+
+        return self.data
         
 #--------------------------------------------------------------- 
 ''' test InstitutionalInvestors
@@ -248,11 +266,11 @@ class InstitutionalInvestors(LoadDate):
         return self.data
         
         
-        
-        
-        
-
-        
- 
+#-----------------------------------------------------------
+SI = StockInfo()        
+SP = StockPrice()  
+FS = FinancialStatements()  
+SD = StockDividend()  
+II = InstitutionalInvestors()
 
 
