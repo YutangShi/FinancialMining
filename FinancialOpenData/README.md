@@ -39,6 +39,7 @@ data = SI.load()# 讀取台股 '所有股票' 資訊
 https://goodinfo.tw/StockInfo/StockList.asp
 
 [top](#financial-open-data)
+
 ------------------------------------------------------------
 ## 2. history taiwan stock prices ( 台股歷史股價 )
 ##### 2.1 讀取 data 教學 : 
@@ -64,6 +65,7 @@ data = SP.load('2330')# 讀取 2330 歷史股價
 fix_yahoo_finance
 
 [top](#financial-open-data)
+
 ------------------------------------------------------------
 ## 3. history taiwan stock Financial Statements ( 台股歷史財報 )
 ##### 3.1 讀取 data 教學 : 
@@ -99,6 +101,7 @@ https://stock.wearn.com/Income.asp <br>
 http://www.tedc.org.tw/tedc/bank/otccomp/ch1.3.4.htm
 
 [top](#financial-open-data)
+
 ------------------------------------------------------------
 ## 4. history taiwan stock Stock Dividend ( 台股歷史配股 )
 ##### 4.1 讀取 data 教學 : 
@@ -125,6 +128,7 @@ data = SD.load('2330')# 讀取 2330 歷史配股資訊
 https://stock.wearn.com/dividend.asp
 
 [top](#financial-open-data)
+
 ------------------------------------------------------------
 ## 5. history taiwan stock Institutional Investors buy and sell ( 台股歷史外資買賣 )
 ##### 5.1 讀取 data 教學 : 
