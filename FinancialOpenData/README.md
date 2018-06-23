@@ -8,11 +8,11 @@ password : 123 <br>
 ------------------------------------------------------------
 #### 目前現有 data 如下
 
-1. [台股股票一般資訊](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData#11-%E8%AE%80%E5%8F%96-data-%E6%95%99%E5%AD%B8-) ( 代號、名稱、產業 ) <br>
-2. [history taiwan stock prices](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData#2-history-taiwan-stock-prices--%E5%8F%B0%E8%82%A1%E6%AD%B7%E5%8F%B2%E8%82%A1%E5%83%B9-) ( 台股歷史股價 )<br>
-3. [history taiwan stock Financial Statements](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData#3-history-taiwan-stock-financial-statements--%E5%8F%B0%E8%82%A1%E6%AD%B7%E5%8F%B2%E8%B2%A1%E5%A0%B1-) ( 台股歷史財報 1997 ~ now )<br>
-4. [history taiwan stock Stock Dividend](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData#4-history-taiwan-stock-stock-dividend--%E5%8F%B0%E8%82%A1%E6%AD%B7%E5%8F%B2%E9%85%8D%E8%82%A1-) ( 台股歷史配股 1991 ~ now )<br>
-5. [history taiwan stock Institutional Investors buy and sell](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData#5-history-taiwan-stock-institutional-investors-buy-and-sell--%E5%8F%B0%E8%82%A1%E6%AD%B7%E5%8F%B2%E5%A4%96%E8%B3%87%E8%B2%B7%E8%B3%A3-) ( 台股歷史外資買賣 2004 ~ now )<br>
+1. [台股股票一般資訊](#11-讀取-data-教學-) ( 代號、名稱、產業 ) <br>
+2. [history taiwan stock prices](#2-history-taiwan-stock-prices--台股歷史股價-) ( 台股歷史股價 )<br>
+3. [history taiwan stock Financial Statements](#3-history-taiwan-stock-financial-statements--台股歷史財報-) ( 台股歷史財報 1997 ~ now )<br>
+4. [history taiwan stock Stock Dividend](#4-history-taiwan-stock-stock-dividend--台股歷史配股-) ( 台股歷史配股 1991 ~ now )<br>
+5. [history taiwan stock Institutional Investors buy and sell](#5-history-taiwan-stock-institutional-investors-buy-and-sell--台股歷史外資買賣-) ( 台股歷史外資買賣 2004 ~ now )<br>
 
 請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
@@ -38,7 +38,7 @@ data = SI.load()# 讀取台股 '所有股票' 資訊
 資料來源 :  <br>
 https://goodinfo.tw/StockInfo/StockList.asp
 
-[top](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)
+[top](#financial-open-data)
 ------------------------------------------------------------
 ## 2. history taiwan stock prices ( 台股歷史股價 )
 ##### 2.1 讀取 data 教學 : 
