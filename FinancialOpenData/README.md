@@ -38,6 +38,7 @@ data = SI.load()# 讀取台股 '所有股票' 資訊
 資料來源 :  <br>
 https://goodinfo.tw/StockInfo/StockList.asp
 
+[top](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)
 ------------------------------------------------------------
 ## 2. history taiwan stock prices ( 台股歷史股價 )
 ##### 2.1 讀取 data 教學 : 
