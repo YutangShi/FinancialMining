@@ -62,7 +62,7 @@ data = SP.load('2330')# 讀取 2330 歷史股價
 | id | 索引 | 1 |
 
 資料來源 :  <br>
-fix_yahoo_finance
+https://finance.yahoo.com/
 
 <html><p align="right"><a href = '#financial-open-data'> top </a> </p></html>
 
