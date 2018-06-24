@@ -23,7 +23,7 @@
      1.1.5 自動更新外資買賣 Auto crawler new taiwan stocks Institutional Investors buy and sell. (100%)
      1.1.6 S&P 500指數，並爬取該 500 家股票股價 ->>>
 #### 1.2 各國匯率 
-     1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。
+     1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.x-rates.com/historical/?from=USD&amount=1&date=2008-06-05 )
 #### 1.3 國際油價
 #### 1.4 央行利率
 #### 1.5 債券價格
