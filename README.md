@@ -25,6 +25,7 @@
 #### 1.2 各國匯率 
      1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.x-rates.com/historical/?from=USD&amount=1&date=2008-06-05 )
 #### 1.3 國際油價
+     1.3.1 https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/dayoil.asp
 #### 1.4 央行利率
 #### 1.5 債券價格
      1.5.1 G7 country ( 美國、加拿大、英國、法國、德國、義大利及日本 )->>>
