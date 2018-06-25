@@ -41,12 +41,14 @@
      1.6.4 每日自動爬取最新配股 (100%)
 #### 1.7 other 
      1.7.1 Output Gap (產出缺口)
-     1.7.2 Inflation (通貨膨脹)
-     1.7.3 GDP Deflator at time (國內生產總值平減指數)
+     1.7.2 Inflation (通貨膨脹) https://tradingeconomics.com/russia/inflation-cpi
+     1.7.3 GDP Deflator at time (國內生產總值平減指數) https://tradingeconomics.com/russia/gdp-deflator
      1.7.4 期貨
      1.7.5 基金
      1.7.6 黃金價格 https://www.gold.org/data/gold-price
      1.7.7 房地產價格
+     1.7.8 Consumer Price Index (CPI) https://tradingeconomics.com/russia/consumer-price-index-cpi
+     1.7.9 GDP https://tradingeconomics.com/russia/gdp
 
 ### 2. Load Data example
 [click](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)
