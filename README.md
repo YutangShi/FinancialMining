@@ -27,6 +27,7 @@
 #### 1.3 國際油價
      1.3.1 https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/dayoil.asp
 #### 1.4 央行利率
+     1.4.1 https://tradingeconomics.com/euro-area/interest-rate
 #### 1.5 債券價格
      1.5.1 G7 country ( 美國、加拿大、英國、法國、德國、義大利及日本 )->>>
      1.5.2 data from https://data.oecd.org/interest/short-term-interest-rates.htm
