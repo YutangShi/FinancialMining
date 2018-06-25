@@ -44,7 +44,7 @@
      1.7.3 GDP Deflator at time (國內生產總值平減指數)
      1.7.4 期貨
      1.7.5 基金
-     1.7.6 黃金價格
+     1.7.6 黃金價格 https://www.gold.org/data/gold-price
      1.7.7 房地產價格
 
 ### 2. Load Data example
