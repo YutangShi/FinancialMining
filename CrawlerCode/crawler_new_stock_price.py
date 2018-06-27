@@ -1,20 +1,21 @@
 
 
 from pandas_datareader import data as pdr
-import os,sys
+import sys
 import pandas as pd
 import fix_yahoo_finance as yf
 import numpy as np
 import datetime,re
 import pymysql
-os.chdir('/home/linsam/project/Financial_Crawler')
-sys.path.append('/home/linsam/project/Financial_Crawler')
-import FinancialKey
+sys.path.append('/home/linsam/github')
+sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
+sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
+import Key
 import stock_sql
 
-host = FinancialKey.host
-user = FinancialKey.user
-password = FinancialKey.password
+host = Key.host
+user = Key.user
+password = Key.password
 #-----------------------------------------------    
 def execute_sql2(host,user,password,database,sql_text):
     

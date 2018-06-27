@@ -1,22 +1,23 @@
 
 
 import requests
-import os,sys
+import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import pymysql
 import datetime,re
-os.chdir('/home/linsam/project/Financial_Crawler')
-sys.path.append('/home/linsam/project/Financial_Crawler')
-import FinancialKey
-import CrawlerStockDividend
-import load_data
+sys.path.append('/home/linsam/github')
+sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
+sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 import stock_sql
+import load_data
+import Key
+import CrawlerStockDividend
 #import CrawlerFinancialStatements
 
-host = FinancialKey.host
-user = FinancialKey.user
-password = FinancialKey.password
+host = Key.host
+user = Key.user
+password = Key.password
 
 class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):    
 

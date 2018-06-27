@@ -5,17 +5,18 @@
 # https://stock.wearn.com/dividend.asp?kind=2317
 
 import requests
-import os, sys
+import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 import pymysql
 import datetime
 import re
-os.chdir('/home/linsam/project/Financial_Crawler')
-sys.path.append('/home/linsam/project/Financial_Crawler')
+sys.path.append('/home/linsam/github')
+sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
+sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 import stock_sql
-from FinancialKey import host,user,password
+from Key import host,user,password
 import load_data
 #-----------------------------------------------------------------
 # 股東會日期 Shareholders meeting date

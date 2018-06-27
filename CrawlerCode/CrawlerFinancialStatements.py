@@ -18,23 +18,24 @@
 '''
 
 import requests
-import os, sys
+import sys
 from bs4 import BeautifulSoup
 import re
 import pandas as pd
 import numpy as np
 import pymysql
 import datetime
-os.chdir('/home/linsam/project/Financial_Crawler')
-sys.path.append('/home/linsam/project/Financial_Crawler')
+sys.path.append('/home/linsam/github')
+sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
+sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 import stock_sql
-import FinancialKey
 import load_data
+import Key
 
 #------------------------------------------------------------------------------
-host = FinancialKey.host
-user = FinancialKey.user
-password = FinancialKey.password
+host = Key.host
+user = Key.user
+password = Key.password
 # url = 'https://stock.wearn.com/Income_detial.asp?kind=2317&y=10604'
 # self = Crawler2SQL(host,user,password,self.stock_financial_statements)
 class Crawler2SQL:

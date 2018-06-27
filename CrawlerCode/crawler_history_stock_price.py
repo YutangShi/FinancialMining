@@ -1,19 +1,18 @@
 
 
 from pandas_datareader import data as pdr
-import os,sys
+import sys
 import pandas as pd
 import datetime
 import fix_yahoo_finance as yf
 import numpy as np
 import pymysql
 
-os.chdir('/home/linsam/github/FinancialMining/CrawlerCode/')
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode/')
+sys.path.append('/home/linsam/github')
+sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
+sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 import stock_sql 
 import TakeStockID
-os.chdir('/home/linsam/github/')
-sys.path.append('/home/linsam/github/')
 import Key
 
 host = Key.host
