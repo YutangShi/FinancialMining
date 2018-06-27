@@ -417,7 +417,7 @@ def auto_crawler_new():
     #------------------------------------------------------
     try:
         sql_string = 'create table FinancialStatements ( name text(100),CrawlerDate datetime)'
-        FinancialKey.creat_datatable(host,user,password,'python',sql_string,'FinancialStatements')
+        Key.creat_datatable(host,user,password,'python',sql_string,'FinancialStatements')
     except:
         123
     text = 'insert into FinancialStatements (name,CrawlerDate) values(%s,%s)'
