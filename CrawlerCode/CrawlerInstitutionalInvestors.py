@@ -90,9 +90,7 @@ self.main()
 class CrawlerInstitutionalInvestors:
     def __init__(self):
         self.url = 'https://stock.wearn.com/fundthree.asp?mode=search'
-        #url = 20040101'
-        # response=json&dayDate=20180507&weekDate=20180514&monthDate=20180517&type=day&_=1526626688921
-        # url = 'http://www.twse.com.tw/fund/BFI82U?response=json&dayDate=20180302'
+
     def create_date(self):
         year = [ str(i) for i in range(93,108,1) ]
         month = [ '0' + str(i) for i in range(1,10) ]
