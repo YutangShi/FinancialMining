@@ -195,7 +195,7 @@ class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
         today = datetime.datetime.now().date()
         delta = today - self.old_date
         
-        self.date = [ str( self.old_date + datetime.timedelta(i) ) for i in range(delta.days-1) ]
+        self.date = [ str( self.old_date + datetime.timedelta(i+1) ) for i in range(delta.days-1) ]
             
     def main(self):
         self.create_date()
