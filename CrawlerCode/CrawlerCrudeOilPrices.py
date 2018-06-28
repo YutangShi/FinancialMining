@@ -171,7 +171,11 @@ class CrawlerCrudeOilPrices:
         self.crawler()
         self.data.index = range(len(self.data))
 
-    
+'''
+
+self = AutoCrawlerCrudeOilPrices(host,user,password)
+
+'''
 class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
     def __init__(self,host,user,password):
         super(AutoCrawlerCrudeOilPrices, self).__init__()        
@@ -180,7 +184,7 @@ class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
         self.password = password
         self.database = 'Financial_DataSet'
     def get_max_old_date(self):
-        sql_text = "SELECT MAX(date) FROM `InstitutionalInvestors`"
+        sql_text = "SELECT MAX(date) FROM `CrudeOilPrices`"
         tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
         self.old_date = tem[0][0]
 
@@ -189,22 +193,9 @@ class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
         self.get_max_old_date()
         
         today = datetime.datetime.now().date()
-        delta = today - self.old_date      
+        delta = today - self.old_date
         
-        date = [ self.old_date + datetime.timedelta(i+1) for i in range(delta.days) ]
-        # '950809','950810',
-        year = [ str( da.year - 1911 ) for da in  date ] 
-        month = [ str( da.month ) for da in  date ] 
-        days = [ str( da.day ) for da in  date ] 
-        
-        self.date = []
-        for i in range(len(year)):
-            y = year[i]
-            m = month[i]
-            d = days[i]
-            if len(m) == 1:m = '0'+m
-            if len(d) == 1:d = '0'+d
-            self.date.append( y+m+d )
+        self.date = [ str( self.old_date + datetime.timedelta(i) ) for i in range(delta.days-1) ]
             
     def main(self):
         self.create_date()
@@ -227,29 +218,28 @@ def crawler_history():
     C2S.upload2sql( CCOP.data )
 
 def auto_crawler_new():
-    123
-    '''
-    ACII = AutoCrawlerInstitutionalInvestors(host,user,password)
-    ACII.main()
+    date_name = 'CrudeOilPrices'
+    ACCOP = AutoCrawlerCrudeOilPrices(host,user,password)
+    ACCOP.main()
 
-    C2S = Crawler2SQL(host,user,password,'InstitutionalInvestors','Financial_DataSet')
-    C2S.upload2sql(ACII.data)
-
+    C2S = Crawler2SQL(host,user,password,date_name,'Financial_DataSet')
+    C2S.upload2sql(ACCOP.data)
+    #-------------------------------------------------
+    # update last renew date
     try:
-        sql_string = 'create table InstitutionalInvestors ( name text(100),CrawlerDate datetime)'
-        Key.creat_datatable(host,user,password,'python',sql_string,'InstitutionalInvestors')
+        sql_string = 'create table '+ date_name +' ( name text(100),CrawlerDate datetime)'
+        Key.creat_datatable(host,user,password,'python',sql_string,date_name)
     except:
         123
-    text = 'insert into InstitutionalInvestors (name,CrawlerDate) values(%s,%s)'
+    text = 'insert into '+ date_name +' (name,CrawlerDate) values(%s,%s)'
     
     tem = str( datetime.datetime.now() )
     time = re.split('\.',tem)[0]
-    value = ('InstitutionalInvestors',time)
+    value = (date_name,time)
 
     stock_sql.Update2Sql(host,user,password,
                          'python',text,value)   
-    
-    '''
+
 def main(x):
     if x == 'history':
         crawler_history()
@@ -257,9 +247,9 @@ def main(x):
         # python3 /home/linsam/project/Financial_Crawler/CrawlerFinancialStatements.py new
         auto_crawler_new()
     
-#if __name__ == '__main__':
-#    x = sys.argv[1]# cmd : input new or history
-#    main(x)
+if __name__ == '__main__':
+    x = sys.argv[1]# cmd : input new or history
+    main(x)
 
 
 

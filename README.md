@@ -27,6 +27,7 @@
 #### 1.3 國際油價
      1.3.1 https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/dayoil.asp
      1.3.2 WTI https://www.eia.gov/dnav/pet/hist/rwtcD.htm
+     1.3.3 Brent https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&s=RBRTE&f=W
 #### 1.4 央行利率
      1.4.1 https://tradingeconomics.com/euro-area/interest-rate
      1.4.2 https://www.investing.com/central-banks/
