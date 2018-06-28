@@ -26,6 +26,7 @@ user = Key.user
 password = Key.password
 
 
+
 class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):    
 
     def create_table(self,colname):
@@ -102,17 +103,12 @@ class CrawlerCrudeOilPrices:
         self.url = 'https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp'
 
     def create_date(self):
-        year = [ str(i) for i in range(2000,2018,1) ]
-        month = [ '0' + str(i) for i in range(1,10) ]
-        [ month.append(str(m)) for m in range(10,13,1)  ]
-        days = [ '0' + str(i) for i in range(1,10) ]
-        [ days.append(str(d)) for d in range(10,32,1)  ]
+        start = datetime.datetime.strptime( '2000-01-01',"%Y-%m-%d").date()
+        end = datetime.date.today()
         
-        self.date = []
-        for y in year:
-            for m in month:
-                for d in days:
-                    self.date.append(y+'-'+m+'-'+d)
+        day_len = (end - start).days   
+        self.date = [ str( start + datetime.timedelta(days = dat) ) for dat in range(day_len) ]
+
     def create_soup(self,date):
         tem = date.split('-')
         year = str( int( tem[0] ) )
@@ -141,7 +137,7 @@ class CrawlerCrudeOilPrices:
             #print(te.text)
             if '無資料' in te.text:
                 for i in range(len(colname)):
-                    value[colname[i]] = [float('nan')]
+                    value[colname[i]] = [float(-1)]
                 value['date'] = date
                 #return ''
         
@@ -151,7 +147,7 @@ class CrawlerCrudeOilPrices:
             try:
                 value[colname[i]] = [float( re.search('[0-9]+.[0-9]+',tem[i].text).group(0) )]
             except:
-                value[colname[i]] = [float('nan')]
+                value[colname[i]] = [float(-1)]
         value['date'] = date
 
         return value
@@ -176,7 +172,97 @@ class CrawlerCrudeOilPrices:
         self.data.index = range(len(self.data))
 
     
+class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
+    def __init__(self,host,user,password):
+        super(AutoCrawlerCrudeOilPrices, self).__init__()        
+        self.host = host
+        self.user = user
+        self.password = password
+        self.database = 'Financial_DataSet'
+    def get_max_old_date(self):
+        sql_text = "SELECT MAX(date) FROM `InstitutionalInvestors`"
+        tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
+        self.old_date = tem[0][0]
+
+        
+    def create_date(self):
+        self.get_max_old_date()
+        
+        today = datetime.datetime.now().date()
+        delta = today - self.old_date      
+        
+        date = [ self.old_date + datetime.timedelta(i+1) for i in range(delta.days) ]
+        # '950809','950810',
+        year = [ str( da.year - 1911 ) for da in  date ] 
+        month = [ str( da.month ) for da in  date ] 
+        days = [ str( da.day ) for da in  date ] 
+        
+        self.date = []
+        for i in range(len(year)):
+            y = year[i]
+            m = month[i]
+            d = days[i]
+            if len(m) == 1:m = '0'+m
+            if len(d) == 1:d = '0'+d
+            self.date.append( y+m+d )
+            
+    def main(self):
+        self.create_date()
+        self.crawler()
+        self.data.index = range(len(self.data))
+        
+
+def crawler_history():
     
+    CCOP = CrawlerCrudeOilPrices()
+    CCOP.main()
+    #CII.data
+
+    C2S = Crawler2SQL(host,user,password,'CrudeOilPrices','Financial_DataSet')
+    try:
+        C2S.create_table(CCOP.data.columns)
+    except:
+        123
+    
+    C2S.upload2sql( CCOP.data )
+
+def auto_crawler_new():
+    123
+    '''
+    ACII = AutoCrawlerInstitutionalInvestors(host,user,password)
+    ACII.main()
+
+    C2S = Crawler2SQL(host,user,password,'InstitutionalInvestors','Financial_DataSet')
+    C2S.upload2sql(ACII.data)
+
+    try:
+        sql_string = 'create table InstitutionalInvestors ( name text(100),CrawlerDate datetime)'
+        Key.creat_datatable(host,user,password,'python',sql_string,'InstitutionalInvestors')
+    except:
+        123
+    text = 'insert into InstitutionalInvestors (name,CrawlerDate) values(%s,%s)'
+    
+    tem = str( datetime.datetime.now() )
+    time = re.split('\.',tem)[0]
+    value = ('InstitutionalInvestors',time)
+
+    stock_sql.Update2Sql(host,user,password,
+                         'python',text,value)   
+    
+    '''
+def main(x):
+    if x == 'history':
+        crawler_history()
+    elif x == 'new':
+        # python3 /home/linsam/project/Financial_Crawler/CrawlerFinancialStatements.py new
+        auto_crawler_new()
+    
+#if __name__ == '__main__':
+#    x = sys.argv[1]# cmd : input new or history
+#    main(x)
+
+
+
 
 
 

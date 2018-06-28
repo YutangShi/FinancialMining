@@ -26,6 +26,7 @@
      1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.x-rates.com/historical/?from=USD&amount=1&date=2008-06-05 )
 #### 1.3 國際油價
      1.3.1 https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/dayoil.asp
+     1.3.2 WTI https://www.eia.gov/dnav/pet/hist/rwtcD.htm
 #### 1.4 央行利率
      1.4.1 https://tradingeconomics.com/euro-area/interest-rate
      1.4.2 https://www.investing.com/central-banks/
