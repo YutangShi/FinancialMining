@@ -10,6 +10,19 @@
 ##### Financial Visualize ( Development )
 ##### Financial Predict ( Development )
 
+------------------------------------------------------------
+## UPDATE
+#### 2018/7/2 未來爬蟲順序
+1. 各國匯率
+2. 央行利率
+3. 國際油價 讀取範例 Load data example.
+4. Inflation (通貨膨脹)
+5. Consumer Price Index (CPI)
+6. 黃金價格
+7. Output Gap
+8. Inflation
+9. GDP Deflator at time
+10. S&P 500
 -------------------------------------------------------------------------------------------------
 
 ## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)  )
@@ -23,7 +36,7 @@
      1.1.5 自動更新外資買賣 Auto crawler new taiwan stocks Institutional Investors buy and sell. (100%)
      1.1.6 S&P 500指數，並爬取該 500 家股票股價 ->>>
 #### 1.2 各國匯率 
-     1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.x-rates.com/historical/?from=USD&amount=1&date=2008-06-05 )
+     1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.xe.com/currencytables/?from=USD&date=1995-11-16 )
 #### 1.3 國際油價
      1.3.1 https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/dayoil.asp 100%
      1.3.2 WTI https://www.eia.gov/dnav/pet/hist/rwtcD.htm
