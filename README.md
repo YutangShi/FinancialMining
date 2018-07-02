@@ -13,16 +13,15 @@
 ------------------------------------------------------------
 ### UPDATE
 ##### 2018/7/2 未來爬蟲順序
-1. 各國匯率
-2. 央行利率
+1. 各國匯率 from https://www.xe.com/currencytables/?from=USD&date=1995-11-16
+2. 央行利率 from https://tradingeconomics.com/search.aspx?q=Interest%20Rate
 3. 國際油價 讀取範例 Load data example.
-4. Inflation (通貨膨脹)
-5. Consumer Price Index (CPI)
-6. 黃金價格
-7. Output Gap
-8. Inflation
-9. GDP Deflator at time
-10. S&P 500
+4. Inflation (通貨膨脹) from https://tradingeconomics.com/russia/inflation-cpi
+5. Consumer Price Index (CPI) from https://tradingeconomics.com/russia/consumer-price-index-cpi
+6. Output Gap from https://tradingeconomics.com/russia/gdp-deflator
+7. GDP Deflator at time from https://tradingeconomics.com/russia/gdp
+8. S&P 500 from yahoo finance
+9. 黃金價格 from https://www.gold.org/data/gold-price
 -------------------------------------------------------------------------------------------------
 
 ## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)  )
