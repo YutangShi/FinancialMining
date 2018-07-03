@@ -26,16 +26,22 @@ user = Key.user
 password = Key.password
 
 
+'''
+self = Crawler2SQL(host,user,password,'ExchangeRate','Financial_DataSet')
+self
+'''
 
 class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):    
 
-    def create_table(self,colname):
+    def create_table(self,colname,other_col = ['']):
         # colname = data.columns
         sql_string = 'create table ' + self.dataset_name + '('
         
         for col in colname:
             if col == 'date':
                 sql_string = sql_string + col + ' Date,'
+            elif col in other_col:
+                sql_string = sql_string + col + ' TEXT(100),'
             else:
                 sql_string = sql_string + col + ' FLOAT(16),'
             
@@ -43,7 +49,7 @@ class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):
     
         self.creat_sql_file(sql_string,'Financial_DataSet')  
 
-    def upload2sql(self,data ):
+    def upload2sql(self,data,no_float_col = ['date'] ):
        
         def create_upload_string(data,dataset_name,i):
             colname = data.columns
@@ -66,7 +72,7 @@ class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):
             value = []
             for col in colname:
                 tem = data[col][i]            
-                if col in ['date']:
+                if col in no_float_col:
                     value.append( tem )
                 else:
                     value.append( float( tem ) )
@@ -82,6 +88,7 @@ class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):
          
         for i in range(len(data)):
             #print(str(i)+'/'+str(len(data)))
+            #i = 0
             upload_string = create_upload_string(data,self.dataset_name,i)
             value =  create_upload_value(data,i)
             
@@ -89,7 +96,8 @@ class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):
              
         conn.commit()
         conn.close()     
-
+        
+        
 
 '''
 

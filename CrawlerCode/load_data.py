@@ -7,7 +7,6 @@ Created on Mon Apr 16 16:48:00 2018
 import pandas as pd
 import numpy as np
 import pymysql
-import datetime
 host = '114.34.138.146'
 user = 'guest'
 password = '123'
@@ -265,12 +264,36 @@ class InstitutionalInvestors(LoadDate):
                 
         return self.data
         
+#--------------------------------------------------------------- 
+''' test StockDividend
+COP = CrudeOilPrices()
+data = COP.load_all()
+data
+
+'''
+class CrudeOilPrices(LoadDate):
+    def __init__(self):
+        super(CrudeOilPrices, self).__init__(
+                database = 'Financial_DataSet',
+                data_name = 'CrudeOilPrices')
+        #self.data_name = 'StockInfo'    
+        #del self.load
+        #delattr(self, self.load)
+    def load_all(self):
         
+        self.get_col_name()
+        self.data = self.get_data(all_data='T')
+
+        return self.data
+    
+    def load(self):
+        raise(AttributeError, "Hidden attribute")
+       
 #-----------------------------------------------------------
 SI = StockInfo()        
 SP = StockPrice()  
 FS = FinancialStatements()  
 SD = StockDividend()  
 II = InstitutionalInvestors()
-
+COP = CrudeOilPrices()
 
