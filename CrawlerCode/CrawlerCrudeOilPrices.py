@@ -20,7 +20,6 @@ import load_data
 import Key
 import CrawlerStockDividend
 
-
 host = Key.host
 user = Key.user
 password = Key.password

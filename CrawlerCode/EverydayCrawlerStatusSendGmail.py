@@ -9,11 +9,10 @@ from selenium import webdriver
 import time
 import datetime
 from selenium.webdriver.firefox.options import Options
-os.chdir('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-import load_data
-os.chdir('/home/linsam/github')
+sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 sys.path.append('/home/linsam/github')
+import load_data
 import Key
 #----------------------------------------------------------------------------
 # self = EverydayCrawlerStatus()
