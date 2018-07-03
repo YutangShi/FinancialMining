@@ -13,6 +13,7 @@ password : 123 <br>
 3. [history taiwan stock Financial Statements](#3-history-taiwan-stock-financial-statements--台股歷史財報-) ( 台股歷史財報 1997 ~ now )<br>
 4. [history taiwan stock Stock Dividend](#4-history-taiwan-stock-stock-dividend--台股歷史配股-) ( 台股歷史配股 1991 ~ now )<br>
 5. [history taiwan stock Institutional Investors buy and sell](#5-history-taiwan-stock-institutional-investors-buy-and-sell--台股歷史外資買賣-) ( 台股歷史外資買賣 2004 ~ now )<br>
+6. [history taiwan stock Institutional Investors buy and sell](#5-history-taiwan-stock-institutional-investors-buy-and-sell--台股歷史外資買賣-) ( 台股歷史外資買賣 2004 ~ now )<br>
 
 請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
@@ -158,4 +159,29 @@ data = II.load()
 https://stock.wearn.com/fundthree.asp?mode=search
 
 <html><p align="right"><a href = '#financial-open-data'> top </a> </p></html>
+
+------------------------------------------------------------
+## 6. history Crude Oil Prices ( 國際油價 )
+##### 6.1 讀取 data 教學 : 
+```sh
+COP = CrudeOilPrices()
+data = COP.load_all()
+```
+##### 6.2 變數介紹 --- 2000-01-01 ~ now
+
+| variable name | 變數名稱 | example (單位: 美金) |
+|---------------|---------|----------|
+|WTI|西德州|26.4|
+|Brent|布蘭特|22.57|
+|Dubai|杜拜|24.51|
+|date|日期|2000-01-01|
+ 
+資料來源 : <br>
+https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
+
+<html><p align="right"><a href = '#financial-open-data'> top </a> </p></html>
+
+
+
+
 
