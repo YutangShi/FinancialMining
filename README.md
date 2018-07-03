@@ -2,10 +2,11 @@
 ##### Financial Open Data ( Development )
      目前現有 data 如下
      1. 台股股票(代號、名稱、產業)資訊 
-     2. history taiwan stock prices 
-     3. history taiwan stock Financial Statements 
-     4. history taiwan stock Stock Dividend 
-     5. history taiwan stock Institutional Investors buy and sell 
+     2. taiwan stock prices 
+     3. taiwan stock Financial Statements 
+     4. taiwan stock Stock Dividend 
+     5. taiwan stock Institutional Investors buy and sell 
+     6. 國際油價
 
 ##### Financial Visualize ( Development )
 ##### Financial Predict ( Development )
