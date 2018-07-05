@@ -14,6 +14,7 @@ password : 123 <br>
 4. [history taiwan stock Stock Dividend](#4-history-taiwan-stock-stock-dividend--台股歷史配股-) ( 台股歷史配股 1991 ~ now )<br>
 5. [history taiwan stock Institutional Investors buy and sell](#5-history-taiwan-stock-institutional-investors-buy-and-sell--台股歷史外資買賣-) ( 台股歷史外資買賣 2004 ~ now )<br>
 6. [crude oil prices](#6-history-crude-oil-prices--國際油價-) ( 國際油價 2000 ~ now )<br>
+7. [exchange rate](#6-history-crude-oil-prices--國際油價-) ( 各國匯率 1990 ~ now )<br>
 
 請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
@@ -24,8 +25,8 @@ ps : 可藉由 stock_id, data 進行資料合併
 ## 1. 台股股票一般資訊( 代號、名稱、產業 ) 
 ##### 1.1 讀取 data 教學 : 
 ```sh
-SI = StockInfo()
-data = SI.load()# 讀取台股 '所有股票' 資訊
+import load_data
+data = load_data.StockInfo.load()# 讀取台股 '所有股票' 資訊
 ```
 ##### 1.2 變數介紹 --- 1815 檔股票
 
@@ -45,8 +46,9 @@ https://goodinfo.tw/StockInfo/StockList.asp
 ## 2. history taiwan stock prices ( 台股歷史股價 )
 ##### 2.1 讀取 data 教學 : 
 ```sh
-SP = StockPrice()
-data = SP.load('2330')# 讀取 2330 歷史股價
+import load_data
+data = load_data.StockPrice.load('2330')# 讀取 2330 股價
+data = load_data.StockPrice.load(['2330','2002'])# 讀取 2330,2002 股價
 ```
 ##### 2.2 變數介紹 --- 1815 檔股票，460萬筆 data， data size is 371 MB
 
@@ -71,11 +73,12 @@ https://finance.yahoo.com/
 ## 3. history taiwan stock Financial Statements ( 台股歷史財報 )
 ##### 3.1 讀取 data 教學 : 
 ```sh
-FS = FinancialStatements()
-data = FS.load('2330')# 讀取 2330 歷史財報
-data = FS.load_all(')# 讀取台股 '所有股票' 歷史財報
+import load_data
+data = load_data.FinancialStatements.load('2330')# 讀取 2330 歷史財報
+data = load_data.FinancialStatements.load(['2330','2002'])# 讀取 2330,2002 歷史財報
+data = load_data.FinancialStatements.load_all()# 讀取台股 '所有股票' 歷史財報
 ```
-##### 3.2 變數介紹 --- 1667 檔股票 ( 部分股票無財報 )，88,916 筆 data
+##### 3.2 變數介紹 --- 1667 檔股票 ( 部分股票無財報 )，89635 筆 data
 
 | variable name | 變數名稱 | example (單位: 仟元/thousand) |
 |---------------|---------|----------|
@@ -107,8 +110,10 @@ http://www.tedc.org.tw/tedc/bank/otccomp/ch1.3.4.htm
 ## 4. history taiwan stock Stock Dividend ( 台股歷史配股 )
 ##### 4.1 讀取 data 教學 : 
 ```sh
-SD = StockDividend()
-data = SD.load('2330')# 讀取 2330 歷史配股資訊
+import load_data
+data = load_data.StockDividend.load('2330')# 讀取 2330 歷史配股資訊
+data = load_data.StockDividend.load(['2330','2002'])# 讀取 2330,2002 歷史配股資訊
+
 ```
 ##### 4.2 變數介紹 --- 1815 檔股票，25,330 筆 data
 
@@ -134,8 +139,8 @@ https://stock.wearn.com/dividend.asp
 ## 5. history taiwan stock Institutional Investors buy and sell ( 台股歷史外資買賣 )
 ##### 5.1 讀取 data 教學 : 
 ```sh
-II = InstitutionalInvestors()
-data = II.load()
+import load_data
+data = load_data.InstitutionalInvestors.load()
 ```
 ##### 5.2 變數介紹 --- 2004-01-02 ~ now
 
@@ -164,8 +169,8 @@ https://stock.wearn.com/fundthree.asp?mode=search
 ## 6. history Crude Oil Prices ( 國際油價 )
 ##### 6.1 讀取 data 教學 : 
 ```sh
-COP = CrudeOilPrices()
-data = COP.load_all()
+import load_data
+data = load_data.CrudeOilPrices.load()
 ```
 ##### 6.2 變數介紹 --- 2000-01-01 ~ now
 
@@ -181,6 +186,27 @@ https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
 
 <html><p align="right"><a href = '#financial-open-data'> top </a> </p></html>
 
+------------------------------------------------------------
+## 7. history exchange rate ( 匯率 )
+##### 7.1 讀取 data 教學 : 
+```sh
+import load_data
+data = load_data.ExchangeRate.load(['GBP'])
+data = load_data.ExchangeRate.load(['GBP','HKD'])
+```
+##### 7.2 變數介紹 --- 2000-01-01 ~ now
+
+| variable name | 變數名稱 | example (以美金為主要兌換匯率) |
+|---------------|---------|----------|
+|InterbankRate|銀行間利率|26.11 ( 26.11 TWD : 1 US ) |
+|InverseInterbankRate|反向銀行間利率|0.0383 ( 1 TWD : 0.0383 US )|
+|country|國家|TWD|
+|date|日期|1990-01-03|
+ 
+資料來源 : <br>
+https://www.ofx.com/en-au/forex-news/historical-exchange-rates/
+
+<html><p align="right"><a href = '#financial-open-data'> top </a> </p></html>
 
 
 
