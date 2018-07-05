@@ -114,13 +114,15 @@ class CrawlerExchangeRate:
         
         data = pd.DataFrame()
         data['InterbankRate'] = InterbankRate
-        data['InverseInterbankRate'] = InterbankRate
+        data['InverseInterbankRate'] = InverseInterbankRate
         data['date'] = date
         data['country'] = country
         
         return data
     
     def crawler(self):
+        if 'USD US Dollar' in self.all_country: 
+            self.all_country.remove('USD US Dollar')
         #------------------------------------------------------------------------
         self.data = pd.DataFrame()
         for i in range(len(self.all_country)):# i = 0
@@ -144,9 +146,23 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
         self.host = host
         self.user = user
         self.password = password
-        self.database = 'Financial_DataSet'
+        self.database = 'ExchangeRate'
+        
+    def get_sql_country(self):
+        self.get_all_country()
+        sql_text = 'SHOW TABLES'
+        tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
+        all_table = [ te[0] for te in tem ]
+        all_country = []
+        for te in all_table:
+            for all_c in self.all_country:
+                if te in all_c :
+                    all_country.append(all_c)
+        return all_country
+        
     def get_max_old_date(self):
-        sql_text = "SELECT MAX(date) FROM `ExchangeRate`"
+        sql_table_name = self.all_country[0].split(' ')[0]
+        sql_text = "SELECT MAX(date) FROM `" + sql_table_name + "`"
         tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
         self.old_date = tem[0][0]
 
@@ -159,9 +175,17 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
         
         self.date = [ str( self.old_date + datetime.timedelta(i+1) ) for i in range(delta.days-1) ]
             
-    def main(self):
+    def main(self,country):
+        self.all_country = [country]
         self.create_date()
         self.crawler()
+        
+        col = list( self.data.columns )
+        col.remove('country')
+        self.data = self.data[col]
+        date = pd.to_datetime(self.data.date)
+        self.data = self.data[ date >= pd.to_datetime(self.date[0]) ]
+        
         self.data.index = range(len(self.data))
         
 
@@ -169,25 +193,51 @@ def crawler_history():
     
     CER = CrawlerExchangeRate()
     CER.main()
-    #CII.data
-    
-    C2S = CrawlerCrudeOilPrices.Crawler2SQL(host,user,password,'ExchangeRate','Financial_DataSet')
-    try:
-        C2S.create_table(CER.data.columns,other_col = ['Country'])
-    except:
-        123
-    
-    C2S.upload2sql( CER.data , no_float_col = ['date','Country'])
+    #CER.data
+    #CER.all_country
+    # del data of length(data) < 500
+    all_country = list( pd.Series(CER.data['country']).unique() )
+    for country in all_country:
+        if len( CER.data[CER.data['country'] == country] ) < 500:
+            #print( len( CER.data[CER.data['country'] == country] ) )
+            all_country.remove(country)
+
+    col = list( CER.data.columns )
+    col.remove('country')
+    for i in range(len(all_country)):#56
+        country = all_country[i]
+        sql_name = country.split(' ')[0]
+        print(str(i)+'/'+str(len(all_country)))
+        C2S = CrawlerCrudeOilPrices.Crawler2SQL(host,user,password,sql_name,'ExchangeRate')
+        try:
+            C2S.create_table(col)
+        except:
+            123
+        C2S.upload2sql( CER.data[CER.data['country'] == country][col] , no_float_col = ['date','Country'])
 
 def auto_crawler_new():
-    date_name = 'CrudeOilPrices'
+    
     ACCOP = AutoCrawlerExchangeRate(host,user,password)
-    ACCOP.main()
+    all_country = ACCOP.get_sql_country()
+    # for
+    for country in all_country:
+        ACCOP = AutoCrawlerExchangeRate(host,user,password)
+        ACCOP.main(country)
+        
+        date_name = country.split(' ')[0]
+        C2S = CrawlerCrudeOilPrices.Crawler2SQL(host,user,password,date_name,'ExchangeRate')
+        C2S.upload2sql(ACCOP.data)
 
-    C2S = CrawlerCrudeOilPrices.Crawler2SQL(host,user,password,date_name,'Financial_DataSet')
-    C2S.upload2sql(ACCOP.data)
+        text = 'insert into '+ 'ExchangeRate' +' (name,CrawlerDate) values(%s,%s)'
+        tem = str( datetime.datetime.now() )
+        time = re.split('\.',tem)[0]
+        value = (date_name,time)
+    
+        stock_sql.Update2Sql(host,user,password,
+                             'python',text,value)           
     #-------------------------------------------------
     # update last renew date
+    date_name = 'ExchangeRate'
     try:
         sql_string = 'create table '+ date_name +' ( name text(100),CrawlerDate datetime)'
         Key.creat_datatable(host,user,password,'python',sql_string,date_name)
@@ -206,7 +256,6 @@ def main(x):
     if x == 'history':
         crawler_history()
     elif x == 'new':
-        # python3 /home/linsam/project/Financial_Crawler/CrawlerFinancialStatements.py new
         auto_crawler_new()
     
 if __name__ == '__main__':

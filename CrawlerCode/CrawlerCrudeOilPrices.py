@@ -50,7 +50,7 @@ class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):
 
     def upload2sql(self,data,no_float_col = ['date'] ):
        
-        def create_upload_string(data,dataset_name,i):
+        def create_upload_string(data,dataset_name,i):# dataset_name = self.dataset_name
             colname = data.columns
             upload_string = ('insert into ' + dataset_name + '(')
             for col in colname:
@@ -84,7 +84,7 @@ class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):
                          password = self.password,
                          database = self.database,  
                          charset="utf8") )             
-         
+        data.index = range(len(data))
         for i in range(len(data)):
             #print(str(i)+'/'+str(len(data)))
             #i = 0
