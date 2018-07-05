@@ -14,7 +14,7 @@ password : 123 <br>
 4. [history taiwan stock Stock Dividend](#4-history-taiwan-stock-stock-dividend--台股歷史配股-) ( 台股歷史配股 1991 ~ now )<br>
 5. [history taiwan stock Institutional Investors buy and sell](#5-history-taiwan-stock-institutional-investors-buy-and-sell--台股歷史外資買賣-) ( 台股歷史外資買賣 2004 ~ now )<br>
 6. [crude oil prices](#6-history-crude-oil-prices--國際油價-) ( 國際油價 2000 ~ now )<br>
-7. [exchange rate](#6-history-crude-oil-prices--國際油價-) ( 各國匯率 1990 ~ now )<br>
+7. [exchange rate](#7-history-exchange-rate--匯率-) ( 各國匯率 1990 ~ now )<br>
 
 請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
