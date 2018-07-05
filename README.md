@@ -13,10 +13,12 @@
 
 ------------------------------------------------------------
 ### UPDATE
-##### 2018/7/2 未來爬蟲順序
+##### 2018/7/5 
 1. 國際油價 讀取範例 Load data example. (100%)
-2. 央行利率 from https://tradingeconomics.com/search.aspx?q=Interest%20Rate
 3. 各國匯率 from https://www.xe.com/currencytables/?from=USD&date=1995-11-16 https://www.ofx.com/en-au/forex-news/historical-exchange-rates/ (100%)
+
+##### 2018/7/2 未來爬蟲順序
+2. 央行利率 from https://tradingeconomics.com/search.aspx?q=Interest%20Rate
 4. Inflation (通貨膨脹) from https://tradingeconomics.com/russia/inflation-cpi
 5. Consumer Price Index (CPI) from https://tradingeconomics.com/russia/consumer-price-index-cpi
 6. Output Gap from https://tradingeconomics.com/russia/gdp-deflator
