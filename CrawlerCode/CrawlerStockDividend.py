@@ -294,7 +294,7 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
         #sql_text = sql_text + "FROM `StockDividend` WHERE `stock_id` = "+ stock
         #sql_text = sql_text + " )"
         #old_data = load_data.execute_sql2(host,user,password,database,sql_text)
-        SD = load_data.StockDividend()
+        SD = load_data.SD()
         old_data = SD.load(self.stock)
         old_data = old_data.sort_values('meeting_data')
 

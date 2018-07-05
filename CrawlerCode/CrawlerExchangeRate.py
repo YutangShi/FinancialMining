@@ -58,9 +58,7 @@ user = Key.user
 password = Key.password
 
 '''
-
 self = CrawlerExchangeRate()
-
 
 '''
 

@@ -1,9 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr 16 16:48:00 2018
 
-@author: Owner
-"""
+
 import pandas as pd
 import numpy as np
 import pymysql
@@ -51,7 +47,7 @@ class LoadDate:
     def check_stock(self):
         tem = list( set([self.stock]) & set(self.stock_cid) )
         if len(tem) == 0:
-            print("the stock isn't exist")
+            print( self.stock + " isn't exist")
             return 0
         else:
             return 1
@@ -105,25 +101,46 @@ class LoadDate:
             self.execute2sql(text,col)
 
         return self.data
-            
+    
     def load(self,stock):
+     
+        def get_value(stock):
+            stock = str( stock )
+            if self.check_stock() ==0:
+                return pd.DataFrame()
+            
+            self.get_col_name()
+            data = self.get_data()
+                    
+            return data
+        
+        data = pd.DataFrame()
+        if str( type(stock) ) == "<class 'str'>":
+            stock = [stock]
+            
+        for st in stock:# stock = ['2330','12']
+            self.stock = st
+            data = data.append( get_value(st) )
+            
+        return data 
+    
+    '''def load(self,stock):
         
         self.stock = str( stock )
         if self.check_stock() ==0:
-            return ''
+            return pd.DataFrame()
         
         self.get_col_name()
         data = self.get_data()
                 
-        return data
+        return data'''
     
 #--------------------------------------------------------------- 
 ''' test StockInfo
-SI = StockInfo()
+SI = cStockInfo()
 data = SI.load()
-
 '''
-class StockInfo(LoadDate):
+class cStockInfo(LoadDate):
     def __init__(self):
         super(StockInfo, self).__init__(
                 database = 'Financial_DataSet',
@@ -140,11 +157,11 @@ class StockInfo(LoadDate):
     
 #-------------------------------------------------------------
 ''' test StockPrice
-SP = StockPrice()  
-data = SP.load('2330')
-
+self = cStockPrice()  
+data = self.load('2330')
+data = self.load(['2330','12'])
 '''
-class StockPrice(LoadDate):
+class cStockPrice(LoadDate):
     #---------------------------------------------------------------    
     def __init__(self):    
         self.database = 'StockPrice'
@@ -162,57 +179,63 @@ class StockPrice(LoadDate):
                 'stock_id' : stock_id,
                 'stock_cid' : stock_cid})
         #---------------------------------------------------------------
+    
+    def load(self,stock):# stock = '2330'
+        def change_stock_name(stock_id,stock):
+            try:
+                tem = stock_id[ stock_id['stock_cid'] == str(stock)].stock_id
+                data_name = tem[ tem.index[0] ]
+                data_name = '_' + data_name.replace('.','_')
+                return data_name
+            except:
+                print( stock + " isn't exist")
+                return 0  
+            
+        def get_value(stock):
+        
+            stock = str( stock )
+            self.data_name = change_stock_name(self.stock_id,stock)
+            if self.data_name == 0 :
+                return pd.DataFrame()
+            self.get_col_name()
+        
+            self.data = pd.DataFrame()
+            for j in range(len(self.col_name)):
+                #print(j)
+                col = self.col_name[j]
+                text = 'select ' + col + ' from ' + self.data_name
+                self.execute2sql(text,col)
+                    
+            return self.data   
+        
+        data = pd.DataFrame()
+        if str( type(stock) ) == "<class 'str'>":
+            stock = [stock]
 
-    def change_stock_name(self):
-        try:
-            tem = self.stock_id[ self.stock_id['stock_cid'] == str(self.stock)].stock_id
-            data_name = tem[ tem.index[0] ]
-            data_name = '_' + data_name.replace('.','_')
-            return data_name
-        except:
-            print("the stock isn't exist")
-            return 0
-    
-    def load(self,stock):
+        for st in stock:# stock = ['2330','12']
+            data = data.append( get_value(st) )
+            
+        return data
         
-        self.stock = str( stock )
-        self.data_name = self.change_stock_name()
-        if self.data_name ==0 :
-            return ''
-        
-        self.get_col_name()
-    
-        self.data = pd.DataFrame()
-        for j in range(len(self.col_name)):
-            #print(j)
-            col = self.col_name[j]
-            text = 'select ' + col + ' from ' + self.data_name
-            self.execute2sql(text,col)
-                
-        return self.data    
     def load_all(self):
-        #s = datetime.datetime.now()
+
         data = pd.DataFrame()
 
         for stock in self.stock_id['stock_cid']:
             print(stock)
             data = data.append( self.load(stock) )
-
-        #t = datetime.datetime.now()-s
-        #print(t)
-                
+            
         return data        
 #--------------------------------------------------------------- 
 ''' test FinancialStatements
-
-FS = FinancialStatements()  
-data = FS.load('2330')# 讀取 2330 歷史財報
+self = FinancialStatements()  
+data = self.load('2330')# 讀取 2330 歷史財報
+data = self.load(['2330','2002'])# 讀取 2330,2002 歷史財報
 # 16min 58s
-data = FS.load_all()# 讀取 '所有股票' 歷史財報
-
+data = self.load_all()# 讀取 '所有股票' 歷史財報
 '''    
         
-class FinancialStatements(LoadDate):
+class cFinancialStatements(LoadDate):
     def __init__(self):
         super(FinancialStatements, self).__init__(
                 database = 'Financial_DataSet',
@@ -230,9 +253,8 @@ class FinancialStatements(LoadDate):
 SD = StockDividend()
 data = SD.load('2330')
 data.iloc[8]
-
 '''
-class StockDividend(LoadDate):
+class cStockDividend(LoadDate):
     def __init__(self):
         super(StockDividend, self).__init__(
                 database = 'Financial_DataSet',
@@ -249,9 +271,8 @@ class StockDividend(LoadDate):
 ''' test InstitutionalInvestors
 II = InstitutionalInvestors()
 data = II.load()
-
 '''
-class InstitutionalInvestors(LoadDate):
+class cInstitutionalInvestors(LoadDate):
     def __init__(self):
         super(InstitutionalInvestors, self).__init__(
                 database = 'Financial_DataSet',
@@ -269,9 +290,8 @@ class InstitutionalInvestors(LoadDate):
 COP = CrudeOilPrices()
 data = COP.load_all()
 data
-
 '''
-class CrudeOilPrices(LoadDate):
+class cCrudeOilPrices(LoadDate):
     def __init__(self):
         super(CrudeOilPrices, self).__init__(
                 database = 'Financial_DataSet',
@@ -289,11 +309,87 @@ class CrudeOilPrices(LoadDate):
     def load(self):
         raise(AttributeError, "Hidden attribute")
        
+#-------------------------------------------------------------
+''' test StockPrice
+self = ExchangeRate()  
+data = self.load(['GBP'])
+data = self.load(['GBP','HKD'])
+'''
+
+class cExchangeRate(LoadDate):
+    #---------------------------------------------------------------    
+    def __init__(self):    
+        self.database = 'ExchangeRate'
+        tem = execute_sql2(host = host,user = user,password = password,
+                           database = self.database,
+                           sql_text = 'SHOW TABLES')
+        self.all_country = [ te[0] for te in tem ]
+        #---------------------------------------------------------------
+    
+    def load(self,country):# stock = '2330'
+        def check(country,all_country):
+
+            if country in all_country:
+                return 1
+            else:
+                print( country + " isn't exist")
+                return 0  
+            
+        def get_value(country):
+
+            bo = check(country,self.all_country)
+            if bo == 0 :
+                return pd.DataFrame()
+            self.data_name = country
+            self.get_col_name()
+        
+            self.data = pd.DataFrame()
+            for j in range(len(self.col_name)):
+                #print(j)
+                col = self.col_name[j]
+                text = 'select ' + col + ' from ' + self.data_name
+                self.execute2sql(text,col)
+            self.data['country'] = country
+            
+            return self.data   
+        
+        data = pd.DataFrame()
+        if str( type(country) ) == "<class 'str'>":
+            country = [country]
+
+        for co in country:# stock = ['2330','12']
+            data = data.append( get_value(co) )
+            
+        return data
+        
+    def load_all(self):
+
+        data = pd.DataFrame()
+
+        for country in self.all_country:
+            print(country)
+            data = data.append( self.load(country) )
+            
+        return data             
 #-----------------------------------------------------------
-SI = StockInfo()        
-SP = StockPrice()  
-FS = FinancialStatements()  
-SD = StockDividend()  
-II = InstitutionalInvestors()
-COP = CrudeOilPrices()
+SI = cStockInfo()        
+SP = cStockPrice()  
+FS = cFinancialStatements()  
+SD = cStockDividend()  
+II = cInstitutionalInvestors()
+COP = cCrudeOilPrices()
+ER = cExchangeRate()  
+
+#-----------------------------------------------------------
+# for user
+StockInfo = cStockInfo()        
+StockPrice = cStockPrice()  
+FinancialStatements = cFinancialStatements()  
+StockDividend = cStockDividend()  
+InstitutionalInvestors = cInstitutionalInvestors()
+CrudeOilPrices = cCrudeOilPrices()
+ExchangeRate = cExchangeRate()  
+
+
+
 
