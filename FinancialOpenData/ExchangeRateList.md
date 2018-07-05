@@ -1,8 +1,8 @@
  
 ### ExchangeRate All Country 
 
-| abbreviation | full name |
-|--------------|-----------|
+| abbreviation ( SQL Table Name ) | full name |
+|---------------------------------|-----------|
 |AED|AED UAE Dirham|
 |ARS|ARS Argentine Peso|
 |AUD|AUD Australia Dollar|
