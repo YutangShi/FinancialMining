@@ -142,7 +142,7 @@ data = SI.load()
 '''
 class cStockInfo(LoadDate):
     def __init__(self):
-        super(StockInfo, self).__init__(
+        super(cStockInfo, self).__init__(
                 database = 'Financial_DataSet',
                 data_name = 'FinancialStatements')
         self.data_name = 'StockInfo'
@@ -237,7 +237,7 @@ data = self.load_all()# 讀取 '所有股票' 歷史財報
         
 class cFinancialStatements(LoadDate):
     def __init__(self):
-        super(FinancialStatements, self).__init__(
+        super(cFinancialStatements, self).__init__(
                 database = 'Financial_DataSet',
                 data_name = 'FinancialStatements')
         
@@ -256,7 +256,7 @@ data.iloc[8]
 '''
 class cStockDividend(LoadDate):
     def __init__(self):
-        super(StockDividend, self).__init__(
+        super(cStockDividend, self).__init__(
                 database = 'Financial_DataSet',
                 data_name = 'StockDividend')
         #self.data_name = 'StockInfo'    
@@ -274,7 +274,7 @@ data = II.load()
 '''
 class cInstitutionalInvestors(LoadDate):
     def __init__(self):
-        super(InstitutionalInvestors, self).__init__(
+        super(cInstitutionalInvestors, self).__init__(
                 database = 'Financial_DataSet',
                 data_name = 'InstitutionalInvestors')
     def load(self):                        
@@ -293,7 +293,7 @@ data
 '''
 class cCrudeOilPrices(LoadDate):
     def __init__(self):
-        super(CrudeOilPrices, self).__init__(
+        super(cCrudeOilPrices, self).__init__(
                 database = 'Financial_DataSet',
                 data_name = 'CrudeOilPrices')
         #self.data_name = 'StockInfo'    
