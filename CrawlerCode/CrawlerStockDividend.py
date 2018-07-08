@@ -200,11 +200,11 @@ class CrawlerStockDividend:
             return new_date
             
         # index_url = 'https://stock.wearn.com/dividend.asp?kind=1101'
-        index_url = self.url_set[k]# self = CTD
+        index_url = self.url_set[k]# k=0
         
         res = requests.get(index_url,verify = True)        
         res.encoding = 'big5'
-        soup = BeautifulSoup(res.text, "lxml")
+        soup = BeautifulSoup(res.text,"lxml")
 
         col_name = ['meeting_data',
                     'Retained_Earnings',
@@ -294,7 +294,7 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
         #sql_text = sql_text + "FROM `StockDividend` WHERE `stock_id` = "+ stock
         #sql_text = sql_text + " )"
         #old_data = load_data.execute_sql2(host,user,password,database,sql_text)
-        SD = load_data.SD()
+        SD = load_data.SD
         old_data = SD.load(self.stock)
         old_data = old_data.sort_values('meeting_data')
 
