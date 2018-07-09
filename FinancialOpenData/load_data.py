@@ -27,7 +27,7 @@ def execute_sql2(host,user,password,database,sql_text):
         return data
     except:
         conn.close()
-        return ''
+        return ''    
 #---------------------------------------------------------
 # based class 
 class LoadDate:
@@ -44,8 +44,8 @@ class LoadDate:
         self.stock_cid = [ te[0] for te in tem ]        
 
         
-    def check_stock(self):
-        tem = list( set([self.stock]) & set(self.stock_cid) )
+    def check_stock(self,stock):
+        tem = list( set([stock]) & set(self.stock_cid) )
         if len(tem) == 0:
             print( self.stock + " isn't exist")
             return 0
@@ -102,39 +102,28 @@ class LoadDate:
 
         return self.data
     
-    def load(self,stock):
-     
-        def get_value(stock):
-            stock = str( stock )
-            if self.check_stock() ==0:
-                return pd.DataFrame()
-            
-            self.get_col_name()
-            data = self.get_data()
-                    
-            return data
+    def get_value(self,stock):
+        stock = str( stock )
+        if self.check_stock(stock) ==0:
+            return pd.DataFrame()
         
+        self.get_col_name()
+        data = self.get_data()
+                
+        return data
+    
+    def load(self,stock):
+
         data = pd.DataFrame()
         if str( type(stock) ) == "<class 'str'>":
             stock = [stock]
             
         for st in stock:# stock = ['2330','12']
             self.stock = st
-            data = data.append( get_value(st) )
+            data = data.append( self.get_value(st) )
             
         return data 
-    
-    '''def load(self,stock):
-        
-        self.stock = str( stock )
-        if self.check_stock() ==0:
-            return pd.DataFrame()
-        
-        self.get_col_name()
-        data = self.get_data()
-                
-        return data'''
-    
+
 #--------------------------------------------------------------- 
 ''' test StockInfo
 SI = cStockInfo()
@@ -155,6 +144,11 @@ class cStockInfo(LoadDate):
                 
         return self.data
     
+class StockInfo:
+    def load():
+        tem = cStockInfo()
+        return tem.load()
+        
 #-------------------------------------------------------------
 ''' test StockPrice
 self = cStockPrice()  
@@ -225,7 +219,16 @@ class cStockPrice(LoadDate):
             print(stock)
             data = data.append( self.load(stock) )
             
-        return data        
+        return data   
+
+class StockPrice:
+    def load(stock):
+        tem = cStockPrice()
+        return tem.load(stock)    
+    def load_all():
+        tem = cStockPrice()
+        return tem.load_all()    
+# tem = StockPrice.load('2330')    
 #--------------------------------------------------------------- 
 ''' test FinancialStatements
 self = FinancialStatements()  
@@ -247,7 +250,15 @@ class cFinancialStatements(LoadDate):
         self.data = self.get_data(all_data='T')
 
         return self.data
-        
+    
+class FinancialStatements: 
+    def load(stock):
+        tem = cFinancialStatements()
+        return tem.load(stock)  
+    def load_all():
+        tem = cFinancialStatements()
+        return tem.load_all()    
+# tem = FinancialStatements.load('2330') 
 #--------------------------------------------------------------- 
 ''' test StockDividend
 SD = StockDividend()
@@ -266,7 +277,15 @@ class cStockDividend(LoadDate):
         self.data = self.get_data(all_data='T')
 
         return self.data
-        
+ 
+class StockDividend: 
+    def load(stock):
+        tem = cStockDividend()
+        return tem.load(stock)  
+    def load_all():
+        tem = cStockDividend()
+        return tem.load_all()    
+# tem = StockDividend.load('2330')        
 #--------------------------------------------------------------- 
 ''' test InstitutionalInvestors
 II = InstitutionalInvestors()
@@ -284,7 +303,12 @@ class cInstitutionalInvestors(LoadDate):
         self.data = self.get_data(all_data='T')
                 
         return self.data
-        
+class InstitutionalInvestors: 
+    def load():
+        tem = cInstitutionalInvestors()
+        return tem.load()  
+ 
+# tem = InstitutionalInvestors.load()  
 #--------------------------------------------------------------- 
 ''' test StockDividend
 COP = CrudeOilPrices()
@@ -308,7 +332,12 @@ class cCrudeOilPrices(LoadDate):
     
     def load(self):
         raise(AttributeError, "Hidden attribute")
-       
+        
+class CrudeOilPrices: 
+    def load():
+        tem = cCrudeOilPrices()
+        return tem.load_all()    
+# tem = CrudeOilPrices.load()    
 #-------------------------------------------------------------
 ''' test StockPrice
 self = ExchangeRate()  
@@ -370,7 +399,16 @@ class cExchangeRate(LoadDate):
             print(country)
             data = data.append( self.load(country) )
             
-        return data             
+        return data  
+    
+class ExchangeRate: 
+    def load(country):
+        tem = cExchangeRate()
+        return tem.load(country)  
+    def load_all():
+        tem = cExchangeRate()
+        return tem.load_all()    
+# tem = ExchangeRate.load('GBP')          
 #-----------------------------------------------------------
 SI = cStockInfo()        
 SP = cStockPrice()  
@@ -382,13 +420,23 @@ ER = cExchangeRate()
 
 #-----------------------------------------------------------
 # for user
-StockInfo = cStockInfo()        
-StockPrice = cStockPrice()  
-FinancialStatements = cFinancialStatements()  
-StockDividend = cStockDividend()  
-InstitutionalInvestors = cInstitutionalInvestors()
-CrudeOilPrices = cCrudeOilPrices()
-ExchangeRate = cExchangeRate()  
+'''
+
+load = load()
+load.StockInfo
+
+class load:
+    def 
+    def StockInfo(self,cStockInfo):
+        123
+'''        
+#StockInfo = cStockInfo()        
+#StockPrice = cStockPrice()  
+#FinancialStatements = cFinancialStatements()  
+#StockDividend = cStockDividend()  
+#InstitutionalInvestors = cInstitutionalInvestors()
+#CrudeOilPrices = cCrudeOilPrices()
+#ExchangeRate = cExchangeRate()  
 
 
 
