@@ -9,8 +9,6 @@ Created on Sat Apr 14 15:04:04 2018
 import pandas as pd
 from selenium import webdriver
 import numpy as np
-from pandas_datareader import data as pdr
-import fix_yahoo_finance as yf
 import os
 import sys
 
@@ -18,7 +16,7 @@ os.chdir('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/FinancialMining/CrawlerCode')
 
 #self = TakeStockID()
-class main:
+class CrawlerStockID:
     def __init__(self):
         self.driver = webdriver.Firefox()
     

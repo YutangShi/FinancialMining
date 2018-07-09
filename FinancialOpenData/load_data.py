@@ -148,7 +148,7 @@ class StockInfo:
     def load():
         tem = cStockInfo()
         return tem.load()
-        
+# tem = StockInfo().load()
 #-------------------------------------------------------------
 ''' test StockPrice
 self = cStockPrice()  

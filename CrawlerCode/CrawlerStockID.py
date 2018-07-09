@@ -3,21 +3,30 @@
 import pandas as pd
 from selenium import webdriver
 import numpy as np
-import os
 import sys
 import pymysql
-
-os.chdir('/home/linsam/github/')
+from selenium.webdriver.firefox.options import Options
 sys.path.append('/home/linsam/github/')
 import Key
-
+import load_data
 host = Key.host
 user = Key.user
 password = Key.password
 
+'''
+database = 'Financial_DataSet'
+self = CrawlerStockID(host,user,password,database)
+'''
+
 class CrawlerStockID:
     def __init__(self,host,user,password,database):
-        self.driver = webdriver.Firefox()
+        
+        Firefox_options = Options()
+        Firefox_options.add_argument("--headless")
+        Firefox_options.add_argument("--window-size=1920x1080")
+        
+        self.driver = webdriver.Firefox(firefox_options=Firefox_options)        
+        #self.driver = webdriver.Firefox()
         self.host = host
         self.user = user
         self.password = password
@@ -26,6 +35,7 @@ class CrawlerStockID:
     #-------------------------------------------------------------------
     def find_stock_class_name(self):
         url = 'https://goodinfo.tw/StockInfo/StockList.asp'
+        
         self.driver.get(url)
         stock_class_name = []
         for i in range(2,11):
@@ -114,24 +124,6 @@ class CrawlerStockID:
         conn.commit()
         conn.close()    
 
-    
-def execute_sql2(host,user,password,database,sql_text):
-    
-    conn = ( pymysql.connect(host = host,# SQL IP
-                     port = 3306,
-                     user = user,
-                     password = password,
-                     database = database,  
-                     charset="utf8") )  
-                             
-    cursor = conn.cursor()    
-    # sql_text = "SELECT * FROM `_0050_TW` ORDER BY `Date` DESC LIMIT 1"
-    cursor.execute(sql_text)
-    data = cursor.fetchall()
-    conn.close()
-
-    return data
-
 def main():
     database = 'Financial_DataSet'
     CSID = CrawlerStockID(host,user,password,database)
@@ -139,18 +131,17 @@ def main():
     #stock_info = CSID.stock_info    
     
     try:
-        dataset_name = 'StockInfo2'
+        dataset_name = 'StockInfo'
         sql_string = ('create table ' + dataset_name + 
                       '( stock_id text(100),stock_name text(100), stock_class text(100) );' )
         
-        
-        tem = execute_sql2(host,user,password,database,sql_string)
+        load_data.execute_sql2(host,user,password,database,sql_string)
         sql_string = 'ALTER TABLE `'+dataset_name+'` ADD id BIGINT(64) NOT NULL AUTO_INCREMENT PRIMARY KEY;'
-        execute_sql2(host,user,password,database,sql_string)
+        load_data.execute_sql2(host,user,password,database,sql_string)
     except:
         123
     # upload stock info
-    execute_sql2(host,user,password,database,'TRUNCATE table `StockInfo2` ')
+    load_data.execute_sql2(host,user,password,database,'TRUNCATE table `StockInfo` ')
     CSID.upload_stock_info2sql()    
     # 
     

@@ -43,7 +43,6 @@ class EverydayCrawlerStatus:
 
     def change_status(self):
         #self.CrawlerStatus()
-        
         self.cdate['status'] = ''
         today = str( datetime.datetime.now() ).split(' ')[0]
         for i in range(len(self.cdate)):
@@ -51,8 +50,6 @@ class EverydayCrawlerStatus:
             
             if tem == today :
                 self.cdate['status'][i] = 'ok'
-            
-            
             
 #----------------------------------------------------------------------------    
 # self = SendGmail(ECS.cdate)

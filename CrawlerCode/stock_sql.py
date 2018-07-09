@@ -8,7 +8,8 @@ Created on Sat Apr 14 16:01:28 2018
 import pymysql
 import os,sys
 import pandas as pd
-import numpy as np
+import datetime
+import re
 os.chdir('/home/linsam/project/Financial_Crawler')
 sys.path.append('/home/linsam/project/Financial_Crawler')
 import FinancialKey
@@ -183,8 +184,14 @@ def execute_sql2(host,user,password,database,sql_text):
     return data
 
 def Update2Sql(host,user,password,database,text,value):
-    #today = datetime.datetime.now().strftime("%Y-%m-%d")
     
+    #text = 'insert into StockPriceProcess (name,stockdate,CrawlerDate) values(%s,%s,%s)'
+    today = str( datetime.datetime.now().date() )
+    tem = str( datetime.datetime.now() )
+    time = re.split('\.',tem)[0]
+    value = ('StockPrice',today,time)
+    
+    #today = datetime.datetime.now().strftime("%Y-%m-%d")
     conn = ( pymysql.connect(host = host,
                      port = 3306,
                      user = user,
@@ -193,10 +200,8 @@ def Update2Sql(host,user,password,database,text,value):
                      charset="utf8") )   
     
     cursor = conn.cursor() 
-
     #---------------------------------------------------------------------------        
     cursor.execute(text,value )
-
     conn.commit()
     cursor.close()
     conn.close()  
