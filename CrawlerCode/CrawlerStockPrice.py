@@ -103,15 +103,12 @@ class AutoCrawlerStockPrice(BasedClass.Crawler):
         self.data = self.data[self.data['Date'] > np.datetime64( self.start )]
         self.data.index = range(len(self.data))
         self.data.Date = datechabge( self.data.Date )
-        
-        bo = 1
-        while(bo):
-            try:
-                self.data['Adj_Close'] = self.data['Adj Close']
-                del self.data['Adj Close']
-                bo = 0
-            except:
-                123
+
+        tem = list( self.data.columns )
+        for i in range(len(tem)):
+            tem[i] = tem[i].replace(' ','_')
+        self.data.columns = tem
+
 
     def main(self):
         self.get_start_and_today()
@@ -138,8 +135,8 @@ def auto_crawler_new():
     stock_id = take_stock_id_by_sql()
     #-----------------------------------------------   
     print( 'crawler data and upload 2 sql' )
-    i = 1 
-    for stock in stock_id['stock_cid']:# stock = stock_id['stock_cid'][0]
+    i = 0 #i = 192
+    for stock in stock_id['stock_cid']:# stock = stock_id['stock_cid'][i]
         print(str(i)+'/'+str(len(stock_id)) + ' : ' + stock)
         ACSP = AutoCrawlerStockPrice(stock,stock_id)
         ACSP.main()
