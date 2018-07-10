@@ -20,7 +20,7 @@ class EverydayCrawlerStatus:
         self.password = load_data.password
         self.database = 'python'
         
-        tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,'SHOW TABLES')
+        tem = load_data.execute_sql2(self.database,'SHOW TABLES')
         tem = np.concatenate(tem, axis=0)
         self.datatable = [ te for te in tem ]
         self.datatable.remove('new')
@@ -29,10 +29,7 @@ class EverydayCrawlerStatus:
         self.cdate = pd.DataFrame()
         for dt in self.datatable:
             text = "SELECT name,CrawlerDate FROM `" + dt + "` where id = ( SELECT max(id) FROM `" + dt + "` )"
-            tem = load_data.execute_sql2(self.host,
-                                         self.user,
-                                         self.password,
-                                         self.database,
+            tem = load_data.execute_sql2(self.database,
                                          text)
             tem = pd.DataFrame( np.concatenate(tem, axis=0) )
             self.cdate = self.cdate.append(tem.T)

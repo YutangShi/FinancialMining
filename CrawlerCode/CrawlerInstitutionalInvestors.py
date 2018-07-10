@@ -10,7 +10,6 @@ sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 import load_data
 import BasedClass
 
-
 '''
 self = CrawlerInstitutionalInvestors()
 self.main()
@@ -33,7 +32,7 @@ class CrawlerInstitutionalInvestors(BasedClass.Crawler):
         res.encoding = 'big5'      
         soup = BeautifulSoup(res.text, "lxml")        
         return soup                    
-    def get_value(self,i):#i=99
+    def get_value(self,i):#i=0
         date = self.date[i]
         soup = self.create_soup(date)
 
@@ -102,7 +101,7 @@ class CrawlerInstitutionalInvestors(BasedClass.Crawler):
         
         
 '''
-self = AutoCrawlerInstitutionalInvestors(host,user,password)
+self = AutoCrawlerInstitutionalInvestors()
 self.main()
 
 '''
@@ -114,32 +113,11 @@ class AutoCrawlerInstitutionalInvestors(CrawlerInstitutionalInvestors):
     def get_max_old_date(self):
         sql_text = "SELECT MAX(date) FROM `InstitutionalInvestors`"
         tem = load_data.execute_sql2(self.database,sql_text)
-        self.old_date = tem[0][0]
-
-        
-    def create_date(self):
-        self.get_max_old_date()
-        
-        today = datetime.datetime.now().date()
-        delta = today - self.old_date      
-        
-        date = [ self.old_date + datetime.timedelta(i+1) for i in range(delta.days) ]
-        # '950809','950810',
-        year = [ str( da.year - 1911 ) for da in  date ] 
-        month = [ str( da.month ) for da in  date ] 
-        days = [ str( da.day ) for da in  date ] 
-        
-        self.date = []
-        for i in range(len(year)):
-            y = year[i]
-            m = month[i]
-            d = days[i]
-            if len(m) == 1:m = '0'+m
-            if len(d) == 1:d = '0'+d
-            self.date.append( y+m+d )
+        self.old_date = str( tem[0][0] )
             
     def main(self):
-        self.create_date()
+        self.get_max_old_date()
+        self.date = self.create_date(self.old_date)
         self.crawler()
         self.data.index = range(len(self.data))
         

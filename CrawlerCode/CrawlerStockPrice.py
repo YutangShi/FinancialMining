@@ -104,8 +104,14 @@ class AutoCrawlerStockPrice(BasedClass.Crawler):
         self.data.index = range(len(self.data))
         self.data.Date = datechabge( self.data.Date )
         
-        self.data['Adj_Close'] = self.data['Adj Close']
-        del self.data['Adj Close']
+        bo = 1
+        while(bo):
+            try:
+                self.data['Adj_Close'] = self.data['Adj Close']
+                del self.data['Adj Close']
+                bo = 0
+            except:
+                123
 
     def main(self):
         self.get_start_and_today()
