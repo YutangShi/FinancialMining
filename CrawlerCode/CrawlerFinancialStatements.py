@@ -23,112 +23,21 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 import numpy as np
-import pymysql
-import datetime
-sys.path.append('/home/linsam/github')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import stock_sql
 import load_data
-import Key
-
+import BasedClass
 #------------------------------------------------------------------------------
-host = Key.host
-user = Key.user
-password = Key.password
-# url = 'https://stock.wearn.com/Income_detial.asp?kind=2317&y=10604'
-# self = Crawler2SQL(host,user,password,self.stock_financial_statements)
-class Crawler2SQL:
-
-    def __init__(self,host,user,password,stock_financial_statements):
-        self.host = host
-        self.user = user
-        self.password = password
-        self.stock_financial_statements = stock_financial_statements
-
-    def creat_sql_file(self,sql_string,dataset_name,database):
-        
-        conn = ( pymysql.connect(host = self.host,# SQL IP
-                                 port = 3306,
-                                 user = self.user,
-                                 password = self.password,
-                                 database = database,  
-                                 charset="utf8") )         
-        c=conn.cursor()
-        c.execute( sql_string )
-        try:
-            c.execute('ALTER TABLE `'+dataset_name+'` ADD id BIGINT(64) NOT NULL AUTO_INCREMENT PRIMARY KEY;')
-            c.close() 
-            conn.close()
-        except:
-            c.close() 
-            conn.close()            
+# self = CrawlerFinancialStatements()
+class CrawlerFinancialStatements(BasedClass.Crawler):
     
-    def create_table(self):
-        dataset_name = 'FinancialStatements'
-        sql_string = ('create table ' + dataset_name + 
-                      '( BTAXM FLOAT(16), COST FLOAT(16), EPS FLOAT(16),'+
-                      ' GM FLOAT(16), NI FLOAT(16), BTAX FLOAT(16), NIM FLOAT(16),'+
-                      ' OE FLOAT(16), OI FLOAT(16), OIM FLOAT(16),'+ 
-                      ' PRO FLOAT(16), REV FLOAT(16), TAX FLOAT(16),'+
-                      ' stock_id text(100), year INT(8), quar INT(8),'+
-                      '  url text(100) )' )
-    
-        self.creat_sql_file(sql_string,dataset_name,'Financial_DataSet')  
-
-    def upload2sql(self,database,dataset_name ):
-        # dataset_name = 'FinancialStatements'
-        # database = 'Financial_DataSet'
-        conn = ( pymysql.connect(host = self.host,# SQL IP
-                         port = 3306,
-                         user = self.user,
-                         password = self.password,
-                         database = database,  
-                         charset="utf8") )   
-
-        upload_string = ('insert into ' + dataset_name + 
-         '( BTAXM, COST, EPS, GM, NI, BTAX, NIM, OE, OI, OIM,' +
-         ' PRO, REV, TAX, stock_id, year, quar,url )'+
-         ' values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)')
-         
-        for i in range(len(self.stock_financial_statements)):
-            
-            print(str(i)+'/'+str(len(self.stock_financial_statements)))
-            # self.stock_financial_statements.iloc[4513]
-            ( conn.cursor().execute( upload_string,
-             (float( self.stock_financial_statements['BTAXM'][i] ),
-              float( self.stock_financial_statements['COST'][i] ),
-              float( self.stock_financial_statements['EPS'][i] ),
-              float( self.stock_financial_statements['GM'][i] ),
-              float( self.stock_financial_statements['NI'][i] ),
-              float( self.stock_financial_statements['BTAX'][i] ),
-              float( self.stock_financial_statements['NIM'][i] ),
-              float( self.stock_financial_statements['OE'][i] ),
-              float( self.stock_financial_statements['OI'][i] ),
-              float( self.stock_financial_statements['OIM'][i] ),
-              float( self.stock_financial_statements['PRO'][i] ),
-              float( self.stock_financial_statements['REV'][i] ),
-              float( self.stock_financial_statements['TAX'][i] ),
-              self.stock_financial_statements['stock_id'][i],
-              int( self.stock_financial_statements['year'][i] ),
-              int( self.stock_financial_statements['quar'][i] ),
-              self.stock_financial_statements['url'][i]
-              )  ) )
-             
-        conn.commit()
-        conn.close()     
-        
-# self = CrawlerFinancialStatements(stock_id_set)
-class CrawlerFinancialStatements:
-    
-    def __init__(self,stock_id_set):
-
-        self.stock_id_set = stock_id_set
+    def __init__(self):
+        super(CrawlerFinancialStatements, self).__init__()
+        self.stock_id_set = self.stock_info.stock_id
 
     def create_url(self):
-        
         url = []
-        for j in range(len(self.stock_id_set)):
+        for j in range(len(self.stock_id_set)):#j=0
             print(str(j)+'/'+str(len(self.stock_id_set)))
             index_url = 'https://stock.wearn.com/income.asp?kind='
             index_url = index_url + self.stock_id_set[j]
@@ -144,83 +53,62 @@ class CrawlerFinancialStatements:
                     url.append( 'https://stock.wearn.com/' + tem[i]['href'])
                     
         return url
-#---------------------------------------------------------------------
-    def take_sotck_id(self,url):
-        stock_id = re.search('kind=[0-9]*',url).group(0)
-        stock_id = stock_id.replace('kind=','')
-        return stock_id
-    #--------------------------------------------------
+    #---------------------------------------------------------------------
     def take_stock_value(self,url):
         
         res = requests.get(url,verify = True)      
         res.encoding = 'big5'
         soup = BeautifulSoup(res.text, "lxml")
         
-        index = [0,1,2,3,5,6,7,
-                 10,11,13,14,15,17]
+        index = [0,1,2,3,5,6,7,10,11,13,14,15,17]
         # 營業收入	營業成本 	營業毛利	 毛利率 營業費用	營業淨利	  營業利益率 
-        # 稅前純益 稅前純益率 所得稅	  稅後純益	稅後純益率 EPS
-        REV,COST,PRO,GM,OE,OI,OIM,BTAX,BTAXM,TAX,NI,NIM,EPS = [],[],[],[],[],[],[],[],[],[],[],[],[]
-            
-        stock_value = pd.DataFrame({'REV' : REV, 'COST' : COST, 'PRO' : PRO,
-                                    'GM' : GM, 'OE' : OE, 'OI' : OI,
-                                    'OIM' : OIM, 'BTAX' : BTAX, 'BTAXM' : BTAXM,
-                                    'TAX' : TAX, 'NI' : NI, 'NIM' : NIM,
-                                    'EPS' : EPS
-                                    })
-    
-        col_name = ['REV','COST','PRO','GM','OE','OI','OIM','BTAX','BTAXM','TAX','NI','NIM','EPS']        
+        # 稅前純益 稅前純益率 所得稅	  稅後純益	稅後純益率 EPS    
+        stock_value = pd.DataFrame()
+        col_name = ['REV','COST','PRO','GM','OE','OI','OIM','BTAX','BTAXM','TAX','NI','NIM','EPS']
         tem = soup.find_all('td')
         try:
             for i in range(len(index)):
-                value = tem[ index[i] ].text
+                value = tem[ index[i] ].text.replace(',','')
                 #print(value)
-                value = value.replace(',','')
                 if '%' in value:
                     value = value.replace('%','')
                     value = float(value)/100
                 elif value == '':
                     value = -1
-                    
+                else:
+                    value = float(value)
                 stock_value[col_name[i]] = [value]
                 
             return stock_value ,1    
         except:
-            return '',0
-    #--------------------------------------------------        
+            return '',0       
+        
     def take_year_and_quar(self,url):
-        yearquar = re.search('y=[0-9]*',url).group(0)
-        yearquar = yearquar.replace('y=','')
+        yearquar = re.search('y=[0-9]*',url).group(0).replace('y=','')
         
         quar = int( yearquar[len(yearquar)-2:len(yearquar)] )
         year = int( yearquar[0:len(yearquar)-2] )
         
-        return year,quar
-    #---------------------------------------------------------------------
+        return year,quar            
     def crawler(self):
         # main
         self.url_set = self.create_url()
 
         stock_financial_statements = pd.DataFrame()        
-        #error_log = []
-        for i in range(len(self.url_set)) :# 
+        for i in range(len(self.url_set)) :# i=0
             print(str(i)+'/'+str(len(self.url_set)))
             url = self.url_set[i]
-            #time.sleep(0.5)
-            #print(url)
             stock_value,bo = self.take_stock_value(url)
             if bo == 0:
                 print('error')
-                #error_log.append(url)
             elif bo == 1:
-                stock_value['stock_id'] = self.take_sotck_id(url)
+                stock_value['stock_id'] = re.search('kind=[0-9]*',url).group(0).replace('kind=','')
                 stock_value['year'],stock_value['quar'] = self.take_year_and_quar(url)
                 stock_value['url'] = url
                 stock_financial_statements = stock_financial_statements.append(stock_value)
 
         stock_financial_statements = stock_financial_statements.sort_values(['stock_id','year','quar'])
         stock_financial_statements.index = range(len(stock_financial_statements))
-
         self.stock_financial_statements = stock_financial_statements
         # CFS.stock_financial_statements = stock_financial_statements
     #------------------------------------------------------------------------------
@@ -252,8 +140,8 @@ class CrawlerFinancialStatements:
             print(i)
             tem = find_error_index(self.stock_financial_statements,error_col,i)
             error_index.append(set(tem))
-
-    
+            
+        error = []
         for i in range(len(error_index)):
             if i == 0 :
                 error = set( error_index[0] & error_index[1] )
@@ -272,19 +160,14 @@ class CrawlerFinancialStatements:
             self.stock_financial_statements = fix_data
             del fix_data
 #----------------------------------------------------------------------------------------------------
+
 class AutoCrawlerFinancialStatements(CrawlerFinancialStatements):
-    def __init__(self,host,user,password,database):
-        self.host = host
-        self.user = user
-        self.password = password
+    def __init__(self,database):
         self.database = database
         
     def get_stock_id_set(self):
         
         data =  load_data.execute_sql2(
-                host = self.host,
-                user = self.user,
-                password = self.password,
                 database = self.database,
                 sql_text = 'SELECT distinct `stock_id` FROM FinancialStatements')
         
@@ -296,9 +179,6 @@ class AutoCrawlerFinancialStatements(CrawlerFinancialStatements):
         sql_text = sql_text + stock 
         
         tem =  load_data.execute_sql2(
-                host = self.host,
-                user = self.user,
-                password = self.password,
                 database = self.database,
                 sql_text = sql_text)
         year,quar = [],[]
@@ -318,7 +198,7 @@ class AutoCrawlerFinancialStatements(CrawlerFinancialStatements):
             if bo == 0:
                 print('error')
             elif bo == 1:
-                stock_value['stock_id'] = self.take_sotck_id(url)
+                stock_value['stock_id'] = re.search('kind=[0-9]*',url).group(0).replace('kind=','')
                 stock_value['year'],stock_value['quar'] = self.take_year_and_quar(url)
                 stock_value['url'] = url
                 stock_financial_statements = stock_financial_statements.append(stock_value)
@@ -376,30 +256,25 @@ class AutoCrawlerFinancialStatements(CrawlerFinancialStatements):
 #----------------------------------------------------------------------------------------------------
 def crawler_history():
     
-    stock_info = stock_sql.get_stock_info_by_sql()
-    stock_id_set = stock_info.stock_id
-    
-    CFS = CrawlerFinancialStatements(stock_id_set)
+    CFS = CrawlerFinancialStatements()
     CFS.crawler()
     CFS.fix()
     CFS.stock_financial_statements['year'] = CFS.stock_financial_statements['year'] + 1911
     
-    sql = Crawler2SQL(host,user,password,CFS.stock_financial_statements)
-    #sql = Crawler2SQL(host,user,password,data)
+    C2S = BasedClass.Crawler2SQL('FinancialStatements','Financial_DataSet')
     try:
-        sql.create_table()
+        C2S.create_table()
     except:
         123
+    C2S.upload2sql(CFS.stock_financial_statements,
+                   no_float_col = ['stock_id','url'],
+                   int_col = ['year','quar'])
     
-    dataset_name = 'FinancialStatements'
-    database = 'Financial_DataSet'
-    sql.upload2sql(database,dataset_name )
-
+    print('create process table')
+    BasedClass.create_datatable('FinancialStatements')
+    
 def auto_crawler_new():
-    ACFS = AutoCrawlerFinancialStatements(host = host,
-                                          user = user,
-                                          password = password,
-                                          database = 'Financial_DataSet')
+    ACFS = AutoCrawlerFinancialStatements(database = 'Financial_DataSet')
     # self = ACFS
     ACFS.main()
     if len(ACFS.stock_financial_statements) != 0 :    
@@ -407,27 +282,16 @@ def auto_crawler_new():
             ACFS.fix()
         except:
             123
-            
         if ACFS.stock_financial_statements.columns[0] == 0:
             ACFS.stock_financial_statements = ACFS.stock_financial_statements.T
             
-        sql = Crawler2SQL(host,user,password,ACFS.stock_financial_statements)
-        sql.upload2sql(dataset_name = 'FinancialStatements',database = 'Financial_DataSet' )
-
+        C2S = BasedClass.Crawler2SQL('FinancialStatements','Financial_DataSet')
+        C2S.upload2sql(ACFS.stock_financial_statements,
+                       no_float_col = ['stock_id','url'],
+                       int_col = ['year','quar'])
     #------------------------------------------------------
-    try:
-        sql_string = 'create table FinancialStatements ( name text(100),CrawlerDate datetime)'
-        Key.creat_datatable(host,user,password,'python',sql_string,'FinancialStatements')
-    except:
-        123
-    text = 'insert into FinancialStatements (name,CrawlerDate) values(%s,%s)'
-    tem = str( datetime.datetime.now() )
-    time = re.split('\.',tem)[0]
-    value = ('FinancialStatements',time)
-
-    stock_sql.Update2Sql(host,user,password,
-                         'python',text,value)   
-    
+    print('save crawler process')
+    BasedClass.save_crawler_process('FinancialStatements')   
     
     
 def main(x):

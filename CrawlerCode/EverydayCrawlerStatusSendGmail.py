@@ -7,7 +7,6 @@ from selenium import webdriver
 import time
 import datetime
 from selenium.webdriver.firefox.options import Options
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 sys.path.append('/home/linsam/github')
 import load_data

@@ -43,19 +43,11 @@ import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import datetime,re
-sys.path.append('/home/linsam/github')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import stock_sql
 import load_data
-import Key
-#import CrawlerStockDividend
-import CrawlerCrudeOilPrices
+import BasedClass
 
-
-host = Key.host
-user = Key.user
-password = Key.password
 
 '''
 self = CrawlerExchangeRate()
@@ -135,21 +127,18 @@ class CrawlerExchangeRate:
 
 '''
 
-self = AutoCrawlerExchangeRate(host,user,password)
+self = AutoCrawlerExchangeRate()
 
 '''
 class AutoCrawlerExchangeRate(CrawlerExchangeRate):
-    def __init__(self,host,user,password):
+    def __init__(self):
         super(AutoCrawlerExchangeRate, self).__init__()        
-        self.host = host
-        self.user = user
-        self.password = password
         self.database = 'ExchangeRate'
         
     def get_sql_country(self):
         self.get_all_country()
         sql_text = 'SHOW TABLES'
-        tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
+        tem = load_data.execute_sql2(self.database,sql_text)
         all_table = [ te[0] for te in tem ]
         all_country = []
         for te in all_table:
@@ -161,7 +150,7 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
     def get_max_old_date(self):
         sql_table_name = self.all_country[0].split(' ')[0]
         sql_text = "SELECT MAX(date) FROM `" + sql_table_name + "`"
-        tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
+        tem = load_data.execute_sql2(self.database,sql_text)
         self.old_date = tem[0][0]
 
         
@@ -206,49 +195,31 @@ def crawler_history():
         country = all_country[i]
         sql_name = country.split(' ')[0]
         print(str(i)+'/'+str(len(all_country)))
-        C2S = CrawlerCrudeOilPrices.Crawler2SQL(host,user,password,sql_name,'ExchangeRate')
+        C2S = BasedClass.Crawler2SQL(sql_name,'ExchangeRate')
         try:
             C2S.create_table(col)
         except:
             123
         C2S.upload2sql( CER.data[CER.data['country'] == country][col] , no_float_col = ['date','Country'])
-
+        
+    print('create process table')
+    BasedClass.create_datatable('ExchangeRate')
+    
 def auto_crawler_new():
     
-    ACCOP = AutoCrawlerExchangeRate(host,user,password)
+    ACCOP = AutoCrawlerExchangeRate()
     all_country = ACCOP.get_sql_country()
     # for
     for country in all_country:
-        ACCOP = AutoCrawlerExchangeRate(host,user,password)
         ACCOP.main(country)
         
         date_name = country.split(' ')[0]
-        C2S = CrawlerCrudeOilPrices.Crawler2SQL(host,user,password,date_name,'ExchangeRate')
+        C2S = BasedClass.Crawler2SQL(date_name,'ExchangeRate')
         C2S.upload2sql(ACCOP.data)
 
-        text = 'insert into '+ 'ExchangeRate' +' (name,CrawlerDate) values(%s,%s)'
-        tem = str( datetime.datetime.now() )
-        time = re.split('\.',tem)[0]
-        value = (date_name,time)
-    
-        stock_sql.Update2Sql(host,user,password,
-                             'python',text,value)           
-    #-------------------------------------------------
-    # update last renew date
-    date_name = 'ExchangeRate'
-    try:
-        sql_string = 'create table '+ date_name +' ( name text(100),CrawlerDate datetime)'
-        Key.creat_datatable(host,user,password,'python',sql_string,date_name)
-    except:
-        123
-    text = 'insert into '+ date_name +' (name,CrawlerDate) values(%s,%s)'
-    
-    tem = str( datetime.datetime.now() )
-    time = re.split('\.',tem)[0]
-    value = (date_name,time)
-
-    stock_sql.Update2Sql(host,user,password,
-                         'python',text,value)   
+    #------------------------------------------------------
+    print('save crawler process')
+    BasedClass.save_crawler_process('ExchangeRate')    
 
 def main(x):
     if x == 'history':

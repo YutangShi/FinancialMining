@@ -6,25 +6,20 @@ Created on Sun Jul  8 22:15:25 2018
 @author: linsam
 """
 
-#import requests
+
 import sys
-#from bs4 import BeautifulSoup
-#import pandas as pd
-#import numpy as np
 import pymysql
 import datetime
 import re
 sys.path.append('/home/linsam/github')
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-#import stock_sql
 from Key import host,user,password
-#import load_data
+import load_data
 
 
 class Crawler:
     def __init__(self):
-        123
+        self.stock_info = load_data.StockInfo.load()
         #self.host = host
         #self.user = user
         #self.password = password
@@ -46,7 +41,14 @@ class Crawler:
         data_name = '_' + data_name.replace('.','_')
         
         return data_name
-
+    
+    def create_date(self,start):
+        start = datetime.datetime.strptime( start,"%Y-%m-%d").date()
+        end = datetime.date.today()
+        
+        day_len = (end - start).days   
+        date = [ str( start + datetime.timedelta(days = dat) ) for dat in range(day_len) ]
+        return date
 #------------------------------------------------------------
 '''
 self = Crawler2SQL(ACSP.data_name,'StockPrice')
@@ -89,7 +91,6 @@ class Crawler2SQL:
                 sql_string = sql_string + col + ' FLOAT(16),'
             
         sql_string = sql_string[:len(sql_string)-1] + ')'
-    
         self.creat_sql_file(sql_string,self.database)  
 
 

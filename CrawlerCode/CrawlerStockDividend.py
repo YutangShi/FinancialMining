@@ -10,12 +10,10 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import numpy as np
 import pymysql
-import datetime
 import re
 sys.path.append('/home/linsam/github')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import stock_sql
 from Key import host,user,password
 import load_data
 import BasedClass
@@ -34,11 +32,11 @@ import BasedClass
 self = CrawlerStockDividend()
 
 '''
-class CrawlerStockDividend:
+class CrawlerStockDividend(BasedClass.Crawler):
     
     def __init__(self):
-        stock_info = load_data.StockInfo.load()
-        self.stock_id_set = stock_info.stock_id
+        super(CrawlerStockDividend, self).__init__()
+        self.stock_id_set = self.stock_info.stock_id
 
     def create_url_set(self):
         
@@ -93,7 +91,7 @@ class CrawlerStockDividend:
             return new_date
             
         # index_url = 'https://stock.wearn.com/dividend.asp?kind=1101'
-        index_url = self.url_set[k]# k=0
+        index_url = self.url_set[k]# k=45
         
         res = requests.get(index_url,verify = True)        
         res.encoding = 'big5'
@@ -135,22 +133,15 @@ class CrawlerStockDividend:
         self.create_url_set()
 #-----------------------------------------------------------------------------
 '''
-self = AutoCrawlerStockDividend(host,user,password)
+self = AutoCrawlerStockDividend()
 
 '''
 class AutoCrawlerStockDividend(CrawlerStockDividend):
-    def __init__(self,host,user,password):
-        self.host = host
-        self.user = user
-        self.password = password
+    def __init__(self):
+        super(AutoCrawlerStockDividend, self).__init__()   
         self.database = 'Financial_DataSet'
         
     def create_url_set(self):
-        sql_text = "SELECT DISTINCT `stock_id` FROM `StockDividend` "
-        tem = load_data.execute_sql2(
-                self.host,self.user,self.password,self.database,sql_text)
-        
-        self.stock_id_set = [te[0] for te in tem]
         
         self.url_set = []
         for j in range(len(self.stock_id_set)):
@@ -162,9 +153,9 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
     def get_data_id(self):
 
         sql_text = "SELECT id FROM `StockDividend` WHERE `meeting_data` = '"
-        sql_text = sql_text + str(self.new_date.date()) + "' AND `stock_id` LIKE "
+        sql_text = sql_text + str(self.new_date) + "' AND `stock_id` LIKE "
         sql_text = sql_text + self.new_data['stock_id'] 
-        self.data_id = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)[0][0]     
+        self.data_id = load_data.execute_sql2(self.database,sql_text)[0][0]     
 
     def change_sql_data(self,col):# col = change_name[0]
         if str( self.new_data[col] ) == 'NaT':
@@ -182,12 +173,12 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
     def get_new(self):
         def UPDATE_sql(host,user,password,database,sql_text):
             # text = sql_text
-            conn = ( pymysql.connect(host = host,# SQL IP
+            conn = ( pymysql.connect(host = host,
                              port = 3306,
-                             user = user,# 帳號
-                             password = password,# 密碼
-                             database = database,  # 資料庫名稱
-                             charset="utf8") )   #  編碼        
+                             user = user,
+                             password = password,
+                             database = database,  
+                             charset="utf8") )  
             cursor = conn.cursor()    
             try:   
                 for i in range(len(sql_text)):
@@ -199,15 +190,14 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
                 conn.close()
                 return 0
             
-        old_data = load_data.SD.load(self.stock).sort_values('meeting_data')
-
-        self.old_data = old_data.iloc[len(old_data)-1]['meeting_data']
+        old_date = load_data.SD.load(self.stock).sort_values('meeting_data')
+        self.old_date = str( old_date.iloc[len(old_date)-1]['meeting_data'] )
         self.new_date = self.new_data['meeting_data']
         
         change_name = list( self.new_data.index )
         sql_text = []
         
-        if self.old_date == self.new_date.date():
+        if self.old_date == self.new_date:
             [ change_name.remove(col) for col in ['meeting_data','stock_id'] ]
             self.get_data_id()
             for col in change_name:
@@ -217,10 +207,10 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
             # update new value, 
             # because Ex_right_trading_day & Ex-dividend transaction day 
             # always slower announcement
-            UPDATE_sql(self.host,self.user,self.password,
+            UPDATE_sql(host,user,password,
                        self.database,sql_text)
                     
-        elif self.old_date < self.new_date.date():
+        elif self.old_date < self.new_date:
             # if new date > old data, then add new data
             data = pd.DataFrame(self.new_data)
             data = data.T
@@ -230,18 +220,19 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
                                            'Ex_right_trading_day',
                                            'Ex_dividend_transaction_day',
                                            'stock_id'])
- 
     def main(self):
         self.create_url_set()
         for i in range(len(self.url_set)):
-            print(str(i)+'/'+str(len(self.url_set)))# i=0
-            self.new_data = self.get_value(i).iloc[0]
-            self.stock = self.stock_id_set[i]
-            self.get_new() 
-            
+            print(str(i)+'/'+str(len(self.url_set)))# i=1044
+            data = self.get_value(i)
+            if len(data) == 0 :
+                123
+            else:
+                self.new_data = data.iloc[0]
+                self.stock = self.stock_id_set[i]
+                self.get_new() 
 #-----------------------------------------------------------------------------
-# self = C2S
-        
+
 def crawler_history():
     CTD = CrawlerStockDividend()
     CTD.main()
@@ -250,7 +241,6 @@ def crawler_history():
         C2S.create_table()
     except:
         123
-    
     for i in range(len(CTD.url_set)):
         print(str(i)+'/'+str(len(CTD.url_set)))#i=0
         data = CTD.get_value(i)
@@ -258,19 +248,17 @@ def crawler_history():
                        no_float_col = ['meeting_data',
                                        'Ex_right_trading_day',
                                        'Ex_dividend_transaction_day',
-                                       'stock_id'])
-        
+                                       'stock_id']) 
+    print('create process table')
+    BasedClass.create_datatable('StockDividend')
+    
 def auto_crawler_new():
 
-    ACSD = AutoCrawlerStockDividend(host,user,password)
+    ACSD = AutoCrawlerStockDividend()
     ACSD.main()
     # save crawler process
-    text = 'insert into StockDividend (name,CrawlerDate) values(%s,%s)'
-    tem = str( datetime.datetime.now() )
-    time = re.split('\.',tem)[0]
-    value = ('StockDividend',time)
-    stock_sql.Update2Sql(host,user,password,
-                         'python',text,value)   
+    print('save crawler process')
+    BasedClass.save_crawler_process('StockDividend')   
     
 def main(x):
     if x == 'history':

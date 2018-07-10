@@ -4,110 +4,28 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
-import pymysql
-import datetime,re
-sys.path.append('/home/linsam/github')
+import datetime
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import stock_sql
 import load_data
-import Key
-import CrawlerStockDividend
-#import CrawlerFinancialStatements
+import BasedClass
 
-host = Key.host
-user = Key.user
-password = Key.password
-
-class Crawler2SQL(CrawlerStockDividend.Crawler2SQL):    
-
-    def create_table(self,colname):
-        # colname = data.columns
-        sql_string = 'create table ' + self.dataset_name + '('
-        
-        for col in colname:
-            if col == 'date':
-                sql_string = sql_string + col + ' Date,'
-            else:
-                sql_string = sql_string + col + ' FLOAT(16),'
-            
-        sql_string = sql_string[:len(sql_string)-1] + ')'
-    
-        self.creat_sql_file(sql_string,'Financial_DataSet')  
-
-    def upload2sql(self,data ):
-       
-        def create_upload_string(data,dataset_name,i):
-            colname = data.columns
-            upload_string = ('insert into ' + dataset_name + '(')
-            for col in colname:
-                if data[col][i] not in ['NaT','']:
-                    upload_string = upload_string+col+','
-            upload_string = upload_string[:len(upload_string)-1] +') values('
-            
-            for col in colname:
-                if data[col][i] not in ['NaT','']:
-                    upload_string = upload_string+'%s,'
-                    
-            upload_string = upload_string[:len(upload_string)-1] + ')'
-            return upload_string
-        
-        def create_upload_value(data,i):
-            
-            colname = data.columns
-            value = []
-            for col in colname:
-                tem = data[col][i]            
-                if col in ['date']:
-                    value.append( tem )
-                else:
-                    value.append( float( tem ) )
-            return value
-
-        # database = 'Financial_DataSet'
-        conn = ( pymysql.connect(host = self.host,# SQL IP
-                         port = 3306,
-                         user = self.user,
-                         password = self.password,
-                         database = self.database,  
-                         charset="utf8") )             
-         
-        for i in range(len(data)):
-            #print(str(i)+'/'+str(len(data)))
-            upload_string = create_upload_string(data,self.dataset_name,i)
-            value =  create_upload_value(data,i)
-            
-            ( conn.cursor().execute( upload_string,tuple(value) ) )
-             
-        conn.commit()
-        conn.close()     
 
 '''
 self = CrawlerInstitutionalInvestors()
 self.main()
 
 '''
-class CrawlerInstitutionalInvestors:
+class CrawlerInstitutionalInvestors(BasedClass.Crawler):
     def __init__(self):
+        super(CrawlerInstitutionalInvestors, self).__init__()
         self.url = 'https://stock.wearn.com/fundthree.asp?mode=search'
 
-    def create_date(self):
-        year = [ str(i) for i in range(93,108,1) ]
-        month = [ '0' + str(i) for i in range(1,10) ]
-        [ month.append(str(m)) for m in range(10,13,1)  ]
-        days = [ '0' + str(i) for i in range(1,10) ]
-        [ days.append(str(d)) for d in range(10,32,1)  ]
-        
-        self.date = []
-        for y in year:
-            for m in month:
-                for d in days:
-                    self.date.append(y+m+d)
     def create_soup(self,date):
         form_data = {
-                'yearE': date[:len(date)-4],
-                'monthE': date[len(date)-4:len(date)-2],
-                'dayE': date[len(date)-2:],
+                'yearE': int(date.split('-')[0])-1911,
+                'monthE': date.split('-')[1],
+                'dayE': date.split('-')[2],
                 'Submit1': '(unable to decode value)'
                 }
         res = requests.get(self.url,verify = True,data = form_data)     
@@ -115,11 +33,10 @@ class CrawlerInstitutionalInvestors:
         res.encoding = 'big5'      
         soup = BeautifulSoup(res.text, "lxml")        
         return soup                    
-    def get_value(self,i):
+    def get_value(self,i):#i=99
         date = self.date[i]
         soup = self.create_soup(date)
-        #tem = soup.find_all('div',{'align':"center"})
-        
+
         if '自營商(自行買賣)' not in soup.text :
             return ''  
         # (億元)
@@ -134,10 +51,8 @@ class CrawlerInstitutionalInvestors:
             else:
                 break
         x = x[1:]
-        buy_set = []
-        sell_set = []
-        difference_set = []
-
+        buy_set,sell_set,difference_set = [],[],[]
+        
         for i in [ 1+i*4 for i in range(5) ]:
             try:
                 buy_set.append(float(x[i]))
@@ -164,9 +79,7 @@ class CrawlerInstitutionalInvestors:
             value[colname[0+i*3]] = [buy_set[i]]
             value[colname[1+i*3]] = [sell_set[i]]
             value[colname[2+i*3]] = [difference_set[i]]
-        value['date'] = ( str(int(date[:len(date)-4])+1911) + 
-                         '-'+ date[len(date)-4:len(date)-2]+ 
-                         '-'+ date[len(date)-2:] )
+        value['date'] = date
         return value
     def crawler(self):
         # 買進金額	賣出金額	買賣差額
@@ -181,9 +94,9 @@ class CrawlerInstitutionalInvestors:
             value = self.get_value(i)
             if str(type(value)) != "<class 'str'>":
                 self.data = self.data.append(value)
-
+        # 93+1911
     def main(self):
-        self.create_date()
+        self.date = self.create_date('2004-01-01')
         self.crawler()
         self.data.index = range(len(self.data))
         
@@ -194,15 +107,13 @@ self.main()
 
 '''
 class AutoCrawlerInstitutionalInvestors(CrawlerInstitutionalInvestors):
-    def __init__(self,host,user,password):
+    def __init__(self):
         super(AutoCrawlerInstitutionalInvestors, self).__init__()        
-        self.host = host
-        self.user = user
-        self.password = password
+        
         self.database = 'Financial_DataSet'
     def get_max_old_date(self):
         sql_text = "SELECT MAX(date) FROM `InstitutionalInvestors`"
-        tem = load_data.execute_sql2(self.host,self.user,self.password,self.database,sql_text)
+        tem = load_data.execute_sql2(self.database,sql_text)
         self.old_date = tem[0][0]
 
         
@@ -239,34 +150,25 @@ def crawler_history():
     CII.main()
     #CII.data
 
-    C2S = Crawler2SQL(host,user,password,'InstitutionalInvestors','Financial_DataSet')
+    C2S = BasedClass.Crawler2SQL('InstitutionalInvestors','Financial_DataSet')
     try:
         C2S.create_table(CII.data.columns)
     except:
         123
     
     C2S.upload2sql(CII.data)
-
+    print('create process table')
+    BasedClass.create_datatable('InstitutionalInvestors')
+    
 def auto_crawler_new():
-    ACII = AutoCrawlerInstitutionalInvestors(host,user,password)
+    ACII = AutoCrawlerInstitutionalInvestors()
     ACII.main()
 
-    C2S = Crawler2SQL(host,user,password,'InstitutionalInvestors','Financial_DataSet')
+    C2S = BasedClass.Crawler2SQL('InstitutionalInvestors','Financial_DataSet')
     C2S.upload2sql(ACII.data)
 
-    try:
-        sql_string = 'create table InstitutionalInvestors ( name text(100),CrawlerDate datetime)'
-        Key.creat_datatable(host,user,password,'python',sql_string,'InstitutionalInvestors')
-    except:
-        123
-    text = 'insert into InstitutionalInvestors (name,CrawlerDate) values(%s,%s)'
-    
-    tem = str( datetime.datetime.now() )
-    time = re.split('\.',tem)[0]
-    value = ('InstitutionalInvestors',time)
-
-    stock_sql.Update2Sql(host,user,password,
-                         'python',text,value)   
+    print('save crawler process')
+    BasedClass.save_crawler_process('InstitutionalInvestors')   
     
     
 def main(x):

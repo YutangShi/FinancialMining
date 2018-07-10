@@ -9,7 +9,7 @@ password = '123'
 
 #---------------------------------------------------------
 
-def execute_sql2(host,user,password,database,sql_text):
+def execute_sql2(database,sql_text):
     
     conn = ( pymysql.connect(host = host,# SQL IP
                      port = 3306,
@@ -35,9 +35,6 @@ class LoadDate:
         self.data_name = data_name        
         self.database = database   
         tem = execute_sql2(
-                host = host,
-                user = user,
-                password = password,
                 database = self.database,
                 sql_text = 'SELECT distinct `stock_id` FROM `' + self.data_name + '`')
 
@@ -55,9 +52,6 @@ class LoadDate:
     def get_col_name(self):
        
         tem_col_name = execute_sql2(
-                host = host,
-                user = user,
-                password = password,
                 database = self.database,
                 sql_text = 'SHOW columns FROM '+ self.data_name )
     
@@ -70,9 +64,6 @@ class LoadDate:
     
     def execute2sql(self,text,col=''):
         tem = execute_sql2(
-            host = host,
-            user = user,
-            password = password,
             database = self.database,
             sql_text = text)
         
@@ -159,8 +150,7 @@ class cStockPrice(LoadDate):
     #---------------------------------------------------------------    
     def __init__(self):    
         self.database = 'StockPrice'
-        tem = execute_sql2(host = host,user = user,password = password,
-                           database = self.database,
+        tem = execute_sql2(database = self.database,
                            sql_text = 'SHOW TABLES')
         #---------------------------------------------------------------                         
         stock_id,stock_cid = [],[]
@@ -349,8 +339,7 @@ class cExchangeRate(LoadDate):
     #---------------------------------------------------------------    
     def __init__(self):    
         self.database = 'ExchangeRate'
-        tem = execute_sql2(host = host,user = user,password = password,
-                           database = self.database,
+        tem = execute_sql2(database = self.database,
                            sql_text = 'SHOW TABLES')
         self.all_country = [ te[0] for te in tem ]
         #---------------------------------------------------------------

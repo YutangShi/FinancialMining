@@ -6,12 +6,8 @@ import pandas as pd
 import datetime
 import fix_yahoo_finance as yf
 import numpy as np
-import re
-sys.path.append('/home/linsam/github')
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import stock_sql 
-from Key import host,user,password
 import load_data
 import BasedClass
 
@@ -24,11 +20,10 @@ stock_info = load_data.StockInfo().load()
 self = CrawlerHistoryStockPrice(stock_info)
 self.main(0)
 '''
-class CrawlerHistoryStockPrice:
+class CrawlerHistoryStockPrice(BasedClass.Crawler):
 
-    def __init__(self,stock_info):
-        #super(CrawlerHistoryStockPrice, self).__init__()   
-        self.stock_info = stock_info
+    def __init__(self):
+        super(CrawlerHistoryStockPrice, self).__init__()   
         yf.pdr_override() # <== that's all it takes :-)   
 
     def main(self,i):
@@ -85,9 +80,6 @@ class AutoCrawlerStockPrice(BasedClass.Crawler):
         
         sql_text = "SELECT `Date` FROM `"+self.data_name+"` ORDER BY `Date` DESC LIMIT 1"
         start = load_data.execute_sql2(
-                host = host,
-                user = user,
-                password = password,
                 database = 'StockPrice',
                 sql_text = sql_text)
 
@@ -125,9 +117,6 @@ def auto_crawler_new():
     def take_stock_id_by_sql():
         #---------------------------------------------------------------                         
         tem = load_data.execute_sql2(
-                host = host,
-                user = user,
-                password = password,
                 database = 'StockPrice',
                 sql_text = 'SHOW TABLES')                      
         stock_cid = [ d[0][1:].replace('_','.').split('.')[0] for d in tem ]
@@ -137,16 +126,14 @@ def auto_crawler_new():
                                  'stock_cid' : stock_cid})    
         
         return stock_id
-     
     #------------------------------------------------------------------------------
     # main
-
     print('get stock id')
     stock_id = take_stock_id_by_sql()
     #-----------------------------------------------   
     print( 'crawler data and upload 2 sql' )
     i = 1 
-    for stock in stock_id['stock_cid']:# stock = stock_id['stock_cid'][i]
+    for stock in stock_id['stock_cid']:# stock = stock_id['stock_cid'][0]
         print(str(i)+'/'+str(len(stock_id)) + ' : ' + stock)
         ACSP = AutoCrawlerStockPrice(stock,stock_id)
         ACSP.main()
@@ -168,12 +155,12 @@ def auto_crawler_new():
 def crawler_history():
     
     # GET TAIWAN STOCK INFO, TO CRAWLER ALL STOCK PRICE
-    stock_info = load_data.StockInfo.load()
+    
     # get history stock price
-    CHSP = CrawlerHistoryStockPrice(stock_info)
+    CHSP = CrawlerHistoryStockPrice()
     print( 'crawler data and upload 2 sql' )
-    for i in range(len(stock_info)):#i=0
-        print(str(i)+'/'+str(len(stock_info)))
+    for i in range(len(CHSP.stock_info)):#i=0
+        print(str(i)+'/'+str(len(CHSP.stock_info)))
         CHSP.main(i)
         dataset_name = CHSP.dataset_name.replace('.','_')
         C2S = BasedClass.Crawler2SQL(dataset_name,'StockPrice')
