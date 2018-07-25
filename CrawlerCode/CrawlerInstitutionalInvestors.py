@@ -4,7 +4,6 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
-import datetime
 sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
 sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 import load_data

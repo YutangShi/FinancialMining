@@ -38,6 +38,8 @@ Bermudian Dollar
 Bahamian Dollar
 
 '''
+from joblib import Parallel, delayed
+import multiprocessing
 import requests
 import sys
 from bs4 import BeautifulSoup
@@ -110,16 +112,34 @@ class CrawlerExchangeRate:
         
         return data
     
-    def crawler(self):
+    def crawler(self,num_cores = multiprocessing.cpu_count()):
         if 'USD US Dollar' in self.all_country: 
             self.all_country.remove('USD US Dollar')
         #------------------------------------------------------------------------
+        
+        def myfun(i):
+            value = pd.DataFrame( self.get_value(i) )
+            return value
+        
+        #num_cores = multiprocessing.cpu_count()
+        self.data = pd.DataFrame()
+
+        results = Parallel(n_jobs=num_cores)(
+        delayed(myfun)(i) 
+        for i in range(len(self.all_country))
+        )
+        # list to data frame   
+        if len(results) != 0:
+            self.data = pd.concat(results)
+        
+        #------------------------------------------------------------------------
+        '''
         self.data = pd.DataFrame()
         for i in range(len(self.all_country)):# i = 0
             print(str(i)+'/'+str(len(self.all_country)))
             data = self.get_value(i)
             self.data = self.data.append(data)
-
+        '''
     def main(self):
         self.get_all_country()
         self.crawler()
@@ -153,6 +173,16 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
         tem = load_data.execute_sql2(self.database,sql_text)
         self.old_date = tem[0][0]
 
+    def crawler(self):
+        if 'USD US Dollar' in self.all_country: 
+            self.all_country.remove('USD US Dollar')
+        #------------------------------------------------------------------------
+
+        self.data = pd.DataFrame()
+        for i in range(len(self.all_country)):# i = 0
+            print(str(i)+'/'+str(len(self.all_country)))
+            data = self.get_value(i)
+            self.data = self.data.append(data)
         
     def create_date(self):
         self.get_max_old_date()
@@ -211,6 +241,7 @@ def auto_crawler_new():
     all_country = ACCOP.get_sql_country()
     # for
     for country in all_country:
+        print(country)
         ACCOP.main(country)
         
         date_name = country.split(' ')[0]

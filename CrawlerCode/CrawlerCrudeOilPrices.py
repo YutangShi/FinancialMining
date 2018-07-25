@@ -6,6 +6,9 @@ https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
 布蘭特 Brent
 杜拜   Dubai
 '''
+from joblib import Parallel, delayed
+import multiprocessing
+
 import requests
 import sys
 from bs4 import BeautifulSoup
@@ -84,18 +87,42 @@ class CrawlerCrudeOilPrices:
         # 布蘭特 Brent
         # 杜拜   Dubai
         #------------------------------------------------------------------------
+        def myfun(i):
+            value = pd.DataFrame( self.get_value(i) )
+            return value
+        
+        num_cores = multiprocessing.cpu_count()
         self.data = pd.DataFrame()
-        for i in range(len(self.date)):
+        
+        results = Parallel(n_jobs=num_cores)(
+        delayed(myfun)(i) 
+        for i in range(len(self.date))
+        )
+        # list to data frame   
+        if len(results) != 0:
+            self.data = pd.concat(results)
+        
+        # 0:02:39.857333
+        #------------------------------------------------------------------------
+        '''
+        self.data = pd.DataFrame()
+        s = datetime.datetime.now()
+        for i in range(len(self.date)):# len(self.date)
         #for i in range(10):
-            print(str(i)+'/'+str(len(self.date)))
+            if i % 100 == 0 :
+                print(str(i)+'/'+str(len(self.date)))
             value = self.get_value(i)
             #if str(type(value)) != "<class 'str'>":
             self.data = self.data.append(value)
-
+        t = datetime.datetime.now() - s
+        print(t)
+        # 0:35:33.378418
+        '''
     def main(self):
         self.create_date()
         self.crawler()
         self.data.index = range(len(self.data))
+        
 '''
 
 self = AutoCrawlerCrudeOilPrices()
