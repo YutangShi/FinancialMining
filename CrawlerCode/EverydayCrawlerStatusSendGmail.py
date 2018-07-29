@@ -15,9 +15,9 @@ import Key
 # self = EverydayCrawlerStatus()
 class EverydayCrawlerStatus:
     def __init__(self):
-        self.host = load_data.host
-        self.user = load_data.user
-        self.password = load_data.password
+        self.host = Key.host
+        self.user = Key.user
+        self.password = Key.password
         self.database = 'python'
         
         tem = load_data.execute_sql2(self.database,'SHOW TABLES')

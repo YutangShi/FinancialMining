@@ -56,7 +56,7 @@ self = CrawlerExchangeRate()
 
 '''
 
-class CrawlerExchangeRate:
+class CrawlerExchangeRate(BasedClass.Crawler):
     
     def get_all_country(self):
         
@@ -86,12 +86,6 @@ class CrawlerExchangeRate:
         return soup                    
     def get_value(self,i):
         
-        def days2date(day):
-            #day = 631497600000
-            day = int( day/1000/60/60/24 )
-            value = datetime.date(1970,1,1) + datetime.timedelta(days = day-1)
-            return value 
-        
         country = self.all_country[i]#i=1
         soup = self.create_soup(country)
         
@@ -102,7 +96,7 @@ class CrawlerExchangeRate:
         PointInTime = [ int( pt.replace('"PointInTime":','') ) for pt in PointInTime]
         InterbankRate = [ float( ir.replace('"InterbankRate":','') ) for ir in InterbankRate]
         InverseInterbankRate = [ float( iir.replace('"InverseInterbankRate":','') ) for iir in InverseInterbankRate]        
-        date = [ str( days2date(pt) ) for pt in PointInTime ]
+        date = [ str( self.days2date(pt) ) for pt in PointInTime ]
         
         data = pd.DataFrame()
         data['InterbankRate'] = InterbankRate

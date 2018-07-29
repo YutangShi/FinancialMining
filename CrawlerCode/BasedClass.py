@@ -25,7 +25,12 @@ class Crawler:
         #self.password = password
         #self.dataset_name = dataset_name
         #self.database = database
-        
+    def days2date(self,day):
+        #day = 631497600000
+        day = int( day/1000/60/60/24 )
+        value = datetime.date(1970,1,1) + datetime.timedelta(days = day)
+        return value 
+    
     def check_stock(self,stock,stock_cid):# stock_cid = stock_id.stock_cid
         #stock = '2330'
         tem = list( set([stock]) & set(stock_cid) )
