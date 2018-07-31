@@ -47,11 +47,11 @@ class Crawler:
         
         return data_name
     
-    def create_date(self,start):
-        start = datetime.datetime.strptime( start,"%Y-%m-%d").date()
+    def create_date(self,start):# start = '2018-07-31'
+        start = datetime.datetime.strptime( start,"%Y-%m-%d").date() + datetime.timedelta(days = 1)
         end = datetime.date.today()
         
-        day_len = (end - start).days   
+        day_len = (end - start).days 
         date = [ str( start + datetime.timedelta(days = dat) ) for dat in range(day_len) ]
         return date
 #------------------------------------------------------------

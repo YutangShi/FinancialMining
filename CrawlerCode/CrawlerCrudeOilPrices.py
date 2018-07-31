@@ -26,18 +26,19 @@ self = CrawlerCrudeOilPrices()
 self.create_date()
 
 '''
-class CrawlerCrudeOilPrices:
+class CrawlerCrudeOilPrices(BasedClass.Crawler):
     
     def __init__(self):
+        super(CrawlerCrudeOilPrices, self).__init__()
         self.url = 'https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp'
 
-    def create_date(self):
+    '''def create_date(self):
         start = datetime.datetime.strptime( '2000-01-01',"%Y-%m-%d").date()
         end = datetime.date.today()
         
         day_len = (end - start).days   
         self.date = [ str( start + datetime.timedelta(days = dat) ) for dat in range(day_len) ]
-
+        '''
     def create_soup(self,date):
         tem = date.split('-')
         year = str( int( tem[0] ) )
@@ -119,7 +120,9 @@ class CrawlerCrudeOilPrices:
         # 0:35:33.378418
         '''
     def main(self):
-        self.create_date()
+        old_date = datetime.datetime.strptime( '2000-01-01',"%Y-%m-%d").date() + datetime.timedelta(days = -1)
+        old_date = str( old_date )
+        self.date = self.create_date(old_date)
         self.crawler()
         self.data.index = range(len(self.data))
         
@@ -136,18 +139,19 @@ class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
     def get_max_old_date(self):
         sql_text = "SELECT MAX(date) FROM `CrudeOilPrices`"
         tem = load_data.execute_sql2(self.database,sql_text)
-        self.old_date = tem[0][0]
+        self.old_date = str( tem[0][0] )
         
-    def create_date(self):
+    '''def create_date(self):
         self.get_max_old_date()
         
         today = datetime.datetime.now().date()
         delta = today - self.old_date
         
         self.date = [ str( self.old_date + datetime.timedelta(i+1) ) for i in range(delta.days-1) ]
-            
+            '''
     def main(self):
-        self.create_date()
+        self.get_max_old_date()
+        self.date = self.create_date(self.old_date)
         self.crawler()
         self.data.index = range(len(self.data))
         

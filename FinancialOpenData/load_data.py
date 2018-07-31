@@ -252,7 +252,7 @@ class FinancialStatements:
 # tem = FinancialStatements.load('2330') 
 #--------------------------------------------------------------- 
 ''' test StockDividend
-SD = StockDividend()
+SD = cStockDividend()
 data = SD.load('2330')
 data.iloc[8]
 '''
@@ -398,7 +398,33 @@ class ExchangeRate:
     def load_all():
         tem = cExchangeRate()
         return tem.load_all()    
-# tem = ExchangeRate.load('GBP')          
+# tem = ExchangeRate.load('GBP')      
+
+#--------------------------------------------------------------- 
+''' test InstitutionalInvestors
+II = InstitutionalInvestors()
+data = II.load()
+'''
+class cInterestRate(LoadDate):
+    def __init__(self):
+        super(cInterestRate, self).__init__(
+                database = 'Financial_DataSet',
+                data_name = 'InterestRate')
+    def load(self):                        
+        self.get_col_name()
+        #---------------------------------------------------------------   
+        self.data = pd.DataFrame()
+        self.data = self.get_data(all_data='T')
+                
+        return self.data
+    
+class InterestRate: 
+    def load():
+        tem = cInstitutionalInvestors()
+        return tem.load()  
+ 
+# tem = InstitutionalInvestors.load()  
+        
 #-----------------------------------------------------------
 SI = cStockInfo()        
 SP = cStockPrice()  

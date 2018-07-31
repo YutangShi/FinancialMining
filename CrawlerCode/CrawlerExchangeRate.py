@@ -38,7 +38,6 @@ Bermudian Dollar
 Bahamian Dollar
 
 '''
-from joblib import Parallel, delayed
 import multiprocessing
 import requests
 import sys
@@ -106,11 +105,12 @@ class CrawlerExchangeRate(BasedClass.Crawler):
         
         return data
     
-    def crawler(self,num_cores = multiprocessing.cpu_count()):
+    def crawler(self):
         if 'USD US Dollar' in self.all_country: 
             self.all_country.remove('USD US Dollar')
         #------------------------------------------------------------------------
         
+        '''
         def myfun(i):
             value = pd.DataFrame( self.get_value(i) )
             return value
@@ -125,15 +125,15 @@ class CrawlerExchangeRate(BasedClass.Crawler):
         # list to data frame   
         if len(results) != 0:
             self.data = pd.concat(results)
-        
-        #------------------------------------------------------------------------
         '''
+        #------------------------------------------------------------------------
+        
         self.data = pd.DataFrame()
         for i in range(len(self.all_country)):# i = 0
             print(str(i)+'/'+str(len(self.all_country)))
             data = self.get_value(i)
             self.data = self.data.append(data)
-        '''
+        
     def main(self):
         self.get_all_country()
         self.crawler()
