@@ -44,3 +44,34 @@
 1532792290878	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
 [Child 76375, Chrome_ChildThread] WARNING: pipe error (30): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
 [Child 76375, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+1533132120287	geckodriver	INFO	Listening on 127.0.0.1:39343
+1533132121360	geckodriver::marionette	INFO	Starting browser /opt/firefox53/firefox with args ["-marionette", "--headless", "--window-size=1920x1080"]
+*** You are running in headless mode.
+1533132122104	Marionette	INFO	Enabled via --marionette
+1533132124814	Marionette	INFO	Listening on port 45379
+1533132124895	Marionette	WARN	TLS certificate errors will be ignored for this session
+1533132124962	Marionette	DEBUG	Register listener.js for window 2147483649
+1533132125013	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1533132125608	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1533132125609	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1533132126226	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://accounts.google.com/signin/v2/identifier?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+1533132126425	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483654"
+1533132126481	Marionette	DEBUG	Received DOM event "pageshow" for "https://accounts.google.com/signin/v2/identifier?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+1533132127008	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483657"
+1533132127008	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+
+(/opt/firefox53/firefox:122967): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+1533132127464	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1533132127500	Marionette	DEBUG	Received DOM event "beforeunload" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1533132127966	Marionette	DEBUG	Received DOM event "beforeunload" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1533132131260	Marionette	DEBUG	Received DOM event "pagehide" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1533132131271	Marionette	DEBUG	Received DOM event "unload" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1533132131319	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1533132132597	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483663"
+1533132132636	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://mail.google.com/mail/u/0/?tab=wm"
+1533132133846	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483674"
+1533132135859	Marionette	DEBUG	Received DOM event "pageshow" for "https://mail.google.com/mail/u/0/?tab=wm#inbox"
+1533132136883	Marionette	DEBUG	Received DOM event "popstate" for "https://mail.google.com/mail/u/0/?tab=wm#inbox?compose=new"
+1533132138505	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1533132141832	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+[Child 122967, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /builds/worker/workspace/build/src/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353

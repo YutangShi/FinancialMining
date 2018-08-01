@@ -31,8 +31,9 @@ class EverydayCrawlerStatus:
             text = "SELECT name,CrawlerDate FROM `" + dt + "` where id = ( SELECT max(id) FROM `" + dt + "` )"
             tem = load_data.execute_sql2(self.database,
                                          text)
-            tem = pd.DataFrame( np.concatenate(tem, axis=0) )
-            self.cdate = self.cdate.append(tem.T)
+            if len(tem) != 0:
+                tem = pd.DataFrame( np.concatenate(tem, axis=0) )
+                self.cdate = self.cdate.append(tem.T)
         
         self.cdate.index = range(len(self.cdate))
         self.cdate.columns = ['name','date']
