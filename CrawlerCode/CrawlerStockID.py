@@ -6,12 +6,9 @@ import numpy as np
 import sys
 import pymysql
 from selenium.webdriver.firefox.options import Options
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import load_data
-import BasedClass
-from Key import host,user,password
-
+sys.path.append('/home/linsam/github')
+import Key
+from FinancialMining.CrawlerCode import BasedClass
 
 '''
 database = 'Financial_DataSet'
@@ -126,7 +123,7 @@ class CrawlerStockID:
 
 def main():
     database = 'Financial_DataSet'
-    CSID = CrawlerStockID(host,user,password,database)
+    CSID = CrawlerStockID(Key.host,Key.user,Key.password,database)
     CSID.run()
 
     C2S = BasedClass.Crawler2SQL('StockInfo','Financial_DataSet')
@@ -136,7 +133,7 @@ def main():
         123
 
     # upload stock info
-    load_data.execute_sql2(database,'TRUNCATE table `StockInfo` ')
+    BasedClass.execute_sql2(database,'TRUNCATE table `StockInfo` ')
     CSID.upload_stock_info2sql()    
     # 
     

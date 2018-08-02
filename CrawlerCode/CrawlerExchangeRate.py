@@ -38,17 +38,14 @@ Bermudian Dollar
 Bahamian Dollar
 
 '''
-import multiprocessing
 import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
-import datetime,re
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import load_data
-import BasedClass
-
+import datetime
+import re
+sys.path.append('/home/linsam/github')
+from FinancialMining.CrawlerCode import BasedClass
 
 '''
 self = CrawlerExchangeRate()
@@ -152,7 +149,7 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
     def get_sql_country(self):
         self.get_all_country()
         sql_text = 'SHOW TABLES'
-        tem = load_data.execute_sql2(self.database,sql_text)
+        tem = BasedClass.execute_sql2(self.database,sql_text)
         all_table = [ te[0] for te in tem ]
         all_country = []
         for te in all_table:
@@ -164,7 +161,7 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
     def get_max_old_date(self):
         sql_table_name = self.all_country[0].split(' ')[0]
         sql_text = "SELECT MAX(date) FROM `" + sql_table_name + "`"
-        tem = load_data.execute_sql2(self.database,sql_text)
+        tem = BasedClass.execute_sql2(self.database,sql_text)
         self.old_date = tem[0][0]
 
     def crawler(self):

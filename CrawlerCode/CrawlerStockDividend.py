@@ -12,11 +12,10 @@ import numpy as np
 import pymysql
 import re
 sys.path.append('/home/linsam/github')
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-from Key import host,user,password
-import load_data
-import BasedClass
+import Key
+from FinancialMining.CrawlerCode import BasedClass
+from FinancialMining.OpenData import Load
+
 #-----------------------------------------------------------------
 # 股東會日期 Shareholders meeting date
 # 盈餘配股(元/股)	 Retained_Earnings 公積配股(元/股) Capital_Reserve
@@ -155,7 +154,7 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
         sql_text = "SELECT id FROM `StockDividend` WHERE `meeting_data` = '"
         sql_text = sql_text + str(self.new_date) + "' AND `stock_id` LIKE "
         sql_text = sql_text + self.new_data['stock_id'] 
-        self.data_id = load_data.execute_sql2(self.database,sql_text)[0][0]     
+        self.data_id = BasedClass.execute_sql2(self.database,sql_text)[0][0]     
 
     def change_sql_data(self,col):# col = change_name[0]
         if str( self.new_data[col] ) == 'NaT':
@@ -189,8 +188,8 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
             except:
                 conn.close()
                 return 0
-            
-        old_date = load_data.SD.load(self.stock).sort_values('meeting_data')
+        
+        old_date = Load.Load(database = 'StockDividend', select = self.stock).sort_values('meeting_data')
         self.old_date = str( old_date.iloc[len(old_date)-1]['meeting_data'] )
         self.new_date = self.new_data['meeting_data']
         
@@ -207,8 +206,11 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
             # update new value, 
             # because Ex_right_trading_day & Ex-dividend transaction day 
             # always slower announcement
-            UPDATE_sql(host,user,password,
-                       self.database,sql_text)
+            UPDATE_sql(Key.host,
+                       Key.user,
+                       Key.password,
+                       self.database,
+                       sql_text)
                     
         elif self.old_date < self.new_date:
             # if new date > old data, then add new data
@@ -223,7 +225,7 @@ class AutoCrawlerStockDividend(CrawlerStockDividend):
     def main(self):
         self.create_url_set()
         for i in range(len(self.url_set)):
-            print(str(i)+'/'+str(len(self.url_set)))# i=1044
+            print(str(i)+'/'+str(len(self.url_set)))# i=0
             data = self.get_value(i)
             if len(data) == 0 :
                 123

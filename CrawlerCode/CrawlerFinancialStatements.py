@@ -23,10 +23,8 @@ from bs4 import BeautifulSoup
 import re
 import pandas as pd
 import numpy as np
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import load_data
-import BasedClass
+sys.path.append('/home/linsam/github')
+from FinancialMining.CrawlerCode import BasedClass
 #------------------------------------------------------------------------------
 # self = CrawlerFinancialStatements()
 class CrawlerFinancialStatements(BasedClass.Crawler):
@@ -167,7 +165,7 @@ class AutoCrawlerFinancialStatements(CrawlerFinancialStatements):
         
     def get_stock_id_set(self):
         
-        data =  load_data.execute_sql2(
+        data =  BasedClass.execute_sql2(
                 database = self.database,
                 sql_text = 'SELECT distinct `stock_id` FROM FinancialStatements')
         
@@ -178,7 +176,7 @@ class AutoCrawlerFinancialStatements(CrawlerFinancialStatements):
         sql_text = "SELECT year,quar FROM FinancialStatements  WHERE stock_id = "
         sql_text = sql_text + stock 
         
-        tem =  load_data.execute_sql2(
+        tem =  BasedClass.execute_sql2(
                 database = self.database,
                 sql_text = sql_text)
         year,quar = [],[]

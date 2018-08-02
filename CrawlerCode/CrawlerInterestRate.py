@@ -12,11 +12,8 @@ import sys
 import datetime
 from bs4 import BeautifulSoup
 import pandas as pd
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import load_data
-import BasedClass
-
+sys.path.append('/home/linsam/github')
+from FinancialMining.CrawlerCode import BasedClass
 
 '''
 
@@ -122,7 +119,7 @@ class AutoCrawlerInterestRate(CrawlerInterestRate):
     def get_max_old_date(self,country):
         sql_text = "SELECT MAX(date) FROM `InterestRate` "
         sql_text = sql_text + ' `country` = ' + country
-        tem = load_data.execute_sql2(self.database,sql_text)
+        tem = BasedClass.execute_sql2(self.database,sql_text)
         self.old_date = tem[0][0]
         
     def create_date(self,country):

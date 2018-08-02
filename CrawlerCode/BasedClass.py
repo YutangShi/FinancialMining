@@ -12,14 +12,32 @@ import pymysql
 import datetime
 import re
 sys.path.append('/home/linsam/github')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-from Key import host,user,password
-import load_data
+import Key
+from FinancialMining.OpenData import Load
 
+def execute_sql2(database,sql_text):
+    
+    conn = ( pymysql.connect(host = Key.host,# SQL IP
+                     port = 3306,
+                     user = Key.user,# 帳號
+                     password = Key.password,# 密碼
+                     database = database,  # 資料庫名稱
+                     charset="utf8") )   #  編碼
+                             
+    cursor = conn.cursor()    
+    # sql_text = "SELECT * FROM `_0050_TW` ORDER BY `Date` DESC LIMIT 1"
+    try:   
+        cursor.execute(sql_text)
+        data = cursor.fetchall()
+        conn.close()
+        return data
+    except:
+        conn.close()
+        return '' 
 
 class Crawler:
     def __init__(self):
-        self.stock_info = load_data.StockInfo.load()
+        self.stock_info = Load.Load(database = 'StockInfo', load_all = True)
         #self.host = host
         #self.user = user
         #self.password = password
@@ -61,9 +79,9 @@ self = Crawler2SQL(ACSP.data_name,'StockPrice')
 class Crawler2SQL:   
     
     def __init__(self,dataset_name,database):
-        self.host = host
-        self.user = user
-        self.password = password
+        self.host = Key.host
+        self.user = Key.user
+        self.password = Key.password
         self.dataset_name = dataset_name
         self.database = database
 
@@ -161,10 +179,10 @@ def save_crawler_process(datatable_name):# datetable_name = 'StockPrice'
     value = (datatable_name,time)
     
     #today = datetime.datetime.now().strftime("%Y-%m-%d")
-    conn = ( pymysql.connect(host = host,
+    conn = ( pymysql.connect(host = Key.host,
                      port = 3306,
-                     user = user,
-                     password = password,
+                     user = Key.user,
+                     password = Key.password,
                      database = 'python', 
                      charset="utf8") )   
     
@@ -178,10 +196,10 @@ def save_crawler_process(datatable_name):# datetable_name = 'StockPrice'
 def create_datatable(datatable):
     
     sql_string = 'create table '+ datatable +' ( name text(100),CrawlerDate datetime)'
-    conn = ( pymysql.connect(host = host,# SQL IP
+    conn = ( pymysql.connect(host = Key.host,# SQL IP
                              port = 3306,
-                             user = user,# 帳號
-                             password = password,# 密碼
+                             user = Key.user,# 帳號
+                             password = Key.password,# 密碼
                              database = 'python',  # 資料庫名稱
                              charset="utf8") )   #  編碼        
     try:

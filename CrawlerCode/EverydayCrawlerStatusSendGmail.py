@@ -7,9 +7,8 @@ from selenium import webdriver
 import time
 import datetime
 from selenium.webdriver.firefox.options import Options
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
 sys.path.append('/home/linsam/github')
-import load_data
+from FinancialMining.CrawlerCode import BasedClass
 import Key
 #----------------------------------------------------------------------------
 # self = EverydayCrawlerStatus()
@@ -20,7 +19,7 @@ class EverydayCrawlerStatus:
         self.password = Key.password
         self.database = 'python'
         
-        tem = load_data.execute_sql2(self.database,'SHOW TABLES')
+        tem = BasedClass.execute_sql2(self.database,'SHOW TABLES')
         tem = np.concatenate(tem, axis=0)
         self.datatable = [ te for te in tem ]
         self.datatable.remove('new')
@@ -29,7 +28,7 @@ class EverydayCrawlerStatus:
         self.cdate = pd.DataFrame()
         for dt in self.datatable:
             text = "SELECT name,CrawlerDate FROM `" + dt + "` where id = ( SELECT max(id) FROM `" + dt + "` )"
-            tem = load_data.execute_sql2(self.database,
+            tem = BasedClass.execute_sql2(self.database,
                                          text)
             if len(tem) != 0:
                 tem = pd.DataFrame( np.concatenate(tem, axis=0) )

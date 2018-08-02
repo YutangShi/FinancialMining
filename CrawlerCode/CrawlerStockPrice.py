@@ -6,10 +6,8 @@ import pandas as pd
 import datetime
 import fix_yahoo_finance as yf
 import numpy as np
-sys.path.append('/home/linsam/github/FinancialMining/CrawlerCode')
-sys.path.append('/home/linsam/github/FinancialMining/FinancialOpenData')
-import load_data
-import BasedClass
+sys.path.append('/home/linsam/github/FinancialMining')
+from CrawlerCode import BasedClass
 
 #-------------------------------------------------------------------   
 '''
@@ -79,7 +77,7 @@ class AutoCrawlerStockPrice(BasedClass.Crawler):
             return ''
         
         sql_text = "SELECT `Date` FROM `"+self.data_name+"` ORDER BY `Date` DESC LIMIT 1"
-        start = load_data.execute_sql2(
+        start = BasedClass.execute_sql2(
                 database = 'StockPrice',
                 sql_text = sql_text)
 
@@ -119,7 +117,7 @@ def auto_crawler_new():
     
     def take_stock_id_by_sql():
         #---------------------------------------------------------------                         
-        tem = load_data.execute_sql2(
+        tem = BasedClass.execute_sql2(
                 database = 'StockPrice',
                 sql_text = 'SHOW TABLES')                      
         stock_cid = [ d[0][1:].replace('_','.').split('.')[0] for d in tem ]
