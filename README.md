@@ -28,7 +28,7 @@
 9. 黃金價格 from https://www.gold.org/data/gold-price
 -------------------------------------------------------------------------------------------------
 
-## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)  )
+## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)  )
 
 ### 1.Financial Crawler
 #### 1.1 股票股價
