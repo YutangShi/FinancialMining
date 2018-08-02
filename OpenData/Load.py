@@ -596,17 +596,7 @@ data = LoadData.InterestRate(load_all = True)
 data = LoadData.InterestRate(datalist = True)
 '''
 #---------------------------------------------------------------
-'''
-StockInfo(select = [],load_all = False,datalist = False)
-StockPrice(select = [],load_all = False,datalist = False)
-FinancialStatements(select = [],load_all = False,datalist = False)
-StockDividend(select = [],load_all = False,datalist = False)
-InstitutionalInvestors()
-CrudeOilPrices()
-ExchangeRate(select = [],load_all = False,datalist = False)
-InterestRate(select = [],load_all = False,datalist = False)
 
-'''
 def Load(database = '', select = [], load_all = False, datalist = False):
     
     if database == 'StockInfo':
