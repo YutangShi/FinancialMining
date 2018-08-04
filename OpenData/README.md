@@ -1,9 +1,9 @@
 
 ## Open Data
 
-MySQL url：http://114.32.89.248/phpmyadmin/ <br>
+<!---MySQL url：http://114.32.89.248/phpmyadmin/ <br>
 user : guest <br>
-password : 123 <br>
+password : 123 <br>--->
 
 * ### [Load Example](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md)<br>
   * [Taiwan Stock Information](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-information)
