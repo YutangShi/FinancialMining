@@ -6,9 +6,32 @@ user : guest <br>
 password : 123 <br>
 
 * ### [Load Example](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md)<br>
+  * [Taiwan Stock Information](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-information)
+  * [Taiwan Stock Pnformation](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-price)
+  * [Taiwan Stock Financial Statements](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-financialstatements)
+  * [Taiwan Stock Dividend](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-stockdividend)
+  * [Taiwan Stock Institutional Investors](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-institutionalinvestors-buy-and-sell)
+  * [taiwan stock information](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-information)
+  * [Crudeoil Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-crudeoilprices)
+  * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-exchangerate)
+  * [Central Band Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-central-band-interestrate)
+  
 * ### [Parameters](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md)<br>
+  * [database](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#database---stockinfo-stockprice-financialstatements-stockdividend-institutionalinvestors-crudeoilprices-exchangerate-interestrate---defult--)
+  * [datalist](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#datalist--true-or-false--defult--flase-)
+  * [select](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#select--stock-id-2002--or-country-name-eur-etc---defult--)
+  * [load_all](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#load_all--true-or-false--defult--flase-)
+  
 * ### [Variable Introduction](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md)
-
+  * [Taiwan Stock Info](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#1-taiwan-stock-info)
+  * [Taiwan Stock Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#2-taiwan-stock-prices)
+  * [Taiwa Stock Financial Statements](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#3-taiwan-stock-financial-statements)
+  * [Taiwan Stock Dividend](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#4-taiwan-stock-dividend)
+  * [Taiwan Stock Institutional Investors](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#5-taiwan-stock-institutional-investors)
+  * [Crude Oil Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#6-crude-oil-prices)
+  * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#7-exchange-rate)
+  * [Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#8-interest-rate)
+  
 ------------------------------------------------------------
 #### 目前現有 data 如下
 
