@@ -27,13 +27,3 @@ ps : 可藉由 stock_id, data 進行資料合併--->
 
 
 
-region {abc} region
-
-
-
-
-
-
-
-
-
