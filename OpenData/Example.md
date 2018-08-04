@@ -1,5 +1,4 @@
 
------------------------------------------------------------------
 #### load taiwan stock information
       from FinancialMining.OpenData.Load import Load
 
