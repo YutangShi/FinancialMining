@@ -116,5 +116,16 @@
 </html>   
               
 -----------------------------------------------------------------
+#### Load Gold Price
+        from FinancialMining.OpenData.Load import Load
 
+        database = 'GoldPrice'
+        data = Load(database = database)
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#load-example'> Home </a></p>
+</html>   
+              
+-----------------------------------------------------------------
 
