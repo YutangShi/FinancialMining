@@ -596,6 +596,36 @@ data = LoadData.InterestRate(load_all = True)
 data = LoadData.InterestRate(datalist = True)
 '''
 #---------------------------------------------------------------
+class ClassGoldPrice(LoadData):
+    def __init__(self):
+        super(ClassGoldPrice, self).__init__(
+                database = 'Financial_DataSet',
+                data_name = 'GoldPrice')
+
+    def load(self):                        
+        
+        self.get_col_name()
+        self.data = self.get_data(all_data='T')
+
+        return self.data      
+ 
+
+def GoldPrice(select = [],load_all = False,datalist = False):
+    
+    self = ClassGoldPrice()  
+    #country = select
+    data = self.load()
+        
+    return data
+'''
+import sys
+sys.path.append('E:/text_mining')
+from OpenData import LoadData
+
+data = Lo
+'''
+#---------------------------------------------------------------
+#---------------------------------------------------------------
 
 def Load(database = '', select = [], load_all = False, datalist = False):
     
@@ -622,7 +652,10 @@ def Load(database = '', select = [], load_all = False, datalist = False):
         
     elif database == 'InterestRate':
         data = InterestRate(select = select, load_all = load_all, datalist = datalist)
-
+    
+    elif database == 'GoldPrice':
+        data = GoldPrice()
+        
     else:
         raise(AttributeError, "Hidden attribute")  
 
@@ -632,20 +665,18 @@ def Load(database = '', select = [], load_all = False, datalist = False):
 '''
 
 import sys
-sys.path.append('/home/linsam/github/FinancialMining')
-from OpenData.Load import Load
+sys.path.append('/home/linsam/github')
+from FinancialMining.OpenData.Load import Load
 
 parameters database : 
     StockInfo, StockPrice, FinancialStatements, 
     StockDividend, InstitutionalInvestors, CrudeOilPrices,
-    ExchangeRate, InterestRate
+    ExchangeRate, InterestRate, GoldPrice
     
-database = 'StockInfo'
+database = 'GoldPrice'
 
-datalist = Load(database = database,datalist = True)
-data = Load(database = database, select = '2002')
-data = Load(database = database, select = ['2002','2330'])
 data = Load(database = database, load_all = True)
+
 
 
 
