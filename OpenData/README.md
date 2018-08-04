@@ -35,8 +35,7 @@ password : 123 <br>
   * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#9-gold-price)
   
 ------------------------------------------------------------
-<!---#### 目前現有 data 如下--->
-
+<!---#### 目前現有 data 如下
 1. Taiwan Stock Introduction <br>
 2. Taiwan Stock Prices <br>
 3. Taiwan Stock Financial Statements ( 1997 ~ now )<br>
@@ -45,7 +44,7 @@ password : 123 <br>
 6. Crude Oil Prices ( 2000 ~ now )<br>
 7. Exchange Rate ( 1990 ~ now )<br>
 8. Interest Rate ( 1990 ~ now )<br>
-9. Gold Price ( 1979 - now )
+9. Gold Price ( 1979 - now )--->
 <!---請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
 ps : 可藉由 stock_id, data 進行資料合併--->
