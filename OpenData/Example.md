@@ -8,6 +8,12 @@
       data_2002 = Load(database = database, select = '2002')
       mulit_data = Load(database = database, select = ['2002','2330'])
       all_data = Load(database = database, load_all = True)
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+      
 -----------------------------------------------------------------
 #### Load Taiwan Stock Price
         from FinancialMining.OpenData.Load import Load
@@ -18,6 +24,12 @@
         data_2002 = Load(database = database, select = '2002') #### select stock 2002
         mulit_data = Load(database = database, select = ['2002','2330'])#### select mulit stock
         all_data = Load(database = database, load_all = True)#### select all stock
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+
 -----------------------------------------------------------------
 #### Load Taiwan Stock FinancialStatements
         from FinancialMining.OpenData.Load import Load
@@ -27,6 +39,12 @@
         data = Load(database = database, select = '2002') #### select stock 2002
         data = Load(database = database, select = ['2002','2330'])#### select mulit stock
         data = Load(database = database, load_all = True)#### select all stock
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+      
 -----------------------------------------------------------------
 #### Load Taiwan Stock StockDividend
 
@@ -37,18 +55,36 @@
       data = Load(database = database, select = '2002') #### select stock 2002
       data = Load(database = database, select = ['2002','2330'])#### select mulit stock
       data = Load(database = database, load_all = True)#### select all stock
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+      
 -----------------------------------------------------------------
 #### Load Taiwan Stock InstitutionalInvestors buy and sell
         from FinancialMining.OpenData.Load import Load
 
         database = 'InstitutionalInvestors'
         data = Load(database = database) 
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+              
 -----------------------------------------------------------------
 #### Load CrudeOilPrices
         from FinancialMining.OpenData.Load import Load
 
         database = 'CrudeOilPrices'
         data = Load(database = database)
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+              
 -----------------------------------------------------------------
 #### Load ExchangeRate
         from FinancialMining.OpenData.Load import Load
@@ -58,6 +94,12 @@
         data = Load(database = database, select = 'GBP') #### select country GBP
         data = Load(database = database, select = ['GBP','HKD'])#### select mulit country
         data = Load(database = database, load_all = True)#### select all stock
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+              
 -----------------------------------------------------------------
 #### Load Central Band InterestRate
         from FinancialMining.OpenData.Load import Load
@@ -67,6 +109,12 @@
         data = Load(database = database, select = 'FED') #### select country FED
         data = Load(database = database, select = ['FED','ECB'])#### select mulit country
         data = Load(database = database, load_all = True)#### select all stock
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+</html>   
+              
 -----------------------------------------------------------------
 
 
