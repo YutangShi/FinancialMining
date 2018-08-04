@@ -103,7 +103,7 @@ https://stock.wearn.com/dividend.asp
 
 ------------------------------------------------------------
 #### 5. Taiwan Stock Institutional Investors
-###### 2004-01-02 ~ now
+###### 2004 ~ now
 
 | variable name | 變數名稱 | example (單位: 億元/hundred million) |
 |---------------|---------|----------|
@@ -131,7 +131,7 @@ https://stock.wearn.com/fundthree.asp?mode=search
 
 ------------------------------------------------------------
 #### 6. Crude Oil Prices
-###### 2000-01-01 ~ now
+###### 2000 ~ now
 
 | variable name | 變數名稱 | example (單位: 美金) |
 |---------------|---------|----------|
@@ -150,7 +150,7 @@ https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
 
 ------------------------------------------------------------
 #### 7. Exchange Rate 
-###### 2000-01-01 ~ now
+###### 2000 ~ now
 
 | variable name | 變數名稱 | example (以美金為主要兌換匯率) |
 |---------------|---------|----------|
@@ -169,7 +169,7 @@ https://www.ofx.com/en-au/forex-news/historical-exchange-rates/
 
 ------------------------------------------------------------
 #### 8. Interest Rate 
-###### 2000-01-01 ~ now
+###### 2000 ~ now
 
 | variable name | 變數名稱 | example (以美金為主要兌換匯率) |
 |---------------|---------|----------|
@@ -185,5 +185,23 @@ https://www.investing.com/central-banks
 <p align="right">
   <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
+
+------------------------------------------------------------
+#### 9. Gold Price
+###### 1979 ~ now
+
+| variable name | 變數名稱 | example |
+|---------------|---------|----------|
+|datetime|date time (after 2018/01/01, data is minutely)|1978-12-29 00:00:00 |
+|Price|gold price ( US/Oz )|226.0|
+ 
+資料來源 : <br>
+https://www.gold.org/data/gold-price
+
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
+</html>
+
 
 
