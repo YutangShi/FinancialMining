@@ -1,7 +1,7 @@
 
 ## Parameters 
 
-##### database :  StockInfo, StockPrice, FinancialStatements, StockDividend, InstitutionalInvestors, CrudeOilPrices, ExchangeRate, InterestRate.  ( Defult : "" )
+##### database :  StockInfo, StockPrice, FinancialStatements, StockDividend, InstitutionalInvestors, CrudeOilPrices, ExchangeRate, InterestRate.  ( Defult : )
             
     Datatable names, the introductions can follow :
     https://github.com/f496328mm/FinancialMining/tree/master/OpenData
