@@ -15,6 +15,7 @@ password : 123 <br>
   * [Crudeoil Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-crudeoilprices)
   * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-exchangerate)
   * [Central Band Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-central-band-interestrate)
+  * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-gold-price)
   
 * ### [Parameters](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md)<br>
   * [database](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#database---stockinfo-stockprice-financialstatements-stockdividend-institutionalinvestors-crudeoilprices-exchangerate-interestrate---defult--)
@@ -31,6 +32,7 @@ password : 123 <br>
   * [Crude Oil Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#6-crude-oil-prices)
   * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#7-exchange-rate)
   * [Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#8-interest-rate)
+  * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#9-gold-price)
   
 ------------------------------------------------------------
 #### 目前現有 data 如下
@@ -43,7 +45,7 @@ password : 123 <br>
 6. Crude Oil Prices ( 2000 ~ now )<br>
 7. Exchange Rate ( 1990 ~ now )<br>
 8. Interest Rate ( 1990 ~ now )<br>
-9. Gold Price ( 1979 - now)
+9. Gold Price ( 1979 - now )
 <!---請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
 ps : 可藉由 stock_id, data 進行資料合併--->
