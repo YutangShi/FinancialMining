@@ -5,9 +5,9 @@
 user : guest <br>
 password : 123 <br>
 
-### [Load Example](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md)<br>
-### [Parameters](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md)<br>
-### [Variable Introduction](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md)
+* ### [Load Example](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md)<br>
+* ### [Parameters](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md)<br>
+* ### [Variable Introduction](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md)
 
 ------------------------------------------------------------
 #### 目前現有 data 如下
