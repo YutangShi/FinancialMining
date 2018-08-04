@@ -16,9 +16,7 @@ https://goodinfo.tw/StockInfo/StockList.asp
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -42,9 +40,7 @@ https://finance.yahoo.com/
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -77,9 +73,7 @@ http://www.tedc.org.tw/tedc/bank/otccomp/ch1.3.4.htm
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -104,9 +98,7 @@ https://stock.wearn.com/dividend.asp
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -134,9 +126,7 @@ https://stock.wearn.com/fundthree.asp?mode=search
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -155,9 +145,7 @@ https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -176,9 +164,7 @@ https://www.ofx.com/en-au/forex-news/historical-exchange-rates/
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
 ------------------------------------------------------------
@@ -197,10 +183,7 @@ https://www.investing.com/central-banks
 
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
-<p align="right">
-  <a href = '#variable-introduction'> top </a> </p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
-
 
 
