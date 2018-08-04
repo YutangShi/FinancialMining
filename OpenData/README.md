@@ -1,7 +1,7 @@
 
 ## Open Data
 
-平台網址：http://114.32.89.248/phpmyadmin/ <br>
+MySQL url：http://114.32.89.248/phpmyadmin/ <br>
 user : guest <br>
 password : 123 <br>
 
@@ -35,7 +35,7 @@ password : 123 <br>
   * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#9-gold-price)
   
 ------------------------------------------------------------
-#### 目前現有 data 如下
+<!---#### 目前現有 data 如下--->
 
 1. Taiwan Stock Introduction <br>
 2. Taiwan Stock Prices <br>
