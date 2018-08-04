@@ -95,11 +95,10 @@ class CrawlerGoldPrice(BasedClass.Crawler):
         old_date = self.get_max_old_date(date_name = 'datetime', datatable = 'GoldPrice')
         self.date = self.create_date(str(old_date.date()))
         self.crawler()
-        
-        date = [ datetime.datetime.strptime(d,'%Y-%m-%d %H:%M:%S') for d in self.data.datetime ]
-        self.data = self.data[ [ d > old_date for d in date ] ]
-        
-        self.data.index = range(len(self.data))
+        if len(self.data) > 0:
+            date = [ datetime.datetime.strptime(d,'%Y-%m-%d %H:%M:%S') for d in self.data.datetime ]
+            self.data = self.data[ [ d > old_date for d in date ] ]
+            self.data.index = range(len(self.data))
         
 
 
@@ -142,37 +141,6 @@ def main(x):
 if __name__ == '__main__':
     x = sys.argv[1]# cmd : input new or history
     main(x)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#e = 1533214382000
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
