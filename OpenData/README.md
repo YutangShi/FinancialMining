@@ -5,6 +5,8 @@
 user : guest <br>
 password : 123 <br>
 
+[Load Example](https://www.google.com.tw/)
+            
 ------------------------------------------------------------
 #### 目前現有 data 如下
 
@@ -13,30 +15,17 @@ password : 123 <br>
 3. [history taiwan stock Financial Statements](#3-history-taiwan-stock-financial-statements--台股歷史財報-) ( 台股歷史財報 1997 ~ now )<br>
 4. [history taiwan stock Stock Dividend](#4-history-taiwan-stock-stock-dividend--台股歷史配股-) ( 台股歷史配股 1991 ~ now )<br>
 5. [history taiwan stock Institutional Investors buy and sell](#5-history-taiwan-stock-institutional-investors-buy-and-sell--台股歷史外資買賣-) ( 台股歷史外資買賣 2004 ~ now )<br>
-6. [crude oil prices](#6-history-crude-oil-prices--國際油價-) ( 國際油價 2000 ~ now )<br>
-7. [exchange rate](#7-history-exchange-rate--匯率-) ( 各國匯率 1990 ~ now )<br>
+6. [crude oil prices](#6-history-crude-oil-prices--國際油價-) ( Oil Prices 2000 ~ now )<br>
+7. [exchange rate](#7-history-exchange-rate--匯率-) ( Exchange Rate 1990 ~ now )<br>
+8. [interest rate](#8-history-interest-rate--央行利率-) ( Interest Rate 1990 ~ now )<br>
 
-請先下載
+<!---請先下載
 [ load_data.py ](https://github.com/f496328mm/FinancialMining/blob/master/FinancialOpenData/load_data.py) <br>
-ps : 可藉由 stock_id, data 進行資料合併
-
+ps : 可藉由 stock_id, data 進行資料合併--->
 
 ------------------------------------------------------------
 ## 1. 台股股票一般資訊( 代號、名稱、產業 ) 
-##### 1.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取台股 股票 資訊
-database = 'StockInfo'
-datalist = Load(database = database,datalist = True)# get stock list
-data = Load(database = database, select = '2002') # select stock 2002
-data = Load(database = database, select = ['2002','2330'])# select mulit stock
-data = Load(database = database, load_all = True)# select all stock
-```
-##### 1.2 變數介紹 --- 1815 檔股票
+##### 變數介紹 --- 1815 檔股票
 
 | variable name | 變數名稱 | example |
 |---------------|---------|----------|
@@ -52,20 +41,7 @@ https://goodinfo.tw/StockInfo/StockList.asp
 
 ------------------------------------------------------------
 ## 2. history taiwan stock prices ( 台股歷史股價 )
-##### 2.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取台股 股票股價 資料
-database = 'StockPrice'
-datalist = Load(database = database,datalist = True)# get stock list
-data = Load(database = database, select = '2002') # select stock 2002
-data = Load(database = database, select = ['2002','2330'])# select mulit stock
-data = Load(database = database, load_all = True)# select all stock
-```
-##### 2.2 變數介紹 --- 1815 檔股票，460萬筆 data， data size is 371 MB
+##### 變數介紹 --- 1815 檔股票，460萬筆 data， data size is 371 MB
 
 | variable name | 變數名稱 | example |
 |---------------|---------|----------|
@@ -86,21 +62,7 @@ https://finance.yahoo.com/
 
 ------------------------------------------------------------
 ## 3. history taiwan stock Financial Statements ( 台股歷史財報 )
-##### 3.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取台股 股票 歷史財報
-database = 'FinancialStatements'
-datalist = Load(database = database,datalist = True)# get stock list
-data = Load(database = database, select = '2002') # select stock 2002
-data = Load(database = database, select = ['2002','2330'])# select mulit stock
-data = Load(database = database, load_all = True)# select all stock
-
-```
-##### 3.2 變數介紹 --- 1667 檔股票 ( 部分股票無財報 )，89635 筆 data
+##### 變數介紹 --- 1667 檔股票 ( 部分股票無財報 )，89635 筆 data
 
 | variable name | 變數名稱 | example (單位: 仟元/thousand) |
 |---------------|---------|----------|
@@ -130,21 +92,7 @@ http://www.tedc.org.tw/tedc/bank/otccomp/ch1.3.4.htm
 
 ------------------------------------------------------------
 ## 4. history taiwan stock Stock Dividend ( 台股歷史配股 )
-##### 4.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取台股 股票 歷史配股
-database = 'StockDividend'
-datalist = Load(database = database,datalist = True)# get stock list
-data = Load(database = database, select = '2002') # select stock 2002
-data = Load(database = database, select = ['2002','2330'])# select mulit stock
-data = Load(database = database, load_all = True)# select all stock
-
-```
-##### 4.2 變數介紹 --- 1815 檔股票，25,330 筆 data
+##### 變數介紹 --- 1815 檔股票，25,330 筆 data
 
 | variable name | 變數名稱 | example (單位: 仟元/thousand) |
 |---------------|---------|----------|
@@ -166,18 +114,7 @@ https://stock.wearn.com/dividend.asp
 
 ------------------------------------------------------------
 ## 5. history taiwan stock Institutional Investors buy and sell ( 台股歷史外資買賣 )
-##### 5.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取台股歷史外資買賣
-database = 'InstitutionalInvestors'
-data = Load(database = database) 
-
-```
-##### 5.2 變數介紹 --- 2004-01-02 ~ now
+##### 變數介紹 --- 2004-01-02 ~ now
 
 | variable name | 變數名稱 | example (單位: 億元/hundred million) |
 |---------------|---------|----------|
@@ -202,18 +139,7 @@ https://stock.wearn.com/fundthree.asp?mode=search
 
 ------------------------------------------------------------
 ## 6. history Crude Oil Prices ( 國際油價 )
-##### 6.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取台股歷史外資買賣
-database = 'CrudeOilPrices'
-data = Load(database = database)
-
-```
-##### 6.2 變數介紹 --- 2000-01-01 ~ now
+##### 變數介紹 --- 2000-01-01 ~ now
 
 | variable name | 變數名稱 | example (單位: 美金) |
 |---------------|---------|----------|
@@ -229,21 +155,7 @@ https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
 
 ------------------------------------------------------------
 ## 7. history exchange rate ( 匯率 )
-##### 7.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取匯率 
-database = 'ExchangeRate'
-datalist = Load(database = database,datalist = True)# get country list
-data = Load(database = database, select = 'GBP') # select country GBP
-data = Load(database = database, select = ['GBP','HKD'])# select mulit country
-data = Load(database = database, load_all = True)# select all stock
-
-```
-##### 7.2 變數介紹 --- 2000-01-01 ~ now
+##### 變數介紹 --- 2000-01-01 ~ now
 
 | variable name | 變數名稱 | example (以美金為主要兌換匯率) |
 |---------------|---------|----------|
@@ -259,20 +171,6 @@ https://www.ofx.com/en-au/forex-news/historical-exchange-rates/
 
 ------------------------------------------------------------
 ## 8. history interest rate ( 央行利率 )
-##### 8.1 讀取 data 教學 : 
-```sh
-import sys
-sys.path.append('.../FinancialMining')
-from OpenData.Load import Load
-
-# 讀取央行利率
-database = 'InterestRate'
-datalist = Load(database = database,datalist = True)# get country list
-data = Load(database = database, select = 'FED') # select country FED
-data = Load(database = database, select = ['FED','ECB'])# select mulit country
-data = Load(database = database, load_all = True)# select all stock
-
-```
 ##### 8.2 變數介紹 --- 2000-01-01 ~ now
 
 | variable name | 變數名稱 | example (以美金為主要兌換匯率) |
