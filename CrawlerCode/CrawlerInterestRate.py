@@ -54,7 +54,6 @@ class CrawlerInterestRate(BasedClass.Crawler):
             #return full_country
     def get_value(self,i):
         
-        #-------------------------------------------------------------------------
         def get_url_id_and_country(tem,i):
         
             # find url id and country
@@ -62,8 +61,6 @@ class CrawlerInterestRate(BasedClass.Crawler):
             url_country = tem[i].text
             
             return url_id,url_country
-        #-------------------------------------------------------------------------
-        #-------------------------------------------------------------------------
         #-------------------------------------------------------------------------
         # get url id nad country
         tem = self.soup.find(id="chartPerfTabsMenu").find_all('li')
@@ -114,30 +111,35 @@ self = AutoCrawlerInterestRate()
 class AutoCrawlerInterestRate(CrawlerInterestRate):
     def __init__(self):
         super(AutoCrawlerInterestRate, self).__init__()    
-        
         self.database = 'Financial_DataSet'
+        
     def get_max_old_date(self,country):
         sql_text = "SELECT MAX(date) FROM `InterestRate` "
-        sql_text = sql_text + ' `country` = ' + country
+        sql_text = sql_text + ' WHERE `country` = "' + country + '"'
         tem = BasedClass.execute_sql2(self.database,sql_text)
-        self.old_date = tem[0][0]
+        old_date = tem[0][0]
         
-    def create_date(self,country):
+        return old_date
+
+    def crawler(self):
+
+        self.data = pd.DataFrame()
+        for i in range(len(self.full_country)):# i=0
+            #print(i)
+            new_data = self.get_value(i)
+            country = new_data.country[0]
+            old_date = self.get_max_old_date(country)
+            new_date = [ datetime.datetime.strptime( da , '%Y-%m-%d' ).date() for da in new_data.date ]            
+            update_date = [ new > old_date for new in new_date ]
+            
+            if sum(update_date)>0 :
+                data = new_data[update_date]
+                self.data = self.data.append(data)
         
-        self.get_max_old_date(country)
-        
-        today = datetime.datetime.now().date()
-        delta = today - self.old_date
-        
-        self.date = [ str( self.old_date + datetime.timedelta(i+1) ) for i in range(delta.days-1) ]
-    
-    
     def main(self):
         self.get_full_country_name()
-        #self.create_date()
         self.crawler()
         self.data.index = range(len(self.data))
-        
 
 def crawler_history():
     
@@ -156,11 +158,11 @@ def crawler_history():
     
 def auto_crawler_new():
     date_name = 'InterestRate'
-    ACCOP = AutoCrawlerInterestRate()
-    ACCOP.main()
-
+    ACIR = AutoCrawlerInterestRate()
+    ACIR.main()
+    
     C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
-    C2S.upload2sql(ACCOP.data)
+    C2S.upload2sql(ACIR.data,no_float_col = ['country','full_country_name','date'])
     #-------------------------------------------------
     print('save crawler process')
     BasedClass.save_crawler_process('InterestRate')   
