@@ -1,5 +1,5 @@
 
-#### load taiwan stock information
+#### Load Taiwan Stock information
       from FinancialMining.OpenData.Load import Load
 
       database = 'StockInfo'
@@ -9,7 +9,7 @@
       mulit_data = Load(database = database, select = ['2002','2330'])
       all_data = Load(database = database, load_all = True)
 -----------------------------------------------------------------
-#### load taiwan stock price
+#### Load Taiwan Stock Price
         from FinancialMining.OpenData.Load import Load
 
         database = 'StockPrice'
@@ -19,7 +19,7 @@
         mulit_data = Load(database = database, select = ['2002','2330'])#### select mulit stock
         all_data = Load(database = database, load_all = True)#### select all stock
 -----------------------------------------------------------------
-#### load taiwan stock FinancialStatements
+#### Load Taiwan Stock FinancialStatements
         from FinancialMining.OpenData.Load import Load
 
         database = 'FinancialStatements'
@@ -28,7 +28,7 @@
         data = Load(database = database, select = ['2002','2330'])#### select mulit stock
         data = Load(database = database, load_all = True)#### select all stock
 -----------------------------------------------------------------
-#### load taiwan stock StockDividend
+#### Load Taiwan Stock StockDividend
 
       from FinancialMining.OpenData.Load import Load
 
@@ -38,19 +38,19 @@
       data = Load(database = database, select = ['2002','2330'])#### select mulit stock
       data = Load(database = database, load_all = True)#### select all stock
 -----------------------------------------------------------------
-#### load taiwan stock InstitutionalInvestors buy and sell
+#### Load Taiwan Stock InstitutionalInvestors buy and sell
         from FinancialMining.OpenData.Load import Load
 
         database = 'InstitutionalInvestors'
         data = Load(database = database) 
 -----------------------------------------------------------------
-#### load CrudeOilPrices
+#### Load CrudeOilPrices
         from FinancialMining.OpenData.Load import Load
 
         database = 'CrudeOilPrices'
         data = Load(database = database)
 -----------------------------------------------------------------
-#### load ExchangeRate
+#### Load ExchangeRate
         from FinancialMining.OpenData.Load import Load
 
         database = 'ExchangeRate'
@@ -59,7 +59,7 @@
         data = Load(database = database, select = ['GBP','HKD'])#### select mulit country
         data = Load(database = database, load_all = True)#### select all stock
 -----------------------------------------------------------------
-#### load central band InterestRate
+#### Load Central Band InterestRate
         from FinancialMining.OpenData.Load import Load
 
         database = 'InterestRate'
