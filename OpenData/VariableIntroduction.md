@@ -67,7 +67,7 @@ http://www.tedc.org.tw/tedc/bank/otccomp/ch1.3.4.htm
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 4. Taiwan Stock Stock Dividend 
+#### 4. Taiwan Stock Dividend 
 ###### 1815 檔股票，25,330 筆 data
 
 | variable name | 變數名稱 | example (單位: 仟元/thousand) |
