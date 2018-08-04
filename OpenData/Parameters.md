@@ -11,7 +11,7 @@
     True : Getting the kind of data from database, it is values of select.
     False : No select.
     
-##### select : stock id( 2002 ) or country name ...etc.  ( Defult : [] )
+##### select : stock id( 2002 ) or country name ...etc.  ( Defult : )
     
     Select one or multi values from datalist.
     
