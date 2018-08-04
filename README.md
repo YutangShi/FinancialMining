@@ -7,7 +7,8 @@
      4. taiwan stock Stock Dividend 
      5. taiwan stock Institutional Investors buy and sell 
      6. 國際油價
-     7. 各國匯率
+     7. exchange rate
+     8. interest rate
 
 ##### Financial Visualize ( Development )
 ##### Financial Predict ( Development )
