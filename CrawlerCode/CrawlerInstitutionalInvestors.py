@@ -107,13 +107,9 @@ class AutoCrawlerInstitutionalInvestors(CrawlerInstitutionalInvestors):
         super(AutoCrawlerInstitutionalInvestors, self).__init__()        
         
         self.database = 'Financial_DataSet'
-    def get_max_old_date(self):
-        sql_text = "SELECT MAX(date) FROM `InstitutionalInvestors`"
-        tem = BasedClass.execute_sql2(self.database,sql_text)
-        self.old_date = str( tem[0][0] )
-            
+
     def main(self):
-        self.get_max_old_date()
+        self.old_date = str( self.get_max_old_date(datatable = 'InstitutionalInvestors') )
         self.date = self.create_date(self.old_date)
         self.crawler()
         self.data.index = range(len(self.data))

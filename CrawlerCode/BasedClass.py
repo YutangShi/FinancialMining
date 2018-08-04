@@ -43,8 +43,27 @@ class Crawler:
         #self.password = password
         #self.dataset_name = dataset_name
         #self.database = database
+    def get_max_old_date(self,date_name = 'date',datatable = 'GoldPrice',select = '',select_value = ''):
+        sql_text = "SELECT MAX(" + date_name + ") FROM `" + datatable + "` "
+        if select != '':
+            sql_text = sql_text + ' WHERE `' + select + '` = "' + select_value + '"'
+        tem = execute_sql2(self.database,sql_text)
+        old_date = tem[0][0]
+        
+        return old_date
+        
+    def date2days(self,date):
+        # date = '2018-08-03'
+        date = datetime.datetime.strptime(date,'%Y-%m-%d').date()
+        value = (date - datetime.date(1970,1,1)).days
+        value = value*60*60*24*1000
+        return value        
+    
     def days2date(self,day):
         #day = 631497600000
+        # 60s = 1min
+        # 60min = 1hr
+        day = int(day)
         day = int( day/1000/60/60/24 )
         value = datetime.date(1970,1,1) + datetime.timedelta(days = day)
         return value 
@@ -99,17 +118,19 @@ class Crawler2SQL:
         c.close() 
         conn.close()
         
-    def create_table(self,colname,text_col = [''],BIGINT_col = ['']):
+    def create_table(self,colname,text_col = [''],BIGINT_col = [''],dt_col = ['']):
         # colname = data.columns
         sql_string = 'create table ' + self.dataset_name + '('
         
         for col in colname:
-            if col in ['date','Date']:
+            if col in ['date','Date','datetime']:
                 sql_string = sql_string + col + ' Date,'
             elif col in text_col:
                 sql_string = sql_string + col + ' TEXT(100),'
             elif col in BIGINT_col:
-                sql_string = sql_string + col + ' BIGINT(64),'                
+                sql_string = sql_string + col + ' BIGINT(64),'
+            elif col in dt_col:
+                sql_string = sql_string + col + ' DATETIME,'
             else:
                 sql_string = sql_string + col + ' FLOAT(16),'
             
@@ -117,7 +138,7 @@ class Crawler2SQL:
         self.creat_sql_file(sql_string,self.database)  
 
 
-    def upload2sql(self,data,no_float_col = ['date'],int_col = [''] ):
+    def upload2sql(self,data,no_float_col = ['date','Date','datetime'],int_col = [''] ):
        
         def create_upload_string(data,dataset_name,i):# dataset_name = self.dataset_name
             colname = data.columns

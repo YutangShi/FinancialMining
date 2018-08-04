@@ -112,14 +112,6 @@ class AutoCrawlerInterestRate(CrawlerInterestRate):
     def __init__(self):
         super(AutoCrawlerInterestRate, self).__init__()    
         self.database = 'Financial_DataSet'
-        
-    def get_max_old_date(self,country):
-        sql_text = "SELECT MAX(date) FROM `InterestRate` "
-        sql_text = sql_text + ' WHERE `country` = "' + country + '"'
-        tem = BasedClass.execute_sql2(self.database,sql_text)
-        old_date = tem[0][0]
-        
-        return old_date
 
     def crawler(self):
 
@@ -128,7 +120,9 @@ class AutoCrawlerInterestRate(CrawlerInterestRate):
             #print(i)
             new_data = self.get_value(i)
             country = new_data.country[0]
-            old_date = self.get_max_old_date(country)
+            old_date = self.get_max_old_date(datatable = 'InterestRate', 
+                                             select = 'country',
+                                             select_value = country)# country = 'FED'
             new_date = [ datetime.datetime.strptime( da , '%Y-%m-%d' ).date() for da in new_data.date ]            
             update_date = [ new > old_date for new in new_date ]
             

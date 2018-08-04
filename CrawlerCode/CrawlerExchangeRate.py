@@ -157,12 +157,6 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
                 if te in all_c :
                     all_country.append(all_c)
         return all_country
-        
-    def get_max_old_date(self):
-        sql_table_name = self.all_country[0].split(' ')[0]
-        sql_text = "SELECT MAX(date) FROM `" + sql_table_name + "`"
-        tem = BasedClass.execute_sql2(self.database,sql_text)
-        self.old_date = tem[0][0]
 
     def crawler(self):
         if 'USD US Dollar' in self.all_country: 
@@ -176,7 +170,8 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
             self.data = self.data.append(data)
         
     def create_date(self):
-        self.get_max_old_date()
+        sql_table_name = self.all_country[0].split(' ')[0]
+        self.old_date = self.get_max_old_date(datatable = sql_table_name)
         
         today = datetime.datetime.now().date()
         delta = today - self.old_date
@@ -204,7 +199,7 @@ def crawler_history():
     #CER.data
     #CER.all_country
     # del data of length(data) < 500
-    all_country = list( pd.Series(CER.data['country']).unique() )
+    all_country = list( pd.Series(CER.data['country']).unique() )# country = 'EUR'
     for country in all_country:
         if len( CER.data[CER.data['country'] == country] ) < 500:
             #print( len( CER.data[CER.data['country'] == country] ) )

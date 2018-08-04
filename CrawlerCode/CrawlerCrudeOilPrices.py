@@ -132,23 +132,10 @@ self = AutoCrawlerCrudeOilPrices()
 class AutoCrawlerCrudeOilPrices(CrawlerCrudeOilPrices):
     def __init__(self):
         super(AutoCrawlerCrudeOilPrices, self).__init__()    
-        
         self.database = 'Financial_DataSet'
-    def get_max_old_date(self):
-        sql_text = "SELECT MAX(date) FROM `CrudeOilPrices`"
-        tem = BasedClass.execute_sql2(self.database,sql_text)
-        self.old_date = str( tem[0][0] )
-        
-    '''def create_date(self):
-        self.get_max_old_date()
-        
-        today = datetime.datetime.now().date()
-        delta = today - self.old_date
-        
-        self.date = [ str( self.old_date + datetime.timedelta(i+1) ) for i in range(delta.days-1) ]
-            '''
+
     def main(self):
-        self.get_max_old_date()
+        self.old_date = str( self.get_max_old_date(datatable = 'CrudeOilPrices') )
         self.date = self.create_date(self.old_date)
         self.crawler()
         self.data.index = range(len(self.data))
