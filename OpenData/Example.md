@@ -29,7 +29,7 @@
         data = Load(database = database, select = ['2002','2330'])#### select mulit stock
         data = Load(database = database, load_all = True)#### select all stock
 -----------------------------------------------------------------
-######## load taiwan stock StockDividend
+#### load taiwan stock StockDividend
 
       from FinancialMining.OpenData.Load import Load
 
