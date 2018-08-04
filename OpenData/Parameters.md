@@ -8,7 +8,7 @@
         
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#parameters'> Home </a></p>
 </html>       
 
 ##### datalist : True or False ( Defult : Flase )
@@ -18,7 +18,7 @@
         
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#parameters'> Home </a></p>
 </html>   
       
 ##### select : stock id( 2002 ) or country name (EUR) ...etc.  ( Defult : )
@@ -27,7 +27,7 @@
         
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#parameters'> Home </a></p>
 </html>   
       
 ##### load_all : True or False ( Defult : Flase )
@@ -37,6 +37,6 @@
         
 <html>
 <p align="right">
-  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#open-data'> Home </a></p>
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#parameters'> Home </a></p>
 </html>   
       
