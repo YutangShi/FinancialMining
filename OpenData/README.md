@@ -34,7 +34,6 @@ password : 123 <br>
   * [Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#8-interest-rate)
   * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#9-gold-price)
   
-------------------------------------------------------------
 <!---#### 目前現有 data 如下
 1. Taiwan Stock Introduction <br>
 2. Taiwan Stock Prices <br>
