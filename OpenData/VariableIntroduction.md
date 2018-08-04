@@ -14,7 +14,7 @@
 https://goodinfo.tw/StockInfo/StockList.asp
 
 
-<html><p align="left"><a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData'> Home </a> </p></html>
+<html><p align="right"><a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData'> Home </a> </p></html>
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
