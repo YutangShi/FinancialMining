@@ -1,6 +1,6 @@
 # Variable Introduction
 
-#### 1. 台股股票一般資訊( 代號、名稱、產業 ) 
+#### 1. Taiwan Stock Info
 ###### 1815 檔股票
 
 | variable name | 變數名稱 | example |
@@ -16,7 +16,7 @@ https://goodinfo.tw/StockInfo/StockList.asp
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 2. history taiwan stock prices ( 台股歷史股價 )
+#### 2. Taiwan Stock Prices 
 ###### 1815 檔股票，460萬筆 data， data size is 371 MB
 
 | variable name | 變數名稱 | example |
@@ -37,7 +37,7 @@ https://finance.yahoo.com/
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 3. history taiwan stock Financial Statements ( 台股歷史財報 )
+#### 3. Taiwan Stock Financial Statements
 ###### 1667 檔股票 ( 部分股票無財報 )，89635 筆 data
 
 | variable name | 變數名稱 | example (單位: 仟元/thousand) |
@@ -67,7 +67,7 @@ http://www.tedc.org.tw/tedc/bank/otccomp/ch1.3.4.htm
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 4. history taiwan stock Stock Dividend ( 台股歷史配股 )
+#### 4. Taiwan Stock Stock Dividend 
 ###### 1815 檔股票，25,330 筆 data
 
 | variable name | 變數名稱 | example (單位: 仟元/thousand) |
@@ -89,7 +89,7 @@ https://stock.wearn.com/dividend.asp
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 5. history taiwan stock Institutional Investors buy and sell ( 台股歷史外資買賣 )
+#### 5. Taiwan Stock Institutional Investors
 ###### 2004-01-02 ~ now
 
 | variable name | 變數名稱 | example (單位: 億元/hundred million) |
@@ -114,7 +114,7 @@ https://stock.wearn.com/fundthree.asp?mode=search
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 6. history Crude Oil Prices ( 國際油價 )
+#### 6. Crude Oil Prices
 ###### 2000-01-01 ~ now
 
 | variable name | 變數名稱 | example (單位: 美金) |
@@ -130,7 +130,7 @@ https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 7. history exchange rate ( 匯率 )
+#### 7. Exchange Rate 
 ###### 2000-01-01 ~ now
 
 | variable name | 變數名稱 | example (以美金為主要兌換匯率) |
@@ -146,7 +146,7 @@ https://www.ofx.com/en-au/forex-news/historical-exchange-rates/
 <html><p align="right"><a href = '#variable-introduction'> top </a> </p></html>
 
 ------------------------------------------------------------
-#### 8. history interest rate ( 央行利率 )
+#### 8. Interest Rate 
 ###### 2000-01-01 ~ now
 
 | variable name | 變數名稱 | example (以美金為主要兌換匯率) |
