@@ -9,6 +9,7 @@
      6. 國際油價
      7. exchange rate
      8. interest rate
+     9. gold price
 
 ##### Financial Visualize ( Development )
 ##### Financial Predict ( Development )
