@@ -24,12 +24,12 @@
           BOE Bank of England 英國
           SNB Swiss National Bank 瑞士
           RBA Reserve Bank of Australia 澳洲
-          BOC Bank of China 中國銀行
+          BOC Bank of Canada 加拿大
           RBNZ Reserve Bank of New Zealand 紐西蘭
           BOJ Bank of Japan 日本
           CBR The Central Bank of the Russian Federation 俄羅斯
           RBI Reserve Bank of India 印度
-          PBOC People's Bank of China  中國人民銀行
+          PBOC People's Bank of China  中國
           BCB Banco Central do Brasil 巴西
 2. Gold Price 100%
 3. Government bond  https://data.oecd.org/interest/long-term-interest-rates.htm
