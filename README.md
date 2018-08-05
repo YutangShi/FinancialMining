@@ -17,7 +17,7 @@
 ------------------------------------------------------------
 ### UPDATE
 ##### 2018/8/5
-1. 央行利率 100% ( Contains G8 )
+1. 央行利率 100% ( 13 Countrys, Contains G8 )
 
           FED Federal Reserve System 美國
           ECB European Central Bank 歐洲
@@ -32,11 +32,11 @@
           PBOC People's Bank of China  中國
           BCB Banco Central do Brasil 巴西
 2. Gold Price 100%
-3. Government bond  https://data.oecd.org/interest/long-term-interest-rates.htm
+3. Government bond ->>>  https://data.oecd.org/interest/long-term-interest-rates.htm
  
 ##### 2018/7/5 
 1. 國際油價 讀取範例 Load data example. (100%)
-3. 各國匯率 from https://www.xe.com/currencytables/?from=USD&date=1995-11-16 https://www.ofx.com/en-au/forex-news/historical-exchange-rates/ (100%)
+3. 各國匯率  ( 53 Countrys, Contains G8 )  (100%)
 
 ##### 2018/7/2 未來爬蟲順序
 2. 央行利率 from https://tradingeconomics.com/search.aspx?q=Interest%20Rate
@@ -59,7 +59,7 @@
      1.1.5 自動更新外資買賣 Auto crawler new taiwan stocks Institutional Investors buy and sell. (100%)
      1.1.6 S&P 500指數，並爬取該 500 家股票股價 ->>>
 #### 1.2 各國匯率 
-     1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.xe.com/currencytables/?from=USD&date=1995-11-16 )
+     1.2.1 以美元為基準，對於未來其他金融 data ，較容易進行轉換。( https://www.xe.com/currencytables/?from=USD&date=1995-11-16 https://www.ofx.com/en-au/forex-news/historical-exchange-rates/ )
 #### 1.3 國際油價
      1.3.1 https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/dayoil.asp 100%
      1.3.2 WTI https://www.eia.gov/dnav/pet/hist/rwtcD.htm
