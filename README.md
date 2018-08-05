@@ -31,7 +31,8 @@
           RBI Reserve Bank of India 印度
           PBOC People's Bank of China  中國人民銀行
           BCB Banco Central do Brasil 巴西
-2. Gold Price
+2. Gold Price 100%
+3. Government bond  https://data.oecd.org/interest/long-term-interest-rates.htm
  
 ##### 2018/7/5 
 1. 國際油價 讀取範例 Load data example. (100%)
