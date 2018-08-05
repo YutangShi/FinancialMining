@@ -7,7 +7,7 @@ password : 123 <br>--->
 
 * ### [Load Example](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md)<br>
   * [Taiwan Stock Information](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-information)
-  * [Taiwan Stock Pnformation](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-price)
+  * [Taiwan Stock Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-price)
   * [Taiwan Stock Financial Statements](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-financialstatements)
   * [Taiwan Stock Dividend](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-stockdividend)
   * [Taiwan Stock Institutional Investors](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-institutionalinvestors-buy-and-sell)
