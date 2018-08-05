@@ -46,7 +46,10 @@ class EverydayCrawlerStatus:
             
             if tem == today :
                 self.cdate['status'][i] = 'ok'
-            
+                
+    def main(self):
+        self.CrawlerStatus()
+        self.change_status()
 #----------------------------------------------------------------------------    
 # self = SendGmail(ECS.cdate)
 class SendGmail:
@@ -55,8 +58,8 @@ class SendGmail:
         Firefox_options.add_argument("--headless")
         Firefox_options.add_argument("--window-size=1920x1080")
         
-        self.driver = webdriver.Firefox(firefox_options=Firefox_options)
-        #self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox(firefox_options=Firefox_options)
+        self.driver = webdriver.Firefox()
         url = 'https://mail.google.com/mail/?tab=wm'
         self.driver.get(url)
         self.email = Key.email
