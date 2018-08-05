@@ -16,6 +16,23 @@
 
 ------------------------------------------------------------
 ### UPDATE
+##### 2018/8/5
+1. 央行利率 100%
+
+          FED Federal Reserve System 美國
+          ECB European Central Bank 歐洲
+          BOE Bank of England 英國
+          SNB Swiss National Bank 瑞士
+          RBA Reserve Bank of Australia 澳洲
+          BOC Bank of China 中國銀行
+          RBNZ Reserve Bank of New Zealand 紐西蘭
+          BOJ Bank of Japan 日本
+          CBR The Central Bank of the Russian Federation 俄羅斯
+          RBI Reserve Bank of India 印度
+          PBOC People's Bank of China  中國人民銀行
+          BCB Banco Central do Brasil 巴西
+2. Gold Price
+ 
 ##### 2018/7/5 
 1. 國際油價 讀取範例 Load data example. (100%)
 3. 各國匯率 from https://www.xe.com/currencytables/?from=USD&date=1995-11-16 https://www.ofx.com/en-au/forex-news/historical-exchange-rates/ (100%)
