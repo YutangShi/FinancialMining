@@ -40,6 +40,10 @@
 
 ##### 2018/7/2 未來爬蟲順序
 2. 央行利率 from https://tradingeconomics.com/search.aspx?q=Interest%20Rate
+4. Inflation (通貨膨脹) from https://tradingeconomics.com/russia/inflation-cpi
+5. Consumer Price Index (CPI) from https://tradingeconomics.com/russia/consumer-price-index-cpi
+6. Output Gap from https://tradingeconomics.com/russia/gdp-deflator
+7. GDP Deflator at time from https://tradingeconomics.com/russia/gdp
 8. S&P 500 from yahoo finance
 9. 黃金價格 from https://www.gold.org/data/gold-price
 -------------------------------------------------------------------------------------------------
