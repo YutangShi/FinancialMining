@@ -135,8 +135,7 @@ class SendGmail:
 def main():
     
     ECS = EverydayCrawlerStatus()
-    ECS.CrawlerStatus()
-    ECS.change_status()
+    ECS.main()
     
     SG = SendGmail(ECS.cdate)
     SG.main()
