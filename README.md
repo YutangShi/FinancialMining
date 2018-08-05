@@ -33,6 +33,7 @@
           BCB Banco Central do Brasil 巴西
 2. Gold Price 100%
 3. Government bond ->>>  https://data.oecd.org/interest/long-term-interest-rates.htm
+4. 期貨 ->>> https://www.investing.com/commodities/energies
  
 ##### 2018/7/5 
 1. 國際油價 讀取範例 Load data example. (100%)
@@ -82,7 +83,7 @@
      1.7.1 Output Gap (產出缺口)
      1.7.2 Inflation (通貨膨脹) https://tradingeconomics.com/russia/inflation-cpi
      1.7.3 GDP Deflator at time (國內生產總值平減指數) https://tradingeconomics.com/russia/gdp-deflator
-     1.7.4 期貨
+     1.7.4 期貨 https://www.investing.com/commodities/energies
      1.7.5 基金
      1.7.6 黃金價格 https://www.gold.org/data/gold-price
      1.7.7 房地產價格
