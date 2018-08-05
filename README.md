@@ -17,7 +17,7 @@
 ------------------------------------------------------------
 ### UPDATE
 ##### 2018/8/5
-1. 央行利率 100%
+1. 央行利率 100% ( Contains G8 )
 
           FED Federal Reserve System 美國
           ECB European Central Bank 歐洲
