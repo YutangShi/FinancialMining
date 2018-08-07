@@ -1,12 +1,13 @@
 
-
+import os
+path = os.listdir('/home')[0]
 import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import datetime
 import re
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 
 '''
@@ -105,7 +106,8 @@ class CrawlerGoldPrice(BasedClass.Crawler):
 def crawler_history():
     date_name = 'GoldPrice'
     # get hostory by download https://www.gold.org/data/gold-price file
-    data = pd.read_csv('glod.csv',skiprows = 1)
+    file_path = '/home/' + path + '/github/FinancialMining/CrawlerCode/'
+    data = pd.read_csv(file_path + 'glod.csv',skiprows = 1)
     
     date = [ datetime.datetime.strptime(d,'%Y/%m/%d').date() for d in data.date ]
     data = data[ [ d < datetime.datetime.strptime('2018-1-1','%Y-%m-%d').date() for d in date ] ]    

@@ -1,12 +1,13 @@
 
-
+import os
+path = os.listdir('/home')[0]
 import pandas as pd
 from selenium import webdriver
 import numpy as np
 import sys
 import pymysql
 from selenium.webdriver.firefox.options import Options
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 import Key
 from FinancialMining.CrawlerCode import BasedClass
 

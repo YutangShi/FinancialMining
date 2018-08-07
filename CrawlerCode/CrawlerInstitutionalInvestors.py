@@ -1,10 +1,11 @@
 
-
+import os
+path = os.listdir('/home')[0]
 import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 
 '''

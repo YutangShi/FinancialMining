@@ -1,29 +1,13 @@
 
-'''
-0 REV：營業收入 (Gross Revenue)
-1 COST：營業成本 (Cost of Goods Sold or Manufacturing)
-2 PRO：營業毛利 (Gross Profit)
-3 GM : 毛利率 (Gross margin)
-4 OE：營業費用 (Operating Expenses)
-5 OI：營業淨利(損) (Operating Income)
-6 OIM : 營業利益率 (Operating Profit Margin)
-*** NNOI：營業外收支淨額 (Net Non-operating Income)
-7 BTAX：稅前純益 (Income before Tax)
-  BTAXM 稅前純益率 (Income before Tax Margin)
-8 TAX：所得稅費用 (Income Tax Expense)
-10 NI：本期稅後淨利 (Net Income)
-11 NPM : 純益率 ( Net Profit Margin)
-12 EPS：每股盈餘 (Earnings Per Share)
-單位: 仟元
-'''
-
+import os
+path = os.listdir('/home')[0]
 import requests
 import sys
 from bs4 import BeautifulSoup
 import re
 import pandas as pd
 import numpy as np
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 #------------------------------------------------------------------------------
 # self = CrawlerFinancialStatements()

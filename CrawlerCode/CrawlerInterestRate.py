@@ -1,10 +1,9 @@
 
 
-'''
-https://www.investing.com/central-banks
 
-
-'''
+#https://www.investing.com/central-banks
+import os
+path = os.listdir('/home')[0]
 #from joblib import Parallel, delayed
 #import multiprocessing
 import requests
@@ -12,7 +11,7 @@ import sys
 import datetime
 from bs4 import BeautifulSoup
 import pandas as pd
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 
 '''

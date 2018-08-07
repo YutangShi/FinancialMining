@@ -1,21 +1,18 @@
 
 
-'''
-https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
-西德州 WTI
-布蘭特 Brent
-杜拜   Dubai
-'''
+
+# https://www2.moeaboe.gov.tw/oil102/oil2017/A02/A0201/daytable.asp
+import os
+path = os.listdir('/home')[0]
 from joblib import Parallel, delayed
 import multiprocessing
-
 import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import datetime
 import re
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 
 '''

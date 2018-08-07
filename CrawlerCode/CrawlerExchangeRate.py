@@ -1,50 +1,16 @@
 
 
-'''
-https://www.xe.com/currencytables/?from=USD&date=1995-11-16
 
-US Dollar
-Euro
-British Pound
-Indian Rupee
-Australian Dollar
-Canadian Dollar
-Singapore Dollar
-Swiss Franc
-Malaysian Ringgit
-Japanese Yen
-Chinese Yuan Renminbi
-New Zealand Dollar
-Hungarian Forint
-Hong Kong Dollar
-South African Rand
-Philippine Piso
-Swedish Krona
-Indonesian Rupiah
-Saudi Arabian Riyal
-South Korean Won
-Egyptian Pound
-Norwegian Krone
-Danish Krone
-Pakistani Rupee
-Israeli Shekel
-Chilean Peso
-Taiwan New Dollar
-Icelandic Krona
-Jamaican Dollar
-Trinidadian Dollar
-Barbadian or Bajan Dollar
-Bermudian Dollar
-Bahamian Dollar
-
-'''
+# https://www.xe.com/currencytables/?from=USD&date=1995-11-16
+import os
+path = os.listdir('/home')[0]
 import requests
 import sys
 from bs4 import BeautifulSoup
 import pandas as pd
 import datetime
 import re
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 
 '''

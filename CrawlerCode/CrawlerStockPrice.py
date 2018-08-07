@@ -1,12 +1,13 @@
 
-
+import os
+path = os.listdir('/home')[0]
 from pandas_datareader import data as pdr
 import sys
 import pandas as pd
 import datetime
 import fix_yahoo_finance as yf
 import numpy as np
-sys.path.append('/home/linsam/github/FinancialMining')
+sys.path.append('/home/'+ path +'/github')
 from CrawlerCode import BasedClass
 
 #-------------------------------------------------------------------   

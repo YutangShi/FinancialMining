@@ -43,10 +43,27 @@ class Crawler:
         #self.password = password
         #self.dataset_name = dataset_name
         #self.database = database
-    def get_max_old_date(self,date_name = 'date',datatable = 'GoldPrice',select = '',select_value = ''):
+    def get_max_old_date(self,date_name = 'date',
+                         datatable = 'BondsInterestRates',
+                         select = '',
+                         select_value = ''):
+        # select = ['country','TypesOfBonds']; select_value = ['AUS','ten_years']
         sql_text = "SELECT MAX(" + date_name + ") FROM `" + datatable + "` "
-        if select != '':
-            sql_text = sql_text + ' WHERE `' + select + '` = "' + select_value + '"'
+        
+        if str( type(select) ) == "<class 'str'>":
+            select = [select]     
+            
+        if str( type(select_value) ) == "<class 'str'>":
+            select_value = [select_value]   
+            
+        if len(select) > 0:
+            sql_text = sql_text + ' WHERE ' 
+            for i in range(len(select)):
+                sql_text = sql_text + '`' + select[i] + '` = "' + select_value[i] + '"'
+                if i == (len(select)-1): 123
+                else:
+                    sql_text = sql_text + ' and '
+                    
         tem = execute_sql2(self.database,sql_text)
         old_date = tem[0][0]
         

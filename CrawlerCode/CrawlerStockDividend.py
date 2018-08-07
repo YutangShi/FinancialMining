@@ -1,9 +1,7 @@
 
-'''
-台股歷史配股
-'''
 # https://stock.wearn.com/dividend.asp?kind=2317
-
+import os
+path = os.listdir('/home')[0]
 import requests
 import sys
 from bs4 import BeautifulSoup
@@ -11,7 +9,7 @@ import pandas as pd
 import numpy as np
 import pymysql
 import re
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/'+ path +'/github')
 import Key
 from FinancialMining.CrawlerCode import BasedClass
 from FinancialMining.OpenData import Load
