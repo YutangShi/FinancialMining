@@ -20,7 +20,7 @@ self = CrawlerExchangeRate()
 
 class CrawlerExchangeRate(BasedClass.Crawler):
     
-    def get_all_country(self):
+    def __init__(self):
         self.all_country = ['GBP British Pound',
                             'CAD Canadian Dollar',
                             'CNY Chinese Yuan',
@@ -28,20 +28,7 @@ class CrawlerExchangeRate(BasedClass.Crawler):
                             'GBP British Pound',
                             'JPY Japanese Yen',
                             'TWD Taiwanese New Dollar']
-        '''
-        url = 'https://www.ofx.com/en-au/forex-news/historical-exchange-rates/'
-        
-        res = requests.get(url,verify = True)     
-        res.encoding = 'big5'      
-        soup = BeautifulSoup(res.text, "lxml")        
-    
-        self.all_country = []
-        tem = soup.find_all('optgroup',{'label':'All Currencies'})
-        tem2 = tem[0].find_all('option')
-        
-        for te in tem2:
-            self.all_country.append( te.text )    
-        '''
+
     def create_soup(self,country):
         # country = self.all_country[5]
         country = country.split(' ')[0]
@@ -86,9 +73,7 @@ class CrawlerExchangeRate(BasedClass.Crawler):
             self.data = self.data.append(data)
         self.data.index = range(len(self.data))
     def main(self):
-        self.get_all_country()
         self.crawler()
-        
 
 '''
 
@@ -98,52 +83,37 @@ self = AutoCrawlerExchangeRate()
 class AutoCrawlerExchangeRate(CrawlerExchangeRate):
     def __init__(self):
         super(AutoCrawlerExchangeRate, self).__init__()        
-        self.database = 'ExchangeRate'
+        self.database = 'Financial_DataSet'
         
-    def get_sql_country(self):
-        self.get_all_country()
-        sql_text = 'SHOW TABLES'
-        tem = BasedClass.execute_sql2(self.database,sql_text)
-        all_table = [ te[0] for te in tem ]
-        all_country = []
-        for te in all_table:
-            for all_c in self.all_country:
-                if te in all_c :
-                    all_country.append(all_c)
-        return all_country
-
-    def crawler(self):
-        if 'USD US Dollar' in self.all_country: 
-            self.all_country.remove('USD US Dollar')
-        #------------------------------------------------------------------------
-
-        self.data = pd.DataFrame()
-        for i in range(len(self.all_country)):# i = 0
-            print(str(i)+'/'+str(len(self.all_country)))
-            data = self.get_value(i)
-            self.data = self.data.append(data)
+    def create_date(self):        
+        self.old_date = pd.DataFrame()
+        country, date = [], []
+        for c in self.all_country:
+        #c = self.all_country[0]
+            d = self.get_max_old_date(date_name = 'date',
+                                      datatable = 'ExchangeRate',
+                                      select = 'country',
+                                      select_value = c)
+            country.append(c)
+            date.append(d)
         
-    def create_date(self):
-        sql_table_name = self.all_country[0].split(' ')[0]
-        self.old_date = self.get_max_old_date(datatable = sql_table_name)
-        
-        today = datetime.datetime.now().date()
-        delta = today - self.old_date
-        
-        self.date = [ str( self.old_date + datetime.timedelta(i+1) ) for i in range(delta.days-1) ]
+        self.old_date['country'] = country
+        self.old_date['date'] = date
             
-    def main(self,country):
-        self.all_country = [country]
+    def main(self):
         self.create_date()
         self.crawler()
-        
-        col = list( self.data.columns )
-        col.remove('country')
-        self.data = self.data[col]
-        date = pd.to_datetime(self.data.date)
-        self.data = self.data[ date >= pd.to_datetime(self.date[0]) ]
-        
-        self.data.index = range(len(self.data))
+
+        data = pd.DataFrame()
+        for i in range(len(self.old_date['country'])):
+            print(i)
+            country = self.old_date['country'][i]
+            tem = self.data[ self.data['country'] == country ]
+            date = [ datetime.datetime.strptime(d,'%Y-%m-%d').date() for d in tem['date'] ]
+            data = data.append( tem[ [ d > self.old_date['date'][i] for d in date ] ] )
+            
+        data.index = range(len(data))
+        self.data = data
         
 def crawler_history():
     date_name = 'ExchangeRate'
@@ -161,18 +131,12 @@ def crawler_history():
     BasedClass.create_datatable('ExchangeRate')
     
 def auto_crawler_new():
-    
+    date_name = 'ExchangeRate'
     ACCOP = AutoCrawlerExchangeRate()
-    all_country = ACCOP.get_sql_country()
-    # for
-    for country in all_country:
-        print(country)
-        ACCOP.main(country)
-        
-        date_name = country.split(' ')[0]
-        C2S = BasedClass.Crawler2SQL(date_name,'ExchangeRate')
-        C2S.upload2sql(ACCOP.data)
-
+    ACCOP.main()
+    
+    C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
+    C2S.upload2sql(ACCOP.data, no_float_col = ['date','country'])
     #------------------------------------------------------
     print('save crawler process')
     BasedClass.save_crawler_process('ExchangeRate')    
