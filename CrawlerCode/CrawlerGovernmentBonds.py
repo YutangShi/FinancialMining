@@ -140,7 +140,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
         data.columns = colname
         data_name = re.search('[0-9]+[-]+[a-zA-Z]+',header).group(0)
         data['data_name'] = data_name
-        data['country'] = header.split(data_name)[0].replace(' ','_')
+        data['country'] = header.split(' '+data_name)[0].replace(' ','_')
         return data
     
     def get_st_date(self,header):
