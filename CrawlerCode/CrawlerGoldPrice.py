@@ -101,8 +101,6 @@ class CrawlerGoldPrice(BasedClass.Crawler):
             self.data = self.data[ [ d > old_date for d in date ] ]
             self.data.index = range(len(self.data))
         
-
-
 def crawler_history():
     date_name = 'GoldPrice'
     # get hostory by download https://www.gold.org/data/gold-price file
