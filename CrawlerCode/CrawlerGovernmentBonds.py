@@ -171,6 +171,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
         self.data = data
         
     def main(self):
+        self.get_country_url()
         self.get_curr_id_name()
         self.crawler()
 
