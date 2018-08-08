@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import pymysql
+import re
 host = '114.32.89.248'
 #host = 'localhost'
 user = 'guest'
@@ -126,6 +127,7 @@ class LoadData:
         return self.data 
     
     def datalist(self):
+        
         tem = execute_sql2(
                 database = self.database,
                 sql_text = 'SELECT distinct `' + self.list_col_name + '` FROM `' + self.data_name + '`')
@@ -168,6 +170,7 @@ def StockInfo(select = [],load_all = False,datalist = False):
     
     self = ClassStockInfo()  
     stock = select
+    data = pd.DataFrame()
     
     if stock != [] and load_all == False and datalist == False:
         data = self.load(stock) # stock = '2002'
@@ -267,6 +270,7 @@ def StockPrice(select = [],load_all = False,datalist = False):
     
     self = ClassStockPrice()  
     stock = select
+    data = pd.DataFrame()
     
     if stock != [] and load_all == False and datalist == False:
         data = self.load(stock)
@@ -308,6 +312,7 @@ def FinancialStatements(select = [],load_all = False,datalist = False):
     
     self = ClassFinancialStatements()  
     stock = select
+    data = pd.DataFrame()
     
     if stock != [] and load_all == False and datalist == False:
         data = self.load(stock)
@@ -346,6 +351,7 @@ def StockDividend(select = [],load_all = False,datalist = False):
     
     self = ClassStockDividend()  
     stock = select
+    data = pd.DataFrame()
     
     if stock != [] and load_all == False and datalist == False:
         data = self.load(stock)
@@ -384,6 +390,7 @@ class ClassInstitutionalInvestors(LoadData):
 def InstitutionalInvestors():
     
     self = ClassInstitutionalInvestors()  
+    data = pd.DataFrame()
     data = self.load()
         
     return data
@@ -418,6 +425,7 @@ class ClassCrudeOilPrices(LoadData):
 def CrudeOilPrices():
     
     self = ClassCrudeOilPrices()  
+    data = pd.DataFrame()
     data = self.load_all()
         
     return data
@@ -432,11 +440,10 @@ data = LoadData.CrudeOilPrices()
 
 '''
 #---------------------------------------------------------------
-# self = ExchangeRate()
+# self = ClassExchangeRate()
 class ClassExchangeRate(LoadData):
     
     def __init__(self):
-        
         super(ClassExchangeRate, self).__init__(
                 database = 'Financial_DataSet',
                 data_name = 'ExchangeRate')
@@ -486,6 +493,7 @@ def ExchangeRate(select = [],load_all = False,datalist = False):
     
     self = ClassExchangeRate()  
     country = select
+    data = pd.DataFrame()
     
     if country != [] and load_all == False and datalist == False:
         data = self.load(country)
@@ -500,12 +508,14 @@ def ExchangeRate(select = [],load_all = False,datalist = False):
 
 '''
 import sys
-sys.path.append('E:/text_mining')
-from OpenData import LoadData
-data = LoadData.ExchangeRate('EUR')
-data = LoadData.ExchangeRate(['EUR','JPY'])
-data = LoadData.ExchangeRate(load_all = True)
-data = LoadData.ExchangeRate(datalist = True)
+sys.path.append('/home/sam/github')
+from FinancialMining.OpenData import Load
+
+datalist = Load.ExchangeRate(datalist = True)
+data = Load.ExchangeRate(datalist[0])
+data = Load.ExchangeRate([datalist[0],datalist[1]])
+data = Load.ExchangeRate(load_all = True)
+
 '''
 #---------------------------------------------------------------
 class ClassInterestRate(LoadData):
@@ -551,12 +561,13 @@ class ClassInterestRate(LoadData):
             value = self.get_data(country = cou)
             data = data.append( value )        
  
-        return data  
-    
+        return data
+        
 def InterestRate(select = [],load_all = False,datalist = False):
     
     self = ClassInterestRate()  
     country = select
+    data = pd.DataFrame()
     
     if country != [] and load_all == False and datalist == False:
         data = self.load(country)
@@ -595,6 +606,7 @@ class ClassGoldPrice(LoadData):
 def GoldPrice(select = [],load_all = False,datalist = False):
     
     self = ClassGoldPrice()  
+    data = pd.DataFrame()
     #country = select
     data = self.load()
         
@@ -603,10 +615,114 @@ def GoldPrice(select = [],load_all = False,datalist = False):
 import sys
 sys.path.append('E:/text_mining')
 from OpenData import LoadData
-
 data = Lo
 '''
 #---------------------------------------------------------------
+class ClassGovernmentBonds(LoadData):
+    def __init__(self):
+        super(ClassGovernmentBonds, self).__init__(
+                database = 'Financial_DataSet',
+                data_name = 'GovernmentBonds')
+
+    def get_data(self , all_data = '' , country = '' , data_name = '' ):
+        
+        self.data = pd.DataFrame()
+        for j in range(len(self.col_name)):
+            #print(j)
+            col = self.col_name[j]
+            text = 'select ' + col + ' from ' + self.data_name
+            
+            if all_data == 'T': 
+                123
+            else:
+                text = text + " WHERE `country` = '"+str( country )+"'"
+                text = text + " AND `data_name` = '"+str( data_name )+"'"
+                
+            self.execute2sql(text,col)
+
+        return self.data
+        
+    def load_all(self):
+        
+        self.get_col_name()
+        self.data = self.get_data(all_data='T')
+
+        return self.data
+    
+    def load(self, governmentbond ):                        
+        self.get_col_name()
+        #---------------------------------------------------------------   
+        data = pd.DataFrame()
+        if str( type(governmentbond) ) == "<class 'str'>":
+            governmentbond = [governmentbond]
+            
+        for gb in governmentbond:# 
+            tem = re.search('[0-9]+',gb).group(0)
+            country = gb.split(tem)[0]
+            country = country[:len(country)-1]
+            data_name = gb.replace(country + ' ','')
+            
+            value = self.get_data(country = country , 
+                                  data_name = data_name )
+            data = data.append( value )        
+ 
+        return data  
+    
+    def datalist(self):
+        data_name = []
+        curr_id = execute_sql2(
+                self.database,
+                'SELECT DISTINCT `curr_id` FROM `GovernmentBonds` WHERE 1')
+        self.curr_id = [ c[0] for c in curr_id ]
+        
+        country = execute_sql2(
+                self.database,
+                'SELECT DISTINCT `country` FROM `GovernmentBonds` WHERE 1') 
+        country = [ c[0] for c in country ]
+        
+        for c in country:
+            #c = country[0]
+            sql_text = ( 'SELECT DISTINCT `data_name` FROM `GovernmentBonds` ' + 
+                        'WHERE `country` = "' + c + '"' )
+            value = execute_sql2(
+                    self.database,
+                    sql_text)
+            value = [ d[0] for d in value ]
+            [ data_name.append( c + ' ' + v ) for v in value ]     
+            
+        return data_name
+    
+def GovernmentBonds(select = [],load_all = False,datalist = False):
+    
+    self = ClassGovernmentBonds()  
+    governmentbond = select
+    data = pd.DataFrame()
+    
+    if governmentbond != [] and load_all == False and datalist == False:
+        data = self.load(governmentbond)
+        
+    elif governmentbond == [] and load_all == True and datalist == False:
+        data = self.load_all()
+        
+    elif governmentbond == [] and load_all == False and datalist == True:
+        data = list( self.datalist() )
+        
+    data = data.drop('curr_id', axis=1)
+    
+    return data
+'''
+import sys
+sys.path.append('/home/sam/github')
+from FinancialMining.OpenData import Load
+
+datalist = Load.GovernmentBonds(datalist = True)
+data = Load.GovernmentBonds( datalist[0] )
+data = Load.GovernmentBonds([datalist[0],datalist[1]])
+data = Load.GovernmentBonds(load_all = True)
+
+data = Load.GovernmentBonds( 'abc' )
+
+'''
 #---------------------------------------------------------------
 
 def Load(database = '', select = [], load_all = False, datalist = False):
