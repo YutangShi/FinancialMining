@@ -218,10 +218,10 @@ def crawler_history():
     
     C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
     try:
-        C2S.create_table(self.data.columns,text_col = ['data_name','country'])
+        C2S.create_table(self.data.columns,text_col = ['data_name','country','curr_id'])
     except:
         123
-    C2S.upload2sql( self.data,no_float_col = ['Date','data_name','country'] )
+    C2S.upload2sql( self.data,no_float_col = ['Date','data_name','country','curr_id'] )
     print('create process table')
     BasedClass.create_datatable(date_name)
     
@@ -231,7 +231,7 @@ def auto_crawler_new():
     ACGB.main()
     
     C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
-    C2S.upload2sql(ACGB.data,no_float_col = ['Date','data_name','country'])
+    C2S.upload2sql(ACGB.data,no_float_col = ['Date','data_name','country','curr_id'])
     #-------------------------------------------------
     print('save crawler process')
     BasedClass.save_crawler_process(date_name)
