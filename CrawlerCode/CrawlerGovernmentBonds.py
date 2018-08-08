@@ -140,7 +140,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
         data.columns = colname
         data_name = re.search('[0-9]+[-]+[a-zA-Z]+',header).group(0)
         data['data_name'] = data_name
-        data['country'] = header.split(data_name)[0].replace(' ','')
+        data['country'] = header.split(data_name)[0].replace(' ','_')
         return data
     
     def get_st_date(self,header):
@@ -159,7 +159,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
         
         data = pd.DataFrame()
         for j in range(len(self.curr_id)):# j = 9
-            print(j)
+            print(str(j)+'/'+str(len(self.curr_id)))
             cid = self.curr_id[j]
             header = self.data_name[j] + ' Bond Yield Historical Data'
             st_date,end_date = self.get_st_date(header), self.get_end_date()
@@ -199,8 +199,8 @@ class AutoCrawlerGovernmentBonds(CrawlerGovernmentBonds):
         
         return m + '/' + d + '/' + y
     
-    def get_curr_id_name(self,url):
-
+    def get_curr_id_name(self):
+        self.data_name = []
         curr_id = BasedClass.execute_sql2(
                 self.database,
                 'SELECT DISTINCT `curr_id` FROM `GovernmentBonds` WHERE 1')
@@ -211,13 +211,16 @@ class AutoCrawlerGovernmentBonds(CrawlerGovernmentBonds):
                 'SELECT DISTINCT `country` FROM `GovernmentBonds` WHERE 1') 
         country = [ c[0] for c in country ]
         
-        data_name = BasedClass.execute_sql2(
-                self.database,
-                'SELECT DISTINCT `data_name` FROM `GovernmentBonds` WHERE `country` = "' + country[0] + '"' )
-        
-        data_name = [ d[0] for d in data_name ]
-        
-        
+        for c in country:
+            #c = country[0]
+            sql_text = ( 'SELECT DISTINCT `data_name` FROM `GovernmentBonds` ' + 
+                        'WHERE `country` = "' + c + '"' )
+            value = BasedClass.execute_sql2(
+                    self.database,
+                    sql_text)
+            value = [ d[0] for d in value ]
+            
+            [ self.data_name.append( c + ' ' + v ) for v in value ]
         
     def main(self):
         self.get_curr_id_name()
