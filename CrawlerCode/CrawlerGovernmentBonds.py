@@ -53,29 +53,37 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
             if tem in select:
                 self.country_url.append(country_url[i])
                 
-    def get_curr_id_name(self,url):
+    def get_curr_id_name(self):
         
         #url = self.country_url[6]
-        headers = {'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Connection': 'keep-alive',
-        'Host': 'www.investing.com',
-        'Referer': url,
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36',
-        'X-Requested-With': 'XMLHttpRequest'}
-        
-        res = requests.get(url,verify = True,headers = headers)  
-        soup = BeautifulSoup(res.text, "lxml")
-        
-        tem = soup.find_all('span',{'data-id':re.compile('[0-9]*'),
-                                    'data-name':re.compile('[-]+')
-                                    })
-        curr_id = [ te['data-id'] for te in tem ]
-        data_name = [ te['data-name'] for te in tem ]
-        
-        return curr_id, data_name
-    
+        def get_value(url):
+            headers = {'Accept': '*/*',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Connection': 'keep-alive',
+            'Host': 'www.investing.com',
+            'Referer': url,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.84 Safari/537.36',
+            'X-Requested-With': 'XMLHttpRequest'}
+            
+            res = requests.get(url,verify = True,headers = headers)  
+            soup = BeautifulSoup(res.text, "lxml")
+            
+            tem = soup.find_all('span',{'data-id':re.compile('[0-9]*'),
+                                        'data-name':re.compile('[-]+')
+                                        })
+            curr_id = [ te['data-id'] for te in tem ]
+            data_name = [ te['data-name'] for te in tem ]
+            return curr_id, data_name
+        #------------------------------------------------
+        self.curr_id, self.data_name = [], []
+        for i in range(len(self.country_url)):# i = 6
+            print(i)
+            url = self.country_url[i]
+            ci, dn = get_value(url)
+            [ self.curr_id.append(c) for c in ci ]
+            [ self.data_name.append(d) for d in dn ]
+            
     def get_value(self,cid,header,st_date,end_date):
         def take_value(tem2):
         
@@ -91,10 +99,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
             return data
 
         bonds_url = 'https://www.investing.com/instruments/HistoricalDataAjax'
-
-        
         form_data = {'curr_id': cid,
-        #'header': 'France 1-Month Bond Yield Historical Data',
         'header' : header,
         'st_date': st_date,
         'end_date': end_date,
@@ -125,7 +130,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
         
         colname = tem[0].find_all('th')
         colname = [ c.text.replace(' %','Percent') for c in colname ] 
-        # colname.append('data_name'); colname.append('country');
+
         data = pd.DataFrame()
         for i in range(1,len(tem)-1):
             tem2 = tem[i].find_all('td')
@@ -151,27 +156,22 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
         return m + '/' + d + '/' + y
     
     def crawler(self):
+        
         data = pd.DataFrame()
-        for i in range(len(self.country_url)):# i = 6
-            print(i)
-            url = self.country_url[i]
-            curr_id, data_name = self.get_curr_id_name(url)
-            #print(data_name)
+        for j in range(len(self.curr_id)):# j = 9
+            print(j)
+            cid = self.curr_id[j]
+            header = self.data_name[j] + ' Bond Yield Historical Data'
+            st_date,end_date = self.get_st_date(header), self.get_end_date()
             
-            for j in range(len(curr_id)):# j = 9
-                print(j)
-                cid = curr_id[j]
-                header = data_name[j] + ' Bond Yield Historical Data'
-                st_date,end_date = self.get_st_date(header), self.get_end_date()
-                
-                value = self.get_value(cid,header,st_date,end_date)
-                value['curr_id'] = cid
-                data = data.append(value)
+            value = self.get_value(cid,header,st_date,end_date)
+            value['curr_id'] = cid
+            data = data.append(value)
         data.index = range(len(data))
         self.data = data
         
     def main(self):
-        self.get_country_url()
+        self.get_curr_id_name()
         self.crawler()
 
 #-------------------------------------------------------------
@@ -200,14 +200,27 @@ class AutoCrawlerGovernmentBonds(CrawlerGovernmentBonds):
         return m + '/' + d + '/' + y
     
     def get_curr_id_name(self,url):
-        # curr_id, data_name = self.get_curr_id_name(url)
-        123
+
+        curr_id = BasedClass.execute_sql2(
+                self.database,
+                'SELECT DISTINCT `curr_id` FROM `GovernmentBonds` WHERE 1')
+        self.curr_id = [ c[0] for c in curr_id ]
+        
+        country = BasedClass.execute_sql2(
+                self.database,
+                'SELECT DISTINCT `country` FROM `GovernmentBonds` WHERE 1') 
+        country = [ c[0] for c in country ]
+        
+        data_name = BasedClass.execute_sql2(
+                self.database,
+                'SELECT DISTINCT `data_name` FROM `GovernmentBonds` WHERE `country` = "' + country[0] + '"' )
+        
+        data_name = [ d[0] for d in data_name ]
         
         
-        #return curr_id, data_name
-    
+        
     def main(self):
-        self.get_country_url()
+        self.get_curr_id_name()
         self.crawler()
         
 #-------------------------------------------------------------

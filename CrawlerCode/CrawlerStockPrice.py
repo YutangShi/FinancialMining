@@ -8,7 +8,7 @@ import datetime
 import fix_yahoo_finance as yf
 import numpy as np
 sys.path.append('/home/'+ path +'/github')
-from CrawlerCode import BasedClass
+from FinancialMining.CrawlerCode import BasedClass
 
 #-------------------------------------------------------------------   
 '''
