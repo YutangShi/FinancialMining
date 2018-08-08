@@ -434,69 +434,51 @@ data = LoadData.CrudeOilPrices()
 #---------------------------------------------------------------
 # self = ExchangeRate()
 class ClassExchangeRate(LoadData):
-    #---------------------------------------------------------------    
-    def __init__(self):
-        super(ClassExchangeRate, self).__init__(
-                database = 'ExchangeRate',
-                data_name = 'StockInfo') 
-        
-        self.database = 'ExchangeRate'
-        tem = execute_sql2(database = self.database,
-                           sql_text = 'SHOW TABLES')
-        self.all_country = [ te[0] for te in tem ]
-        #self.list_col_name = 'stock_id'   
-        #---------------------------------------------------------------
     
-    def load(self,country):# stock = '2330'
-        def check(country,all_country):
-
-            if country in all_country:
-                return 1
+    def __init__(self):
+        
+        super(ClassExchangeRate, self).__init__(
+                database = 'Financial_DataSet',
+                data_name = 'ExchangeRate')
+        self.list_col_name = 'country'   
+    
+    def get_data(self,all_data = '',country = [] ):
+        
+        self.data = pd.DataFrame()
+        for j in range(len(self.col_name)):
+            #print(j)
+            col = self.col_name[j]
+            text = 'select ' + col + ' from ' + self.data_name
+            
+            if all_data == 'T': 
+                123
             else:
-                print( country + " isn't exist")
-                return 0  
-            
-        def get_value(country):
+                text = text + " WHERE `country` LIKE '"+str( country )+"'"
+                
+            self.execute2sql(text,col)
 
-            bo = check(country,self.all_country)
-            if bo == 0 :
-                return pd.DataFrame()
-            self.data_name = country
-            self.get_col_name()
+        return self.data
         
-            self.data = pd.DataFrame()
-            for j in range(len(self.col_name)):
-                #print(j)
-                col = self.col_name[j]
-                text = 'select ' + col + ' from ' + self.data_name
-                self.execute2sql(text,col)
-            self.data['country'] = country
-            
-            return self.data   
+    def load_all(self):
         
+        self.get_col_name()
+        self.data = self.get_data(all_data='T')
+
+        return self.data
+    
+    def load(self,country ):                        
+        self.get_col_name()
+        #---------------------------------------------------------------   
         data = pd.DataFrame()
         if str( type(country) ) == "<class 'str'>":
             country = [country]
-
-        for co in country:# stock = ['2330','12']
-            data = data.append( get_value(co) )
             
-        return data
-        
-    def load_all(self):
-
-        data = pd.DataFrame()
-
-        for country in self.all_country:
-            print(country)
-            data = data.append( self.load(country) )
-            
-        return data   
-    
-    def datalist(self):
-        tem = execute_sql2(database = self.database,
-                           sql_text = 'SHOW TABLES')
-        value = [ te[0] for te in tem ]
+        for cou in country:# 
+            #print(cou)
+            value = self.get_data(country = cou)
+            data = data.append( value )        
+ 
+        return data 
         
         return value
     

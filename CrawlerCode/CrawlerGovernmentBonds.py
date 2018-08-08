@@ -158,7 +158,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
     def crawler(self):
         
         data = pd.DataFrame()
-        for j in range(len(self.curr_id)):# j = 9
+        for j in range(len(self.curr_id)):# j = 108; j = 100
             print(str(j)+'/'+str(len(self.curr_id)))
             cid = self.curr_id[j]
             header = self.data_name[j] + ' Bond Yield Historical Data'
@@ -187,7 +187,7 @@ class AutoCrawlerGovernmentBonds(CrawlerGovernmentBonds):
         
     def get_st_date(self,header):
         data_name = re.search('[0-9]+[-]+[a-zA-Z]+',header).group(0)
-        country = header.split(data_name)[0].replace(' ','')
+        country = header.split(' '+data_name)[0]
         
         st_date = self.get_max_old_date(date_name = 'date',
                                         datatable = 'GovernmentBonds',
@@ -244,11 +244,11 @@ def crawler_history():
     
 def auto_crawler_new():
     date_name = 'GovernmentBonds'
-    ACGB = AutoCrawlerGovernmentBonds()
-    ACGB.main()
+    self = AutoCrawlerGovernmentBonds()
+    self.main()
     
     C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
-    C2S.upload2sql(ACGB.data,no_float_col = ['Date','data_name','country','curr_id'])
+    C2S.upload2sql(self.data,no_float_col = ['Date','data_name','country','curr_id'])
     #-------------------------------------------------
     print('save crawler process')
     BasedClass.save_crawler_process(date_name)
