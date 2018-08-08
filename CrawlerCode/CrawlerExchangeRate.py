@@ -21,7 +21,14 @@ self = CrawlerExchangeRate()
 class CrawlerExchangeRate(BasedClass.Crawler):
     
     def get_all_country(self):
-        
+        self.all_country = ['GBP British Pound',
+                            'CAD Canadian Dollar',
+                            'CNY Chinese Yuan',
+                            'EUR Euro',
+                            'GBP British Pound',
+                            'JPY Japanese Yen',
+                            'TWD Taiwanese New Dollar']
+        '''
         url = 'https://www.ofx.com/en-au/forex-news/historical-exchange-rates/'
         
         res = requests.get(url,verify = True)     
@@ -34,7 +41,7 @@ class CrawlerExchangeRate(BasedClass.Crawler):
         
         for te in tem2:
             self.all_country.append( te.text )    
-    
+        '''
     def create_soup(self,country):
         # country = self.all_country[5]
         country = country.split(' ')[0]
@@ -72,35 +79,16 @@ class CrawlerExchangeRate(BasedClass.Crawler):
         if 'USD US Dollar' in self.all_country: 
             self.all_country.remove('USD US Dollar')
         #------------------------------------------------------------------------
-        
-        '''
-        def myfun(i):
-            value = pd.DataFrame( self.get_value(i) )
-            return value
-        
-        #num_cores = multiprocessing.cpu_count()
-        self.data = pd.DataFrame()
-
-        results = Parallel(n_jobs=num_cores)(
-        delayed(myfun)(i) 
-        for i in range(len(self.all_country))
-        )
-        # list to data frame   
-        if len(results) != 0:
-            self.data = pd.concat(results)
-        '''
-        #------------------------------------------------------------------------
-        
         self.data = pd.DataFrame()
         for i in range(len(self.all_country)):# i = 0
             print(str(i)+'/'+str(len(self.all_country)))
             data = self.get_value(i)
             self.data = self.data.append(data)
-        
+        self.data.index = range(len(self.data))
     def main(self):
         self.get_all_country()
         self.crawler()
-        self.data.index = range(len(self.data))
+        
 
 '''
 
@@ -157,33 +145,18 @@ class AutoCrawlerExchangeRate(CrawlerExchangeRate):
         
         self.data.index = range(len(self.data))
         
-
 def crawler_history():
-    
+    date_name = 'ExchangeRate'
     CER = CrawlerExchangeRate()
     CER.main()
-    #CER.data
-    #CER.all_country
-    # del data of length(data) < 500
-    all_country = list( pd.Series(CER.data['country']).unique() )# country = 'EUR'
-    for country in all_country:
-        if len( CER.data[CER.data['country'] == country] ) < 500:
-            #print( len( CER.data[CER.data['country'] == country] ) )
-            all_country.remove(country)
 
-    col = list( CER.data.columns )
-    col.remove('country')
-    for i in range(len(all_country)):#56
-        country = all_country[i]
-        sql_name = country.split(' ')[0]
-        print(str(i)+'/'+str(len(all_country)))
-        C2S = BasedClass.Crawler2SQL(sql_name,'ExchangeRate')
-        try:
-            C2S.create_table(col)
-        except:
-            123
-        C2S.upload2sql( CER.data[CER.data['country'] == country][col] , no_float_col = ['date','Country'])
-        
+    C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
+    try:
+        C2S.create_table(CER.data.columns,text_col = ['country'])
+    except:
+        123
+    C2S.upload2sql( CER.data, no_float_col = ['date','country'])
+    
     print('create process table')
     BasedClass.create_datatable('ExchangeRate')
     
