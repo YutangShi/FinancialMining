@@ -25,7 +25,6 @@ class CrawlerExchangeRate(BasedClass.Crawler):
                             'CAD Canadian Dollar',
                             'CNY Chinese Yuan',
                             'EUR Euro',
-                            'GBP British Pound',
                             'JPY Japanese Yen',
                             'TWD Taiwanese New Dollar']
 
