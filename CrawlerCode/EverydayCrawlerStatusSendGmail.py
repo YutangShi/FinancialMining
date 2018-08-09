@@ -37,6 +37,8 @@ class EverydayCrawlerStatus:
         
         self.cdate.index = range(len(self.cdate))
         self.cdate.columns = ['name','date']
+        date = [ d.date() for d in self.cdate['date'] ]
+        self.cdate['date'] = date
 
     def change_status(self):
         #self.CrawlerStatus()
@@ -79,9 +81,10 @@ class SendGmail:
             return title
         
         def create_text(cdate):
+            cdate.index = range(len(cdate))
             text = ''
             for i in range(len(cdate)):
-                text = text + cdate['name'][i] + ' : ' + str( cdate['date'][i] ) + '\n'
+               text = text + cdate['name'][i] + ' : ' + str( cdate['date'][i] ) + '\n'
             return text
         #-------------------------------------------------------------
         bo = 1
@@ -119,7 +122,7 @@ class SendGmail:
         self.driver.find_element_by_class_name('Ap').click()
         
         # key article text
-        text = create_text(self.cdate)
+        text = create_text(self.cdate[ self.cdate['status'] != 'ok' ])
         self.driver.find_element_by_class_name('Ap').send_keys(text)# text
         
         # click send email
@@ -131,7 +134,6 @@ class SendGmail:
         time.sleep(2)
         # quit
         self.driver.quit()
-        
         
 def main():
     
