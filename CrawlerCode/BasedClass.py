@@ -45,8 +45,8 @@ class Crawler:
         #self.database = database
     def get_max_old_date(self,date_name = 'date',
                          datatable = 'BondsInterestRates',
-                         select = '',
-                         select_value = ''):
+                         select = [],
+                         select_value = []):
         # select = ['country','TypesOfBonds']; select_value = ['AUS','ten_years']
         sql_text = "SELECT MAX(" + date_name + ") FROM `" + datatable + "` "
         
