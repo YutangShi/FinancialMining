@@ -707,7 +707,10 @@ def GovernmentBonds(select = [],load_all = False,datalist = False):
     elif governmentbond == [] and load_all == False and datalist == True:
         data = list( self.datalist() )
         
-    data = data.drop('curr_id', axis=1)
+    try:
+        data = data.drop('curr_id', axis=1)
+    except:
+        123
     
     return data
 '''
@@ -754,6 +757,9 @@ def Load(database = '', select = [], load_all = False, datalist = False):
     elif database == 'GoldPrice':
         data = GoldPrice()
         
+    elif database == 'GovernmentBonds':
+        data = GovernmentBonds(select = select, load_all = load_all, datalist = datalist)        
+    # 
     else:
         raise(AttributeError, "Hidden attribute")  
 
@@ -763,7 +769,7 @@ def Load(database = '', select = [], load_all = False, datalist = False):
 '''
 
 import sys
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/sam/github')
 from FinancialMining.OpenData.Load import Load
 
 parameters database : 
@@ -771,10 +777,14 @@ parameters database :
     StockDividend, InstitutionalInvestors, CrudeOilPrices,
     ExchangeRate, InterestRate, GoldPrice
     
-database = 'GoldPrice'
+database = 'GovernmentBonds'
 
+datalist = Load(database = database, datalist = True)
+
+data = Load( database = database, select = datalist[0] )
+
+data = Load( database = database, [datalist[0],datalist[1]])
 data = Load(database = database, load_all = True)
-
 
 
 

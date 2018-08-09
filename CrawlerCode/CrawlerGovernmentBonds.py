@@ -158,7 +158,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
     def crawler(self):
         
         data = pd.DataFrame()
-        for j in range(len(self.curr_id)):# j = 108; j = 100
+        for j in range(len(self.curr_id)):# j = 0; j = 100
             print(str(j)+'/'+str(len(self.curr_id)))
             cid = self.curr_id[j]
             header = self.data_name[j] + ' Bond Yield Historical Data'
@@ -193,7 +193,7 @@ class AutoCrawlerGovernmentBonds(CrawlerGovernmentBonds):
                                         datatable = 'GovernmentBonds',
                                         select = ['country','data_name'],
                                         select_value = [country,data_name])
-        
+        st_date = st_date + datetime.timedelta(1)
         y = str( st_date.year )
         m = str( st_date.month ) if st_date.month > 9 else '0' + str(st_date.month)
         d = str( st_date.day ) if st_date.day > 9 else '0' + str(st_date.day)
