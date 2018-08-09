@@ -16,6 +16,11 @@
 
 ------------------------------------------------------------
 ### UPDATE
+##### 2018/8/9
+1. Government bond 100%
+2. 期貨 ->>> https://www.investing.com/commodities/energies
+3. S&P 500指數，並爬取該 500 家股票股價 ->>>
+
 ##### 2018/8/5
 1. 央行利率 100% ( 13 Countrys, Contains G8 )
 
