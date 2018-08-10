@@ -26,7 +26,7 @@
 -------------------------------------------------------------------------------------------------
 
 ## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)  )
-
+<!---
 ### 1.Financial Crawler
 #### 1.1 股票股價
      1.1.1 台股歷史股價 Crawler history Taiwan stocks prices. (100%)
@@ -69,6 +69,7 @@
 
 ### 2. Load Data example
 [click](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)
+--->
 -------------------------------------------------------------------------------------------------
 
 ## Financial Visualize
