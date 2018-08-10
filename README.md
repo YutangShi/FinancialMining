@@ -1,6 +1,5 @@
 ## Financial Mining Outline 
 ##### Financial Open Data ( Development )
-     目前現有 data 如下
      1. Taiwan Stock Info
      2. Taiwan Stock Prices 
      3. Taiwan Stock Financial Statements 
