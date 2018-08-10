@@ -1,15 +1,16 @@
 ## Financial Mining Outline 
 ##### Financial Open Data ( Development )
      目前現有 data 如下
-     1. 台股股票(代號、名稱、產業)資訊 
-     2. taiwan stock prices 
-     3. taiwan stock Financial Statements 
-     4. taiwan stock Stock Dividend 
-     5. taiwan stock Institutional Investors buy and sell 
-     6. 國際油價
-     7. exchange rate
-     8. interest rate
-     9. gold price
+     1. Taiwan Stock Info
+     2. Taiwan Stock Prices 
+     3. Taiwan Stock Financial Statements 
+     4. Taiwan Stock Stock Dividend 
+     5. Taiwan Stock Institutional Investors Buy and Sell 
+     6. Crude Oil Prices
+     7. Exchange Rate
+     8. Interest Rate
+     9. Gold Price
+     10. Government bond
 
 ##### Financial Visualize ( Development )
 ##### Financial Predict ( Development )
