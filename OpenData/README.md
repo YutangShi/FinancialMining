@@ -5,6 +5,12 @@
 user : guest <br>
 password : 123 <br>--->
 
+* ### [Parameters](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md)<br>
+  * [database](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#database---stockinfo-stockprice-financialstatements-stockdividend-institutionalinvestors-crudeoilprices-exchangerate-interestrate---defult--)
+  * [datalist](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#datalist--true-or-false--defult--flase-)
+  * [select](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#select--stock-id-2002--or-country-name-eur-etc---defult--)
+  * [load_all](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#load_all--true-or-false--defult--flase-)
+
 * ### [Load Example](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md)<br>
   * [Taiwan Stock Information](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-information)
   * [Taiwan Stock Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-price)
@@ -16,12 +22,6 @@ password : 123 <br>--->
   * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-exchangerate)
   * [Central Band Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-central-band-interestrate)
   * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-gold-price)
-  
-* ### [Parameters](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md)<br>
-  * [database](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#database---stockinfo-stockprice-financialstatements-stockdividend-institutionalinvestors-crudeoilprices-exchangerate-interestrate---defult--)
-  * [datalist](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#datalist--true-or-false--defult--flase-)
-  * [select](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#select--stock-id-2002--or-country-name-eur-etc---defult--)
-  * [load_all](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Parameters.md#load_all--true-or-false--defult--flase-)
   
 * ### [Variable Introduction](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md)
   * [Taiwan Stock Info](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md#1-taiwan-stock-info)
