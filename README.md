@@ -23,7 +23,6 @@
 3. S&P 500指數，並爬取該 500 家股票股價 ->>>
 
 #### [History Update](https://github.com/f496328mm/FinancialMining/blob/master/HistoryUpdate.md)
--------------------------------------------------------------------------------------------------
 
 ## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)  )
 <!---
@@ -70,7 +69,6 @@
 ### 2. Load Data example
 [click](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)
 --->
--------------------------------------------------------------------------------------------------
 
 ## Financial Visualize
 ## Financial Predict
