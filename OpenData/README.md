@@ -12,7 +12,7 @@ password : 123 <br>--->
   * [Taiwan Stock Dividend](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-stockdividend)
   * [Taiwan Stock Institutional Investors](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-institutionalinvestors-buy-and-sell)
   * [Taiwan Stock Information](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-taiwan-stock-information)
-  * [Crudeoil Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-crudeoilprices)
+  * [Crude oil Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-crudeoilprices)
   * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-exchangerate)
   * [Central Band Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-central-band-interestrate)
   * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-gold-price)
