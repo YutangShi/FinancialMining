@@ -226,6 +226,27 @@ https://www.investing.com/rates-bonds/
   <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
 </html>
 
+------------------------------------------------------------
+#### 11. Energy Futures Prices
+
+| variable name | example |
+|---------------|----------|
+|Date |2018-08-09 |
+|Price| |72.07|
+|Open |72.16|
+|High|72.89|
+|Low|71.86|
+|Vol|197060|
+|ChangePercent|-0.0029|
+|data_name|Brent Oil Futures|
+ 
+資料來源 : <br>
+https://www.investing.com/commodities/energies
+
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#variable-introduction'> Home </a></p>
+</html>
 
 
 
