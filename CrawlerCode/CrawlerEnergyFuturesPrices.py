@@ -50,7 +50,7 @@ class CrawlerEnergyFuturesPrices(BasedClass.Crawler):
     
     def get_end_date(self):
         end_date = datetime.datetime.now().date()
-        end_date = end_date + datetime.timedelta(-2)
+        end_date = end_date + datetime.timedelta(-1)
         y = str( end_date.year )
         m = str( end_date.month ) if end_date.month > 9 else '0' + str(end_date.month)
         d = str( end_date.day ) if end_date.day > 9 else '0' + str(end_date.day)
@@ -128,7 +128,7 @@ class CrawlerEnergyFuturesPrices(BasedClass.Crawler):
     def crawler(self):
         
         data = pd.DataFrame()
-        for j in range(len(self.curr_id)):# j = 2; j = 100
+        for j in range(len(self.curr_id)):# j = 0; j = 100
             print(str(j)+'/'+str(len(self.curr_id)))
             cid = self.curr_id[j]
             header = self.data_name[j] + ' Historical Data'
