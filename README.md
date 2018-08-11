@@ -1,5 +1,3 @@
-## Financial Mining 
-
 ### [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
      1. Taiwan Stock Info
      2. Taiwan Stock Prices 
