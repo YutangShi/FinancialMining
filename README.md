@@ -1,5 +1,5 @@
 ## Financial Mining Outline 
-##### Financial Open Data ( Development )
+##### [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
      1. Taiwan Stock Info
      2. Taiwan Stock Prices 
      3. Taiwan Stock Financial Statements 
@@ -23,7 +23,7 @@
 
 #### [History Update](https://github.com/f496328mm/FinancialMining/blob/master/HistoryUpdate.md)
 
-## Financial Open Data ( [Development](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)  )
+## [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
 <!---
 ### 1.Financial Crawler
 #### 1.1 股票股價
