@@ -126,7 +126,20 @@
 <p align="right">
   <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#load-example'> Home </a></p>
 </html>   
-              
+-----------------------------------------------------------------
+### Load Government Bonds
+        from FinancialMining.OpenData.Load import Load
+
+        database = 'GovernmentBonds'
+        datalist = Load(database = database,datalist = True)# get GovernmentBonds list
+        data = Load(database = database, select = datalist[0]) # select GovernmentBonds 0
+        data = Load(database = database, select = [datalist[0],datalist[1]])# select mulit GovernmentBonds
+        data = Load(database = database, load_all = True)# select all GovernmentBonds
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#load-example'> Home </a></p>
+</html>              
 -----------------------------------------------------------------
 ### Load Energy Futures Prices
         from FinancialMining.OpenData.Load import Load
