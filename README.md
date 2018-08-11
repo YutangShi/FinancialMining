@@ -1,5 +1,6 @@
-## Financial Mining Outline 
-##### [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
+## Financial Mining 
+
+### [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
      1. Taiwan Stock Info
      2. Taiwan Stock Prices 
      3. Taiwan Stock Financial Statements 
@@ -11,8 +12,8 @@
      9. Gold Price
      10. Government bond
 
-##### Financial Visualize ( Development )
-##### Financial Predict ( Development )
+### Financial Visualize ( Development )
+### Financial Predict ( Development )
 
 ------------------------------------------------------------
 ### UPDATE
@@ -67,11 +68,11 @@
 
 ### 2. Load Data example
 [click](https://github.com/f496328mm/FinancialMining/tree/master/FinancialOpenData)
---->
+
 
 ## Financial Visualize
 ## Financial Predict
-
+--->
 
 
 
