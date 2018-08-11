@@ -22,6 +22,7 @@ password : 123 <br>--->
   * [Exchange Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-exchangerate)
   * [Central Band Interest Rate](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-central-band-interestrate)
   * [Gold Price](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-gold-price)
+  * [Government Bonds](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-government-bonds)
   * [Energy Futures Prices](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/Example.md#load-energy-futures-prices)
   
 * ### [Variable Introduction](https://github.com/f496328mm/FinancialMining/blob/master/OpenData/VariableIntroduction.md)
