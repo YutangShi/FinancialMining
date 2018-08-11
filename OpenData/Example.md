@@ -126,6 +126,7 @@
 <p align="right">
   <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#load-example'> Home </a></p>
 </html>   
+
 -----------------------------------------------------------------
 ### Load Government Bonds
         from FinancialMining.OpenData.Load import Load
@@ -139,7 +140,8 @@
 <html>
 <p align="right">
   <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#load-example'> Home </a></p>
-</html>              
+</html>    
+
 -----------------------------------------------------------------
 ### Load Energy Futures Prices
         from FinancialMining.OpenData.Load import Load
