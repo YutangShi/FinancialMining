@@ -9,7 +9,8 @@
      8. Interest Rate
      9. Gold Price
      10. Government bond
-
+     11. Energy Futures Prices
+     
 ### Financial Visualize ( Development )
 ### Financial Predict ( Development )
 
