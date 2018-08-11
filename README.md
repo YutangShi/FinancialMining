@@ -21,9 +21,9 @@
 3. S&P 500指數，並爬取該 500 家股票股價 ->>>
 
 #### [History Update](https://github.com/f496328mm/FinancialMining/blob/master/HistoryUpdate.md)
-
-## [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
 <!---
+## [Financial Open Data ( Development )](https://github.com/f496328mm/FinancialMining/tree/master/OpenData)
+
 ### 1.Financial Crawler
 #### 1.1 股票股價
      1.1.1 台股歷史股價 Crawler history Taiwan stocks prices. (100%)
