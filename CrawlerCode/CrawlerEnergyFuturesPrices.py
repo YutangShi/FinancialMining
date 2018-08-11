@@ -68,9 +68,12 @@ class CrawlerEnergyFuturesPrices(BasedClass.Crawler):
             
             if tem2[5].text == '-':
                 Vol = float(0)
-            else:
+            elif 'K' in tem2[5].text:
                 Vol = float( tem2[5].text.replace('K','') )*1000
-            
+                
+            elif 'M' in tem2[5].text:
+                Vol = float( tem2[5].text.replace('M','') )*1000000        
+                
             Change = float( tem2[6].text.replace('%','').replace(',',''))/100
             
             data = pd.DataFrame( [ date, price, Open, High, Low,Vol , Change] ).T
@@ -142,6 +145,52 @@ class CrawlerEnergyFuturesPrices(BasedClass.Crawler):
         self.crawler()
 
 #-------------------------------------------------------------
+'''
+self = AutoCrawlerEnergyFuturesPrices()
+self.main()
+self.data
+'''
+class AutoCrawlerEnergyFuturesPrices(CrawlerEnergyFuturesPrices):
+    def __init__(self):
+        self.database = 'Financial_DataSet'
+        
+    def get_st_date(self,header):
+        data_name = header.replace(' Historical Data','')
+
+        st_date = self.get_max_old_date(date_name = 'date',
+                                        datatable = 'EnergyFuturesPrices',
+                                        select = ['data_name'],
+                                        select_value = [data_name])
+        st_date = st_date + datetime.timedelta(1)
+        y = str( st_date.year )
+        m = str( st_date.month ) if st_date.month > 9 else '0' + str(st_date.month)
+        d = str( st_date.day ) if st_date.day > 9 else '0' + str(st_date.day)
+        
+        return m + '/' + d + '/' + y
+    
+    def get_curr_id_name(self):
+        self.data_name = []
+        curr_id = BasedClass.execute_sql2(
+                self.database,
+                'SELECT DISTINCT `curr_id` FROM `EnergyFuturesPrices` WHERE 1')
+        self.curr_id = [ c[0] for c in curr_id ]
+        
+        for c in self.curr_id:
+            #c = country[0]
+            sql_text = ( 'SELECT DISTINCT `data_name` FROM `EnergyFuturesPrices` ' + 
+                        'WHERE `curr_id` = "' + c + '"' )
+            value = BasedClass.execute_sql2(
+                    self.database,
+                    sql_text)
+            value = [ d[0] for d in value ]
+            
+            [ self.data_name.append( v ) for v in value ]
+        
+    def main(self):
+        self.get_curr_id_name()
+        self.crawler()
+
+#-------------------------------------------------------------
 def crawler_history():
     date_name = 'EnergyFuturesPrices'
     self = CrawlerEnergyFuturesPrices()
@@ -157,16 +206,16 @@ def crawler_history():
     BasedClass.create_datatable(date_name)
     
 def auto_crawler_new():
-    123
-    '''date_name = 'GovernmentBonds'
-    self = AutoCrawlerGovernmentBonds()
+    
+    date_name = 'EnergyFuturesPrices'
+    self = AutoCrawlerEnergyFuturesPrices()
     self.main()
     
     C2S = BasedClass.Crawler2SQL(date_name,'Financial_DataSet')
     C2S.upload2sql(self.data,no_float_col = ['Date','data_name','country','curr_id'])
     #-------------------------------------------------
     print('save crawler process')
-    BasedClass.save_crawler_process(date_name)'''
+    BasedClass.save_crawler_process(date_name)
 
 def main(x):
     if x == 'history':
