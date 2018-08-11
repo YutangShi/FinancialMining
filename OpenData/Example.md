@@ -20,10 +20,10 @@
 
         database = 'StockPrice'
 
-        datalist = Load(database = database,datalist = True)### get stock list
-        data_2002 = Load(database = database, select = '2002') ### select stock 2002
-        mulit_data = Load(database = database, select = ['2002','2330'])### select mulit stock
-        all_data = Load(database = database, load_all = True)### select all stock
+        datalist = Load(database = database,datalist = True)# get stock list
+        data_2002 = Load(database = database, select = '2002') # select stock 2002
+        mulit_data = Load(database = database, select = ['2002','2330'])# select mulit stock
+        all_data = Load(database = database, load_all = True)# select all stock
         
 <html>
 <p align="right">
@@ -35,10 +35,10 @@
         from FinancialMining.OpenData.Load import Load
 
         database = 'FinancialStatements'
-        datalist = Load(database = database,datalist = True)### get stock list
-        data = Load(database = database, select = '2002') ### select stock 2002
-        data = Load(database = database, select = ['2002','2330'])### select mulit stock
-        data = Load(database = database, load_all = True)### select all stock
+        datalist = Load(database = database,datalist = True)# get stock list
+        data = Load(database = database, select = '2002') # select stock 2002
+        data = Load(database = database, select = ['2002','2330'])# select mulit stock
+        data = Load(database = database, load_all = True)# select all stock
         
 <html>
 <p align="right">
@@ -51,10 +51,10 @@
       from FinancialMining.OpenData.Load import Load
 
       database = 'StockDividend'
-      datalist = Load(database = database,datalist = True)### get stock list
-      data = Load(database = database, select = '2002') ### select stock 2002
-      data = Load(database = database, select = ['2002','2330'])### select mulit stock
-      data = Load(database = database, load_all = True)### select all stock
+      datalist = Load(database = database,datalist = True)# get stock list
+      data = Load(database = database, select = '2002') # select stock 2002
+      data = Load(database = database, select = ['2002','2330'])# select mulit stock
+      data = Load(database = database, load_all = True)# select all stock
         
 <html>
 <p align="right">
@@ -90,10 +90,10 @@
         from FinancialMining.OpenData.Load import Load
 
         database = 'ExchangeRate'
-        datalist = Load(database = database,datalist = True)### get country list
-        data = Load(database = database, select = 'GBP') ### select country GBP
-        data = Load(database = database, select = ['GBP','HKD'])### select mulit country
-        data = Load(database = database, load_all = True)### select all stock
+        datalist = Load(database = database,datalist = True)# get country list
+        data = Load(database = database, select = 'GBP') # select country GBP
+        data = Load(database = database, select = ['GBP','HKD'])# select mulit country
+        data = Load(database = database, load_all = True)# select all stock
         
 <html>
 <p align="right">
@@ -105,10 +105,10 @@
         from FinancialMining.OpenData.Load import Load
 
         database = 'InterestRate'
-        datalist = Load(database = database,datalist = True)### get country list
-        data = Load(database = database, select = 'FED') ### select country FED
-        data = Load(database = database, select = ['FED','ECB'])### select mulit country
-        data = Load(database = database, load_all = True)### select all stock
+        datalist = Load(database = database,datalist = True)# get country list
+        data = Load(database = database, select = 'FED')# select country FED
+        data = Load(database = database, select = ['FED','ECB'])# select mulit country
+        data = Load(database = database, load_all = True)# select all stock
         
 <html>
 <p align="right">
@@ -132,10 +132,10 @@
         from FinancialMining.OpenData.Load import Load
 
         database = 'EnergyFuturesPrices'
-        datalist = Load(database = database,datalist = True)### get EnergyFuturesPrices list
-        data = Load(database = database, select = datalist[0]) ### select EnergyFuturesPrices 0
-        data = Load(database = database, select = [datalist[0],datalist[1]])### select mulit EnergyFuturesPrices
-        data = Load(database = database, load_all = True)### select all EnergyFuturesPrices
+        datalist = Load(database = database,datalist = True)# get EnergyFuturesPrices list
+        data = Load(database = database, select = datalist[0]) # select EnergyFuturesPrices 0
+        data = Load(database = database, select = [datalist[0],datalist[1]])# select mulit EnergyFuturesPrices
+        data = Load(database = database, load_all = True)# select all EnergyFuturesPrices
         
 <html>
 <p align="right">
