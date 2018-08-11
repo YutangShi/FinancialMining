@@ -150,6 +150,7 @@ class CrawlerGovernmentBonds(BasedClass.Crawler):
     def get_end_date(self):
         
         end_date = datetime.datetime.now().date()
+        end_date = end_date + datetime.timedelta(-2)
         y = str( end_date.year )
         m = str( end_date.month ) if end_date.month > 9 else '0' + str(end_date.month)
         d = str( end_date.day ) if end_date.day > 9 else '0' + str(end_date.day)

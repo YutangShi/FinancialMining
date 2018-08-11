@@ -669,12 +669,7 @@ class ClassGovernmentBonds(LoadData):
         return data  
     
     def datalist(self):
-        data_name = []
-        curr_id = execute_sql2(
-                self.database,
-                'SELECT DISTINCT `curr_id` FROM `GovernmentBonds` WHERE 1')
-        self.curr_id = [ c[0] for c in curr_id ]
-        
+        data_name = []        
         country = execute_sql2(
                 self.database,
                 'SELECT DISTINCT `country` FROM `GovernmentBonds` WHERE 1') 
@@ -727,6 +722,84 @@ data = Load.GovernmentBonds( 'abc' )
 
 '''
 #---------------------------------------------------------------
+class ClassEnergyFuturesPrices(LoadData):
+    def __init__(self):
+        super(ClassEnergyFuturesPrices, self).__init__(
+                database = 'Financial_DataSet',
+                data_name = 'EnergyFuturesPrices')
+        self.list_col_name = 'data_name'   
+
+    def get_data(self,all_data = '',country = [] ):
+        
+        self.data = pd.DataFrame()
+        for j in range(len(self.col_name)):
+            #print(j)
+            col = self.col_name[j]
+            text = 'select ' + col + ' from ' + self.data_name
+            
+            if all_data == 'T': 
+                123
+            else:
+                text = text + " WHERE `data_name` LIKE '"+str( country )+"'"
+                
+            self.execute2sql(text,col)
+
+        return self.data
+        
+    def load_all(self):
+        
+        self.get_col_name()
+        self.data = self.get_data(all_data='T')
+
+        return self.data
+    
+    def load(self,country ):                        
+        self.get_col_name()
+        #---------------------------------------------------------------   
+        data = pd.DataFrame()
+        if str( type(country) ) == "<class 'str'>":
+            country = [country]
+            
+        for cou in country:# 
+            #print(cou)
+            value = self.get_data(country = cou)
+            data = data.append( value )        
+ 
+        return data
+        
+def EnergyFuturesPrices(select = [],load_all = False,datalist = False):
+    
+    self = ClassEnergyFuturesPrices()  
+    country = select
+    data = pd.DataFrame()
+    
+    if country != [] and load_all == False and datalist == False:
+        data = self.load(country)
+        
+    elif country == [] and load_all == True and datalist == False:
+        data = self.load_all()
+        
+    elif country == [] and load_all == False and datalist == True:
+        data = list( self.datalist() )
+    try:
+        data = data.drop('curr_id', axis=1)
+    except:
+        123
+    return data
+'''
+import sys
+sys.path.append('/home/sam/github')
+from FinancialMining.OpenData import Load
+
+datalist = Load.GovernmentBonds(datalist = True)
+data = Load.GovernmentBonds( datalist[0] )
+data = Load.GovernmentBonds([datalist[0],datalist[1]])
+data = Load.GovernmentBonds(load_all = True)
+
+data = Load.GovernmentBonds( 'abc' )
+
+'''
+#---------------------------------------------------------------
 
 def Load(database = '', select = [], load_all = False, datalist = False):
     
@@ -760,6 +833,9 @@ def Load(database = '', select = [], load_all = False, datalist = False):
     elif database == 'GovernmentBonds':
         data = GovernmentBonds(select = select, load_all = load_all, datalist = datalist)        
     # 
+    elif database == 'EnergyFuturesPrices':
+        data = EnergyFuturesPrices(select = select, load_all = load_all, datalist = datalist)        
+    # 
     else:
         raise(AttributeError, "Hidden attribute")  
 
@@ -769,7 +845,7 @@ def Load(database = '', select = [], load_all = False, datalist = False):
 '''
 
 import sys
-sys.path.append('/home/sam/github')
+sys.path.append('/home/linsam/github')
 from FinancialMining.OpenData.Load import Load
 
 parameters database : 
@@ -777,7 +853,7 @@ parameters database :
     StockDividend, InstitutionalInvestors, CrudeOilPrices,
     ExchangeRate, InterestRate, GoldPrice
     
-database = 'GovernmentBonds'
+database = 'EnergyFuturesPrices'
 
 datalist = Load(database = database, datalist = True)
 
