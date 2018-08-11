@@ -128,4 +128,18 @@
 </html>   
               
 -----------------------------------------------------------------
+### Load Energy Futures Prices
+        from FinancialMining.OpenData.Load import Load
 
+        database = 'EnergyFuturesPrices'
+        datalist = Load(database = database,datalist = True)### get EnergyFuturesPrices list
+        data = Load(database = database, select = datalist[0]) ### select EnergyFuturesPrices 0
+        data = Load(database = database, select = [datalist[0],datalist[1]])### select mulit EnergyFuturesPrices
+        data = Load(database = database, load_all = True)### select all EnergyFuturesPrices
+        
+<html>
+<p align="right">
+  <a href = 'https://github.com/f496328mm/FinancialMining/tree/master/OpenData#load-example'> Home </a></p>
+</html>   
+              
+-----------------------------------------------------------------
