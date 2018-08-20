@@ -4,10 +4,10 @@
 
       database = 'StockInfo'
 
-      datalist = Load(database = database,datalist = True)
-      data_2002 = Load(database = database, select = '2002')
-      mulit_data = Load(database = database, select = ['2002','2330'])
-      all_data = Load(database = database, load_all = True)
+      datalist = Load(database = database, datalist = True)
+      data = Load( database = database, select = datalist[0] )
+      data = Load( database = database, [datalist[0],datalist[1]])
+      data = Load(database = database, load_all = True)
         
 <html>
 <p align="right">
