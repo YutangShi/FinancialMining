@@ -845,7 +845,7 @@ def Load(database = '', select = [], load_all = False, datalist = False):
 '''
 
 import sys
-sys.path.append('/home/linsam/github')
+sys.path.append('/home/sam/github')
 from FinancialMining.OpenData.Load import Load
 
 parameters database : 
@@ -853,7 +853,7 @@ parameters database :
     StockDividend, InstitutionalInvestors, CrudeOilPrices,
     ExchangeRate, InterestRate, GoldPrice
     
-database = 'EnergyFuturesPrices'
+database = 'StockInfo'
 
 datalist = Load(database = database, datalist = True)
 

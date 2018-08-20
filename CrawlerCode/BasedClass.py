@@ -11,6 +11,7 @@ import sys
 import pymysql
 import datetime
 import re
+import math
 sys.path.append('/home/linsam/github')
 import Key
 from FinancialMining.OpenData import Load
@@ -154,40 +155,39 @@ class Crawler2SQL:
         sql_string = sql_string[:len(sql_string)-1] + ')'
         self.creat_sql_file(sql_string,self.database)  
 
-
+    
     def upload2sql(self,data,no_float_col = ['date','Date','datetime'],int_col = [''] ):
-       
-        def create_upload_string(data,dataset_name,i):# dataset_name = self.dataset_name
+
+        def create_upload_value(data,dataset_name,i):
+            
             colname = data.columns
             upload_string = ('insert into ' + dataset_name + '(')
-            for col in colname:
-                if data[col][i] not in ['NaT','']:
-                    #col = col.replace(' ','_')
-                    upload_string = upload_string+col+','
-            upload_string = upload_string[:len(upload_string)-1] +') values('
-            
-            for col in colname:
-                if data[col][i] not in ['NaT','']:
-                    upload_string = upload_string+'%s,'
-                    
-            upload_string = upload_string[:len(upload_string)-1] + ')'
-            return upload_string
-        
-        def create_upload_value(data,i):
-            
-            colname = data.columns
+            upload_string2 = ''
             value = []
             for col in colname:
                 tem = data[col][i] 
                 if tem in ['NaT','']:
-                    123                     
+                    123    
                 elif col in no_float_col:
-                    value.append( tem )
+                    value.append( tem )            
+                    upload_string = upload_string+col+','
+                    upload_string2 = upload_string2+'%s,'
+                elif math.isnan(tem):
+                    123                     
                 elif col in int_col:
                     value.append( int( tem ) )
+                    upload_string = upload_string+col+','
+                    upload_string2 = upload_string2+'%s,'
                 else:
                     value.append( float( tem ) )
-            return value
+                    upload_string = upload_string+col+','
+                    upload_string2 = upload_string2+'%s,'
+                    
+            upload_string = upload_string[:len(upload_string)-1] +') values('
+            upload_string = upload_string + upload_string2
+            upload_string = upload_string[:len(upload_string)-1] + ')'  
+
+            return value, upload_string
 
         # database = 'Financial_DataSet'
         conn = ( pymysql.connect(host = self.host,# SQL IP
@@ -200,8 +200,8 @@ class Crawler2SQL:
         for i in range(len(data)):
             #print(str(i)+'/'+str(len(data)))
             #i = 0
-            upload_string = create_upload_string(data,self.dataset_name,i)
-            value =  create_upload_value(data,i)
+            #upload_string = create_upload_string(data,self.dataset_name,i)
+            value, upload_string =  create_upload_value(data,self.dataset_name,i)
             
             ( conn.cursor().execute( upload_string,tuple(value) ) )
              

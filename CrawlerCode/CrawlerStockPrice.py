@@ -6,18 +6,13 @@ import sys
 import pandas as pd
 import datetime
 import fix_yahoo_finance as yf
-import numpy as np
 sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
-
 #-------------------------------------------------------------------   
 '''
-# GET TAIWAN STOCK INFO, TO CRAWLER ALL STOCK PRICE
-stock_info = load_data.StockInfo().load()
 # get history stock price
 
-self = CrawlerHistoryStockPrice(stock_info)
-self.main(0)
+self = CrawlerHistoryStockPrice()
 '''
 class CrawlerHistoryStockPrice(BasedClass.Crawler):
 
@@ -25,157 +20,142 @@ class CrawlerHistoryStockPrice(BasedClass.Crawler):
         super(CrawlerHistoryStockPrice, self).__init__()   
         yf.pdr_override() # <== that's all it takes :-)   
 
-    def main(self,i):
+    def create_stock(self):
+        stock = self.stock_info['stock_id']
+        value = [ s + '.TW'  for s in stock ]
+        value2 = [ s + '.TWO'  for s in stock ]
+        value.extend( value2 )
+        self.stock = value
+        #self.stock = self.stock[:5]
+    def start(self):
+        return '1900-1-10'
+    def crawler(self):
+        def change_muilt_columns(data):
+            column0 = list( set( data.columns.get_level_values(0) ) )
+            column1 = list( set( data.columns.get_level_values(1) ) )
+            
+            new_data = pd.DataFrame()
+            for col1 in column1:
+                value = pd.DataFrame()
+                for col0 in column0:
+                    tem2 = pd.DataFrame( data.loc[:,col0][col1] )
+                    value[col0] = tem2[col1]
+                    #tem2.columns = [col0]
+                #col1 = col1.replace('.','_')# MySQL can't input '.'
+                value['stock'] = col1
+                value['date'] = tem2.index
+                value.index = range(len(value))
+                new_data = new_data.append( value )  
+                
+            return new_data
+        #----------------------------------------------------------------------------
         end = str( datetime.datetime.now().date() + datetime.timedelta(1) )
+        data = pdr.get_data_yahoo( self.stock, start =  self.start(), end = end)
+        
+        new_data = change_muilt_columns(data)
+        
+        new_data.index = range(len(new_data))
+        new_data['date'] = [ str( d.date() ) for d in new_data['date'] ]        
+        col = list( new_data.columns )
+        col = [ c.replace(' ','_') for c in col ]
+        new_data.columns = col
+        self.data = new_data
 
-        # stock_id = '1593'
-        stock = str( self.stock_info.stock_id[i] ) + '.TW'
-        stock2 = str( self.stock_info.stock_id[i] ) + '.TWO'
-        #print(stock_info.stock_id[i])
-        bo = 1
-        while( bo ):
-            # crawler data
-            data = pdr.get_data_yahoo(stock, start = '1900-1-10', end = end)
-            data['stock_id'] = stock
-            self.dataset_name = '_'+stock
-            if len(data) == 0:
-                data = pdr.get_data_yahoo(stock2, start = '1900-1-10', end = end)
-                data['stock_id'] = stock2
-                self.dataset_name = '_'+stock2
-            if len(data) != 0:
-                bo=0
-
-        data['Date'] = data.index
-        data.index = range(len(data))
-        data['Adj_Close'] = data['Adj Close']# space don't input mysql col name
-        del data['Adj Close']        
-        data.Date = np.array( [ str(data.Date[i]).split(' ')[0] for i in range(len(data)) ] )
-        self.data = data
-
+    def main(self):
+        self.create_stock()
+        self.crawler()
 
 #------------------------------------------------------------------------
 '''
 # stock = '0050'
-self = AutoCrawlerStockPrice(stock,stock_id)
-
+self = AutoCrawlerStockPrice()
 self.get_start_and_today()
 
 '''
-class AutoCrawlerStockPrice(BasedClass.Crawler):
-    
-    def __init__(self,stock,stock_id):
+class AutoCrawlerStockPrice(CrawlerHistoryStockPrice):
+    def __init__(self):
         super(AutoCrawlerStockPrice, self).__init__()
-        
         yf.pdr_override()
-        self.stock = str( stock )
-        self.stock_id = stock_id
-          
-    def get_start_and_today(self):
-        #stock = '2330'
-        if self.check_stock(self.stock,self.stock_id.stock_cid) :
-            self.data_name = self.change_stock_name(self.stock,self.stock_id)
-        else:
-            return ''
         
-        sql_text = "SELECT `Date` FROM `"+self.data_name+"` ORDER BY `Date` DESC LIMIT 1"
-        start = BasedClass.execute_sql2(
-                database = 'StockPrice',
-                sql_text = sql_text)
-
-        self.start = str( start[0][0] )
-        self.today = str( datetime.datetime.now().date() + datetime.timedelta(days=1) )
-
-    def get_new_data(self):
-        
-        def datechabge(date):# date = self.data.meeting_data
-           date = np.array( [ str(date[i]).split(' ')[0] for i in range(len(date)) ] )
-           return date   
-        
-        tem = self.stock_id[ self.stock_id['stock_cid'] == str(self.stock)]['stock_id']
-        self.stock = np.array(tem)[0]
-        
-        self.data = pdr.get_data_yahoo( self.stock, start =  self.start, end = self.today)
-        #self.data = pdr.get_data_yahoo( '2330.TW', start =  '2018-4-9', end = '2018-5-9')
-        #------------------------------------------------------------------
-        self.data['Date'] = self.data.index
-        self.data['stock_id'] = self.stock
-        self.data = self.data[self.data['Date'] > np.datetime64( self.start )]
-        self.data.index = range(len(self.data))
-        self.data.Date = datechabge( self.data.Date )
-
-        tem = list( self.data.columns )
-        for i in range(len(tem)):
-            tem[i] = tem[i].replace(' ','_')
-        self.data.columns = tem
-
-
-    def main(self):
-        self.get_start_and_today()
-        self.get_new_data()
-        #self.upload_data2sql()
-  
-def auto_crawler_new():   
-    
-    def take_stock_id_by_sql():
-        #---------------------------------------------------------------                         
+    def create_stock(self):
+        sql = 'SELECT DISTINCT `stock` FROM `StockPrice` WHERE 1'
         tem = BasedClass.execute_sql2(
-                database = 'StockPrice',
-                sql_text = 'SHOW TABLES')                      
-        stock_cid = [ d[0][1:].replace('_','.').split('.')[0] for d in tem ]
-        stock_id = [ d[0][1:].replace('_','.') for d in tem ]
+                database = 'Financial_DataSet',
+                sql_text = sql)
         
-        stock_id = pd.DataFrame({'stock_id' : stock_id,
-                                 'stock_cid' : stock_cid})    
+        self.stock = [ t[0] for t in tem ]
         
-        return stock_id
-    #------------------------------------------------------------------------------
-    # main
-    print('get stock id')
-    stock_id = take_stock_id_by_sql()
-    #-----------------------------------------------   
+    def start(self):
+        date = []
+        for stock in self.stock:
+            sql = "SELECT MAX(`date`) FROM `StockPrice` WHERE `stock` = '" + stock + "'"
+            tem = BasedClass.execute_sql2(
+                    database = 'Financial_DataSet',
+                    sql_text = sql)
+            date.append( tem[0][0] )
+        start = str( max(date) )
+
+        return start
+    
+    def select_new_data(self):
+        
+        new_data = pd.DataFrame()
+        
+        for stock in self.stock:
+            sql = "SELECT MAX(`date`) FROM `StockPrice` WHERE `stock` = '" + stock + "'"
+            tem = BasedClass.execute_sql2(
+                    database = 'Financial_DataSet',
+                    sql_text = sql)
+            
+            max_date = tem[0][0]
+            data = self.data[ self.data['stock'] == stock ]
+            date = [ datetime.datetime.strptime(d,'%Y-%m-%d').date() > max_date for d in data['date'] ]
+            new_data = new_data.append( data[date] )
+        
+        self.new_data = new_data
+        
+    def main(self):
+        self.create_stock()
+        print('crawler')
+        self.crawler()
+        print('select new data')
+        self.select_new_data()
+
+#-------------------------------------------------------------
+def crawler_history():
+    
+    dataset_name = 'StockPrice'
+    self = CrawlerHistoryStockPrice()
+    self.main()
     print( 'crawler data and upload 2 sql' )
-    i = 0 #i = 192
-    for stock in stock_id['stock_cid']:# stock = stock_id['stock_cid'][i]
-        print(str(i)+'/'+str(len(stock_id)) + ' : ' + stock)
-        ACSP = AutoCrawlerStockPrice(stock,stock_id)
-        ACSP.main()
-        
-        if len(ACSP.data) == 0:
-            print("data doesn't need to upload")
-        else:
-            C2S = BasedClass.Crawler2SQL(ACSP.data_name,'StockPrice')
-            C2S.upload2sql(ACSP.data,
-                           no_float_col = ['Date','stock_id'],
-                           int_col = ['Volume'])            
-        #BasedClass.save_crawler_process(ACSP.data_name)
-        i=i+1
-        # stock='0053'
+    C2S = BasedClass.Crawler2SQL(dataset_name,'Financial_DataSet')
+    try:
+        C2S.create_table(self.data.columns,
+                         text_col = ['stock'],
+                         BIGINT_col = ['Volume'])
+    except:
+        123
+    C2S.upload2sql(self.data,
+                   no_float_col = ['date','stock'],
+                   int_col = ['Volume'])
+    print('create process table')
+    BasedClass.create_datatable('StockPrice')
+#-------------------------------------------------------------
+def auto_crawler_new(): 
+    
+    dataset_name = 'StockPrice'
+    self = AutoCrawlerStockPrice()
+    self.main()
+    print( 'crawler data and upload 2 sql' )
+    C2S = BasedClass.Crawler2SQL(dataset_name,'Financial_DataSet')
+    C2S.upload2sql(self.new_data,
+                   no_float_col = ['date','stock'],
+                   int_col = ['Volume'])
     #------------------------------------------------------
     print('save crawler process')
     BasedClass.save_crawler_process('StockPrice')   
 
-def crawler_history():
-    
-    # GET TAIWAN STOCK INFO, TO CRAWLER ALL STOCK PRICE
-    
-    # get history stock price
-    CHSP = CrawlerHistoryStockPrice()
-    print( 'crawler data and upload 2 sql' )
-    for i in range(len(CHSP.stock_info)):#i=0
-        print(str(i)+'/'+str(len(CHSP.stock_info)))
-        CHSP.main(i)
-        dataset_name = CHSP.dataset_name.replace('.','_')
-        C2S = BasedClass.Crawler2SQL(dataset_name,'StockPrice')
-        try:
-            C2S.create_table(CHSP.data.columns,text_col = ['stock_id'],BIGINT_col = ['Volume'])
-        except:
-            123
-        C2S.upload2sql(CHSP.data,
-                       no_float_col = ['Date','stock_id'],
-                       int_col = ['Volume'])
-    print('create process table')
-    BasedClass.create_datatable('StockPrice')
-    
+
 def main(x):
     if x == 'history':
         crawler_history()
