@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import pymysql
 import re
-host = '114.32.89.248'
+host = '114.32.60.100'
 #host = 'localhost'
 user = 'guest'
 password = '123'
