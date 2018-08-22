@@ -6,6 +6,7 @@ import sys
 import pandas as pd
 import datetime
 import fix_yahoo_finance as yf
+import math
 sys.path.append('/home/'+ path +'/github')
 from FinancialMining.CrawlerCode import BasedClass
 #-------------------------------------------------------------------   
@@ -26,7 +27,7 @@ class CrawlerHistoryStockPrice(BasedClass.Crawler):
         value2 = [ s + '.TWO'  for s in stock ]
         value.extend( value2 )
         self.stock = value
-        #self.stock = self.stock[:5]
+        #self.stock = self.stock[:20]
     def start(self):
         return '1900-1-10'
     def crawler(self):
@@ -51,14 +52,17 @@ class CrawlerHistoryStockPrice(BasedClass.Crawler):
         #----------------------------------------------------------------------------
         end = str( datetime.datetime.now().date() + datetime.timedelta(1) )
         data = pdr.get_data_yahoo( self.stock, start =  self.start(), end = end)
-        
+        # data = pdr.get_data_yahoo( ['4430.TW','4430.TWo'], start =  self.start(), end = end)
         new_data = change_muilt_columns(data)
-        
+        #--------------------------------------------
         new_data.index = range(len(new_data))
         new_data['date'] = [ str( d.date() ) for d in new_data['date'] ]        
         col = list( new_data.columns )
         col = [ c.replace(' ','_') for c in col ]
-        new_data.columns = col
+        new_data.columns = col        
+        #--------------------------------------------
+        bo = [ math.isnan( d ) == 0 for d in new_data['Close'] ]
+        new_data = new_data[bo]
         self.data = new_data
 
     def main(self):
@@ -155,7 +159,6 @@ def auto_crawler_new():
     print('save crawler process')
     BasedClass.save_crawler_process('StockPrice')   
 
-
 def main(x):
     if x == 'history':
         crawler_history()
@@ -165,6 +168,4 @@ def main(x):
 if __name__ == '__main__':
     x = sys.argv[1]# cmd : input new or history
     main(x)
-    
-    
-    
+

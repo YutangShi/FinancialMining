@@ -198,7 +198,8 @@ class Crawler2SQL:
                          charset="utf8") )             
         data.index = range(len(data))
         for i in range(len(data)):
-            #print(str(i)+'/'+str(len(data)))
+            if i%500 == 0:
+                print(str(i)+'/'+str(len(data)))
             #i = 0
             #upload_string = create_upload_string(data,self.dataset_name,i)
             value, upload_string =  create_upload_value(data,self.dataset_name,i)
