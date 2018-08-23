@@ -61,8 +61,9 @@ class SendGmail:
         Firefox_options.add_argument("--headless")
         Firefox_options.add_argument("--window-size=1920x1080")
         
-        self.driver = webdriver.Firefox(firefox_options=Firefox_options)
-        #self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Firefox(executable_path = '/home/'+ path +'/github/FinancialMining/geckodriver',
+        #                                firefox_options=Firefox_options)
+        self.driver = webdriver.Firefox(executable_path = '/home/'+ path +'/github/FinancialMining/geckodriver')
         url = 'https://mail.google.com/mail/?tab=wm'
         self.driver.get(url)
         self.email = Key.email
@@ -113,7 +114,7 @@ class SendGmail:
         url = 'https://mail.google.com/mail/u/0/?tab=wm#inbox?compose=new'
         self.driver.get(url)
         # key to someone email
-        time.sleep(1)
+        time.sleep(2)
         self.driver.find_element_by_name('to').send_keys(self.email)
         
         # key title
