@@ -130,7 +130,9 @@ def crawler_history():
     
     dataset_name = 'StockPrice'
     self = CrawlerHistoryStockPrice()
-    self.main()
+    #self.main()
+    os.chdir('/home/linsam/github')
+    self.data = pd.read_csv('test.csv')
     print( 'crawler data and upload 2 sql' )
     C2S = BasedClass.Crawler2SQL(dataset_name,'Financial_DataSet')
     try:

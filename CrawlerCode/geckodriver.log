@@ -1,0 +1,27 @@
+1535017766130	geckodriver	INFO	Listening on 127.0.0.1:49237
+1535017767203	geckodriver::marionette	INFO	Starting browser /opt/firefox53/firefox with args ["-marionette", "--headless", "--window-size=1920x1080"]
+*** You are running in headless mode.
+1535017767909	Marionette	INFO	Enabled via --marionette
+1535017770449	Marionette	INFO	Listening on port 35949
+1535017770561	Marionette	WARN	TLS certificate errors will be ignored for this session
+1535017770623	Marionette	DEBUG	Register listener.js for window 2147483649
+1535017770665	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1535017771054	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1535017771054	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1535017771665	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://accounts.google.com/signin/v2/identifier?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+1535017771851	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483654"
+1535017771902	Marionette	DEBUG	Received DOM event "pageshow" for "https://accounts.google.com/signin/v2/identifier?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
+1535017772456	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483657"
+1535017772456	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+
+(/opt/firefox53/firefox:33629): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+1535017772896	Marionette	DEBUG	Canceled page load listener because no navigation has been detected
+1535017772929	Marionette	DEBUG	Received DOM event "beforeunload" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1535017773355	Marionette	DEBUG	Received DOM event "beforeunload" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1535017774646	Marionette	DEBUG	Received DOM event "pagehide" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1535017774652	Marionette	DEBUG	Received DOM event "unload" for "https://accounts.google.com/signin/v2/sl/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F%3Ftab%3Dwm&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward"
+1535017774714	Marionette	DEBUG	Received observer notification "outer-window-destroyed" for "2147483653"
+1535017775361	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "https://mail.google.com/mail/u/0/?tab=wm"
+1535017775369	Marionette	DEBUG	Received DOM event "pageshow" for "https://mail.google.com/mail/u/0/?tab=wm"
+1535017776523	Marionette	DEBUG	Received DOM event "popstate" for "https://mail.google.com/mail/u/0/?tab=wm#inbox?compose=new"
+1535017809400	addons.productaddons	WARN	Failed downloading XML, status: 0, reason: timeout

@@ -6,7 +6,6 @@ Created on Sun Jul  8 22:15:25 2018
 @author: linsam
 """
 
-
 import sys
 import pymysql
 import datetime
