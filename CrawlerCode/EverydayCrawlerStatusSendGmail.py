@@ -128,8 +128,8 @@ class SendGmail:
         
         # key article text
         text = create_text(self.cdate[ self.cdate['status'] != 'ok' ])
-        #self.driver.find_element_by_class_name('Ap').send_keys(text)# text
-        self.driver.find_element_by_id(':nu').send_keys(text)# text
+        self.driver.find_element_by_class_name('Ap').send_keys(text)# text
+        #self.driver.find_element_by_id(':nu').send_keys(text)# text
         # click send email
         button = self.driver.find_elements_by_xpath('//*[@role="button"]')
         for i in range(len(button)):

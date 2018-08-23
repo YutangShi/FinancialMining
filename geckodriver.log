@@ -7,3 +7,7 @@
 ###!!! [Parent][MessageChannel] Error: (msgtype=0x130011,name=PBackgroundStorage::Msg_Observe) Channel error: cannot send/recv
 
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1535027832759	geckodriver	INFO	geckodriver 0.19.1
+1535027832768	geckodriver	INFO	Listening on 127.0.0.1:56571
+1535027833890	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.fsjQUmmAlqtB"
+Error: GDK_BACKEND does not match available displays
