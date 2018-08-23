@@ -1,0 +1,9 @@
+1535026976925	geckodriver	INFO	geckodriver 0.19.1
+1535026976929	geckodriver	INFO	Listening on 127.0.0.1:36313
+1535026978147	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.PC1lpaDLu3oV"
+1535026982071	Marionette	INFO	Listening on port 43571
+1535026982202	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x130011,name=PBackgroundStorage::Msg_Observe) Channel error: cannot send/recv
+
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping

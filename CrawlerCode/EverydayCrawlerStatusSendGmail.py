@@ -55,6 +55,7 @@ class EverydayCrawlerStatus:
         self.change_status()
 #----------------------------------------------------------------------------    
 # self = SendGmail(ECS.cdate)
+# self.main()
 class SendGmail:
     def __init__(self,cdate):
         Firefox_options = Options()
@@ -101,6 +102,7 @@ class SendGmail:
         bo = 1
         while(bo):
             try:
+                self.driver.find_element_by_name('password').clear()
                 self.driver.find_element_by_name('password').send_keys(self.email_password)
                 
                 self.driver.find_element_by_id('passwordNext').click()
@@ -108,7 +110,10 @@ class SendGmail:
             except:
                 bo = 1
         #-------------------------------------------------------------
-        self.driver.find_element_by_id('passwordNext').click()
+        try:
+            self.driver.find_element_by_id('passwordNext').click()
+        except:
+            123
         time.sleep(1)
         # go to send email
         url = 'https://mail.google.com/mail/u/0/?tab=wm#inbox?compose=new'
@@ -124,8 +129,8 @@ class SendGmail:
         
         # key article text
         text = create_text(self.cdate[ self.cdate['status'] != 'ok' ])
-        self.driver.find_element_by_class_name('Ap').send_keys(text)# text
-        
+        #self.driver.find_element_by_class_name('Ap').send_keys(text)# text
+        self.driver.find_element_by_id(':nu').send_keys(text)# text
         # click send email
         button = self.driver.find_elements_by_xpath('//*[@role="button"]')
         for i in range(len(button)):
