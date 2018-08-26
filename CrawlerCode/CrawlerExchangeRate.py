@@ -1,6 +1,4 @@
 
-
-
 # https://www.xe.com/currencytables/?from=USD&date=1995-11-16
 import os
 path = os.listdir('/home')[0]

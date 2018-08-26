@@ -51,7 +51,8 @@ class CrawlerHistoryStockPrice(BasedClass.Crawler):
             return new_data
         #----------------------------------------------------------------------------
         end = str( datetime.datetime.now().date() + datetime.timedelta(1) )
-        data = pdr.get_data_yahoo( self.stock, start =  self.start(), end = end)
+        start =  self.start()
+        data = pdr.get_data_yahoo( self.stock, start =  start, end = end)
         # data = pdr.get_data_yahoo( ['4430.TW','4430.TWo'], start =  self.start(), end = end)
         new_data = change_muilt_columns(data)
         #--------------------------------------------
@@ -92,6 +93,7 @@ class AutoCrawlerStockPrice(CrawlerHistoryStockPrice):
     def start(self):
         date = []
         for stock in self.stock:
+            print(stock)
             sql = "SELECT MAX(`date`) FROM `StockPrice` WHERE `stock` = '" + stock + "'"
             tem = BasedClass.execute_sql2(
                     database = 'Financial_DataSet',
